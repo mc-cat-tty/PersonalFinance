@@ -1,6 +1,10 @@
 import ui.core.*;
 
+/**
+ * Project entry-point.
+ */
 public class Main {
+
   public Main() {
     new UI("PersonalFinance");
   }

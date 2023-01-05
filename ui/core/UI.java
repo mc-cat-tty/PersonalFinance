@@ -2,6 +2,10 @@ package ui.core;
 
 import ui.components.*;
 
+/**
+ * Parent class for the GUI. Manages views, model and control logic.
+ * @author Francesco Mecatti
+ */
 public class UI {
   private Window mainWindow;
 
