@@ -1,6 +1,6 @@
 # PersonalFinance
 ## UI Design
-![HomeViewFigma](HomeView.svg)
+![assets/HomeViewFigma](assets/HomeView.svg)
 
 ## Assets
  - Inter Font: [https://fonts.google.com/specimen/Inter](https://fonts.google.com/specimen/Inter)
