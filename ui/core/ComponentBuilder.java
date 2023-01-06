@@ -1,7 +1,7 @@
 package ui.core;
 
 /**
- * Utility builder for IComponent.
+ * Utility builder for IComponent. Factory Pattern.
  * 
  * @see IComponent
  * @deprecated
