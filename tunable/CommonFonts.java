@@ -17,7 +17,8 @@ public enum CommonFonts {
       this.font = Font.createFont(
         Font.TRUETYPE_FONT,
         new File(fontPath)
-      );
+      )
+      .deriveFont(50f);
     }
     catch (IOException | FontFormatException e) {
       System.err.println(e.getMessage());
