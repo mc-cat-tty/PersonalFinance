@@ -3,7 +3,7 @@ package ui.components;
 import ui.core.*;
 import javax.swing.*;
 
-import tunable.CommonColors;
+import tunable.*;
 
 /**
  * Element of a scrollable list.

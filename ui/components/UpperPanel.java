@@ -1,6 +1,7 @@
 package ui.components;
 
 import assets.*;
+import tunable.*;
 import ui.core.*;
 import javax.swing.*;
 import javax.swing.border.*;
@@ -31,6 +32,13 @@ public class UpperPanel extends RoundedPanel implements IComponent {
         0,
         CommonPaddings.UPPER_PANEL_BOTTOM_PADDING.getPadding()
       )
+    );
+
+    add(
+      new FlatText("Your balance from 01/01/'22 to 02/02/'23")
+        .setColorMonadic(CommonColors.TEXT.toColor())
+        .setOpacityMonadic(1f)
+        .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont())
     );
   }
 }

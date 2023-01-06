@@ -34,15 +34,6 @@ public class BasePanel extends JPanel implements IComponent {
       new BorderLayout()
     );
 
-    // setBorder(
-    //   BorderFactory.createEmptyBorder(
-    //     PADDING,
-    //     PADDING,
-    //     PADDING,
-    //     PADDING
-    //   )
-    // );
-
     setBackground(CommonColors.BACKGROUND.toColor());
 
     add(
