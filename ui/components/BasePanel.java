@@ -2,6 +2,8 @@ package ui.components;
 
 import ui.core.*;
 import assets.*;
+import tunable.*;
+
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.BorderFactory;

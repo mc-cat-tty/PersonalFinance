@@ -1,10 +1,9 @@
 package ui.components;
 
-import assets.CommonColors;
-import assets.CommonPaddings;
-import assets.CommonSizes;
 import ui.core.*;
 import javax.swing.*;
+
+import tunable.*;
 
 /**
  * Lower panel allowing interaction.
@@ -30,5 +29,6 @@ public class LowerPanel extends RoundedPanel implements IComponent {
         0,
         CommonPaddings.LOWER_PANEL_UPPER_PADDING.getPadding()
       )
+    );
   }
 }

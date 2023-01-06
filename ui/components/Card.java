@@ -1,8 +1,9 @@
 package ui.components;
 
-import assets.CommonColors;
 import ui.core.*;
 import javax.swing.*;
+
+import tunable.CommonColors;
 
 /**
  * Element of a scrollable list.
