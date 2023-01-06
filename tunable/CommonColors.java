@@ -1,4 +1,4 @@
-package assets;
+package tunable;
 
 import java.awt.*;
 

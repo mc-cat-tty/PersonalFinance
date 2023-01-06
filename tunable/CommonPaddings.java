@@ -1,4 +1,4 @@
-package assets;
+package tunable;
 
 public enum CommonPaddings {
   UPPER_PANEL_BOTTOM_PADDING (25),

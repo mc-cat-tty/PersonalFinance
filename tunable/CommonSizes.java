@@ -1,4 +1,4 @@
-package assets;
+package tunable;
 
 public enum CommonSizes {
   WINDOW_WIDTH (1370),
