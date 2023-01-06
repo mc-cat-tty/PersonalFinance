@@ -12,6 +12,7 @@ public class Window extends JFrame implements IComponent {
     
     composeView();
     
+    setResizable(false);
     setLocationRelativeTo(null);
     setVisible(true);
   }
