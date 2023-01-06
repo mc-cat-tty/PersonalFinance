@@ -18,7 +18,7 @@ public enum CommonFonts {
         Font.TRUETYPE_FONT,
         new File(fontPath)
       )
-      .deriveFont(50f);
+      .deriveFont(14f);
     }
     catch (IOException | FontFormatException e) {
       System.err.println(e.getMessage());
@@ -26,7 +26,7 @@ public enum CommonFonts {
       this.font = new Font(
         "helvetica",
         Font.PLAIN,
-        50
+        14
       );
     }
   }

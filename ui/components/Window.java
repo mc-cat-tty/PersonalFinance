@@ -5,6 +5,8 @@ import ui.core.*;
 import javax.swing.*;
 
 public class Window extends JFrame implements IComponent {
+  private static final float DEFAULT_FONT_SIZE = 36;
+
   public Window(String name) {
     super(name);
     
@@ -16,7 +18,7 @@ public class Window extends JFrame implements IComponent {
       .getLookAndFeelDefaults()
       .put(
         "defaultFont",
-        CommonFonts.TEXT_NORMAL.getFont().deriveFont(10f)
+        CommonFonts.TEXT_NORMAL.getFont().deriveFont(DEFAULT_FONT_SIZE)
       );
     
     setResizable(false);

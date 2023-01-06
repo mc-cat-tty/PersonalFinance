@@ -13,6 +13,7 @@ public class RoundedPanel extends JPanel {
   private int posX;
   private int posY;
   private Color backgroundColor;
+  private Insets insets;
 
   public RoundedPanel(
     int width,
@@ -38,18 +39,23 @@ public class RoundedPanel extends JPanel {
     this.posX = posX;
     this.posY = posY;
     this.backgroundColor = backgroundColor;
+    this.insets = new Insets(
+      radius/6,
+      radius/6,
+      radius/6,
+      radius/6
+    );
 
     setOpaque(false);
   }
 
+  public void setInsets(Insets insets) {
+    this.insets = insets;
+  }
+
   @Override
   public Insets getInsets() {
-    return new Insets(
-      10,
-      10,
-      10,
-      10
-    );
+    return this.insets;
   }
 
   @Override
