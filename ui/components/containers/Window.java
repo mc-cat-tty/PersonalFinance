@@ -1,4 +1,4 @@
-package ui.components;
+package ui.components.containers;
 
 import tunable.*;
 import ui.core.*;

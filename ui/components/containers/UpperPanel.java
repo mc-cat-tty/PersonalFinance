@@ -1,20 +1,25 @@
-package ui.components;
+package ui.components.containers;
 
 import assets.*;
 import tunable.*;
+import ui.components.text.FlatText;
 import ui.core.*;
 
-import java.sql.Date;
 import java.text.DateFormat;
+import java.util.Date;
 
+import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
 import javax.swing.plaf.InsetsUIResource;
+import javax.swing.text.Position;
 
 /**
  * Upper panel showing balance.
  */
 public class UpperPanel extends RoundedPanel implements IComponent {
+  private final static int RADIUS = 80;
+
   private final FlatText plusMinus;
   private final FlatText balance;
   private final FlatText dateStart;
@@ -22,11 +27,15 @@ public class UpperPanel extends RoundedPanel implements IComponent {
 
   public UpperPanel() {
     super(
-      0,
-      -80,
-      CommonSizes.UPPER_PANEL_WIDTH.getSize(),
-      CommonSizes.UPPER_PANEL_HEIGHT.getSize() + 80,
-      80,
+      new Point(
+        0,
+        -RADIUS
+      ),
+      new Dimension(
+        CommonSizes.UPPER_PANEL_WIDTH.getSize(),
+        CommonSizes.UPPER_PANEL_HEIGHT.getSize() + RADIUS
+      ),
+      RADIUS,
       CommonColors.CARD.toColor()
     );
 

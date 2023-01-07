@@ -1,4 +1,4 @@
-package ui.components;
+package ui.components.containers;
 
 import java.awt.*;
 import javax.swing.*;
@@ -8,36 +8,29 @@ import javax.swing.*;
  */
 public class RoundedPanel extends JPanel {
   private int radius;
-  private int width;
-  private int height;
-  private int posX;
-  private int posY;
+  private Dimension dimension;
+  private Point location;
   private Color backgroundColor;
   private Insets insets;
 
   public RoundedPanel(
-    int width,
-    int height,
+    Dimension dimension,
     int radius
   ) {
-    this(0, 0, width, height, radius, Color.WHITE);
+    this(new Point(0, 0), dimension, radius, Color.WHITE);
   }
   
   public RoundedPanel(
-    int posX,
-    int posY,
-    int width,
-    int height,
+    Point location,
+    Dimension dimension,
     int radius,
     Color backgroundColor
   ) {
     super();
 
     this.radius = radius;
-    this.width = width;
-    this.height = height;
-    this.posX = posX;
-    this.posY = posY;
+    this.dimension = dimension;
+    this.location = location;
     this.backgroundColor = backgroundColor;
     this.insets = new Insets(
       radius/6,
@@ -60,10 +53,7 @@ public class RoundedPanel extends JPanel {
 
   @Override
   public Dimension getPreferredSize() {
-    return new Dimension(
-      width,
-      height
-    );
+    return dimension;
   }
 
   @Override
@@ -78,10 +68,10 @@ public class RoundedPanel extends JPanel {
     );
     g2d.setColor(backgroundColor);
     g2d.fillRoundRect(
-      posX,  // position X
-      posY,  // position Y
-      width,  // size X
-      height,  // size Y
+      (int) location.getX(),
+      (int) location.getY(),
+      (int) dimension.getWidth(),
+      (int) dimension.getHeight(),
       radius,  // radius X
       radius  // radius Y 
     );

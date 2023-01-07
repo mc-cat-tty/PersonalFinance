@@ -1,4 +1,4 @@
-package ui.components;
+package ui.components.text;
 
 import java.awt.*;
 import ui.core.IComponent;

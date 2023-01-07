@@ -1,4 +1,4 @@
-package ui.components;
+package ui.components.containers;
 
 import ui.core.*;
 import assets.*;
