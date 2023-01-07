@@ -9,6 +9,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.*;
 
+import ui.core.ColorOpaqueBuilder;
 import ui.core.IComponent;
 
 public class RoundedTextField extends JTextField implements IComponent {
@@ -140,12 +141,17 @@ public class RoundedTextField extends JTextField implements IComponent {
       public void focusGained(FocusEvent e) {
         if (getText().equals(innerText)) {
           setText("");
+          foregroundColor = ColorOpaqueBuilder.build(foregroundColor, 1f);
         }
       }
 
       public void focusLost(FocusEvent e) {
         if (currentText.equals("")) {
           setText(innerText);
+          foregroundColor = ColorOpaqueBuilder.build(foregroundColor, 0.5f);
+        }
+        else {
+          foregroundColor = ColorOpaqueBuilder.build(foregroundColor, 1f);
         }
       }
     });
