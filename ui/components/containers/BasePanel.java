@@ -24,17 +24,14 @@ public class BasePanel extends JPanel implements IComponent {
   @Override
   public void composeView() {
     setPreferredSize(
-      new Dimension(
-        CommonSizes.WINDOW_WIDTH.getSize(),
-        CommonSizes.WINDOW_HEIGHT.getSize()
-      )
+      CommonDimensions.WINDOW.getDimension()
     );
 
     setLayout(
       new BorderLayout()
     );
 
-    setBackground(CommonColors.BACKGROUND.toColor());
+    setBackground(CommonColors.BACKGROUND.getColor());
 
     add(
       new UpperPanel(),

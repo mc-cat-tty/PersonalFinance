@@ -32,11 +32,11 @@ public class UpperPanel extends RoundedPanel implements IComponent {
         -RADIUS
       ),
       new Dimension(
-        CommonSizes.UPPER_PANEL_WIDTH.getSize(),
-        CommonSizes.UPPER_PANEL_HEIGHT.getSize() + RADIUS
+        CommonDimensions.UPPER_PANEL.getWidth(),
+        CommonDimensions.UPPER_PANEL.getHeight() + RADIUS
       ),
       RADIUS,
-      CommonColors.CARD.toColor()
+      CommonColors.CARD.getColor()
     );
 
     setInsets(
@@ -49,22 +49,22 @@ public class UpperPanel extends RoundedPanel implements IComponent {
     );
 
     plusMinus = new FlatText("+")
-      .setColorMonadic(CommonColors.PLUS.toColor())
+      .setColorMonadic(CommonColors.PLUS.getColor())
       .setOpacityMonadic(1f)
       .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(96f));
     
     balance = new FlatText("000,00 ")
-      .setColorMonadic(CommonColors.TEXT.toColor())
+      .setColorMonadic(CommonColors.TEXT.getColor())
       .setOpacityMonadic(1f)
       .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(96f));
     
     dateStart = new FlatText("01/01/'22")
-      .setColorMonadic(CommonColors.TEXT.toColor())
+      .setColorMonadic(CommonColors.TEXT.getColor())
       .setOpacityMonadic(1f)
       .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(36f));
 
     dateEnd = new FlatText("02/02/'23")
-      .setColorMonadic(CommonColors.TEXT.toColor())
+      .setColorMonadic(CommonColors.TEXT.getColor())
       .setOpacityMonadic(1f)
       .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(36f));
 
@@ -74,14 +74,14 @@ public class UpperPanel extends RoundedPanel implements IComponent {
   public void setBalance(float balance) {
     if (balance < 0f) {
       plusMinus
-        .setColorMonadic(CommonColors.MINUS.toColor())
+        .setColorMonadic(CommonColors.MINUS.getColor())
         .setText("-");
       
       balance *= -1;  // remove sign
     }
     else {
       plusMinus
-        .setColorMonadic(CommonColors.PLUS.toColor())
+        .setColorMonadic(CommonColors.PLUS.getColor())
         .setText("+");
     }
 
@@ -113,7 +113,7 @@ public class UpperPanel extends RoundedPanel implements IComponent {
 
     add(
       new FlatText("Your balance from ")
-        .setColorMonadic(CommonColors.TEXT.toColor())
+        .setColorMonadic(CommonColors.TEXT.getColor())
         .setOpacityMonadic(1f)
         .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f))
     );
@@ -122,7 +122,7 @@ public class UpperPanel extends RoundedPanel implements IComponent {
 
     add(
       new FlatText(" to ")
-        .setColorMonadic(CommonColors.TEXT.toColor())
+        .setColorMonadic(CommonColors.TEXT.getColor())
         .setOpacityMonadic(1f)
         .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f))
     );

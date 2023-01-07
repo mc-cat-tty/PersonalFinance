@@ -1,6 +1,7 @@
 package ui.components.containers;
 
 import ui.components.buttons.RoundedButton;
+import ui.components.text.RoundedTextField;
 import ui.core.*;
 import tunable.*;
 
@@ -18,6 +19,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
   private final RoundedButton plusButton;
   private final RoundedButton minusButton;
   private final RoundedButton addButton;
+  private final RoundedTextField moneyField;
 
   public LowerPanel() {
     super(
@@ -26,11 +28,11 @@ public class LowerPanel extends RoundedPanel implements IComponent {
         RADIUS
       ),
       new Dimension(
-        CommonSizes.LOWER_PANEL_WIDTH.getSize(),
-        CommonSizes.LOWER_PANEL_HEIGHT.getSize() + RADIUS
+        CommonDimensions.LOWER_PANEL.getWidth(),
+        CommonDimensions.LOWER_PANEL.getHeight() + RADIUS
       ),
       RADIUS,
-      CommonColors.CARD.toColor()
+      CommonColors.CARD.getColor()
     );
 
     setInsets(
@@ -44,36 +46,45 @@ public class LowerPanel extends RoundedPanel implements IComponent {
 
     plusButton = new RoundedButton(
       "+",
-      CommonColors.TEXTBOX.toColor(),
-      CommonColors.PLUS.toColor(),
+      CommonColors.TEXTBOX.getColor(),
+      CommonColors.PLUS.getColor(),
       CommonFonts.TEXT_NORMAL
         .getFont()
         .deriveFont(64f),
-      new Dimension(63, 63),
+      CommonDimensions.PLUS_MINUS_SELECTOR.getDimension(),
       20
     );
 
     minusButton = new RoundedButton(
       "-",
-      CommonColors.TEXTBOX.toColor(),
-      CommonColors.MINUS.toColor(),
+      CommonColors.TEXTBOX.getColor(),
+      CommonColors.MINUS.getColor(),
       CommonFonts.TEXT_NORMAL
         .getFont()
         .deriveFont(64f),
-      new Dimension(63, 63),
+      CommonDimensions.PLUS_MINUS_SELECTOR.getDimension(),
       20
     );
     minusButton.setGrayedOut();
 
     addButton = new RoundedButton(
       "Add",
-      CommonColors.BUTTON.toColor(),
-      CommonColors.TEXT.toColor(),
+      CommonColors.BUTTON.getColor(),
+      CommonColors.TEXT.getColor(),
       CommonFonts.TEXT_NORMAL
         .getFont()
         .deriveFont(40f),
-      new Dimension(134, 63),
+      CommonDimensions.ADD_BUTTON.getDimension(),
       63
+    );
+
+    moneyField = new RoundedTextField(
+      "Azz",
+      CommonColors.TEXTBOX.getColor(),
+      CommonColors.TEXT.getColor(),
+      CommonFonts.TEXT_NORMAL.getFont(),
+      CommonDimensions.MONEY_TEXT_FIELD.getDimension(),
+      30
     );
 
     composeView();
@@ -93,6 +104,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
 
     add(plusButton);
     add(minusButton);
+    add(moneyField);
     add(addButton);
   }
 

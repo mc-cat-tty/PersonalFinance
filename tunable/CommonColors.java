@@ -22,7 +22,7 @@ public enum CommonColors {
     return hexVal;
   }
 
-  public Color toColor() {
+  public Color getColor() {
     return Color.decode(hexVal);
   }
 }
