@@ -1,8 +1,13 @@
 package ui.components.containers;
 
 import tunable.*;
+import ui.components.buttons.FlatMenu;
 import ui.components.buttons.FlatMenuBar;
+import ui.components.buttons.FlatMenuItem;
 import ui.core.*;
+
+import java.util.ArrayList;
+
 import javax.swing.*;
 
 public class Window extends JFrame implements IComponent {
@@ -32,7 +37,39 @@ public class Window extends JFrame implements IComponent {
       new BasePanel()
     );
     
-    setJMenuBar(new FlatMenuBar());
+    setJMenuBar(
+      new FlatMenuBar(
+        new ArrayList<>() {{
+          add(
+            new FlatMenu(CommonIcons.FOLDER.getIcon())
+              .addItems(new ArrayList<>() {{
+                add(new FlatMenuItem("Save"));
+                add(new FlatMenuItem("Load"));
+              }})
+          );
+
+          add(
+            new FlatMenu(CommonIcons.EXPORT.getIcon())
+              .addItems(new ArrayList<>() {{
+                add(new FlatMenuItem("TXT"));
+                add(new FlatMenuItem("CSV"));
+                add(new FlatMenuItem("OpenDocument"));
+              }})
+          );
+
+          add(
+            new FlatMenu(CommonIcons.PRINT.getIcon())
+              .addItems(new ArrayList<>() {{
+                add(new FlatMenuItem("PDF"));
+                add(new FlatMenuItem("Printer"));
+              }})
+          );
+        }},
+        CommonColors.TOPBAR.getColor(),
+        CommonColors.TEXT.getColor(),
+        CommonFonts.TEXT_NORMAL.getFont().deriveFont(18f)
+      )
+    );
 
     pack();
   }
