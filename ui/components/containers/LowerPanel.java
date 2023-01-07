@@ -38,7 +38,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
 
     setInsets(
       new Insets(
-        RADIUS + 10,
+        RADIUS + 20,
         10,
         10,
         10

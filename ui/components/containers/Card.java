@@ -16,8 +16,4 @@ public class Card extends RoundedPanel implements IComponent {
       10
     );
   }
-
-  @Override
-  public void composeView() {
-  }
 }
