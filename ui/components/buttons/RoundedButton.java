@@ -34,6 +34,7 @@ public class RoundedButton extends JButton implements IComponent {
   private void setRadius(int radius) {
     if (radius < 0) {
       this.radius = 0;
+      return;
     }
 
     this.radius = radius;
@@ -73,16 +74,6 @@ public class RoundedButton extends JButton implements IComponent {
 
   @Override
   public void composeView() { }
-
-  @Override
-  public Insets getInsets() {
-    return new Insets(
-      0,
-      0,
-      0,
-      0
-    );
-  }
 
   @Override
   protected void paintComponent(Graphics g) {
