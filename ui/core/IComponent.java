@@ -5,4 +5,6 @@ package ui.core;
  */
 public interface IComponent {
   public void composeView();
+
+  default public void registerCallbacks() { };
 }

@@ -54,6 +54,30 @@ public class RoundedButton extends JButton implements IComponent {
     this.foregroundColor = color;
   }
 
+  public void setGrayedOut() {
+    setForegroundColor(
+      new Color(
+        foregroundColor.getRed(),
+        foregroundColor.getGreen(),
+        foregroundColor.getBlue(),
+        127
+      )
+    );
+    repaint();
+  }
+
+  public void setColored() {
+    setForegroundColor(
+      new Color(
+        foregroundColor.getRed(),
+        foregroundColor.getGreen(),
+        foregroundColor.getBlue(),
+        255
+      )
+    );
+    repaint();
+  }
+
   @Override
   public void composeView() { }
 

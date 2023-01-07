@@ -5,6 +5,8 @@ import ui.core.*;
 import tunable.*;
 
 import java.awt.*;
+
+import javax.sound.midi.MidiUnavailableException;
 import javax.swing.*;
 import javax.swing.plaf.InsetsUIResource;
 
@@ -62,9 +64,10 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       new Dimension(63, 63),
       20
     );
-    minusButton.setEnabled(false);
+    minusButton.setGrayedOut();
 
     composeView();
+    registerCallbacks();
   }
 
   @Override
@@ -80,5 +83,22 @@ public class LowerPanel extends RoundedPanel implements IComponent {
 
     add(plusButton);
     add(minusButton);
+  }
+
+  @Override
+  public void registerCallbacks() {
+    plusButton.addActionListener(
+      event -> {
+        plusButton.setColored();
+        minusButton.setGrayedOut();
+      }
+    );
+
+    minusButton.addActionListener(
+      event -> {
+        minusButton.setColored();
+        plusButton.setGrayedOut();
+      }
+    );
   }
 }
