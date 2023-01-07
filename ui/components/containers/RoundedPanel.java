@@ -53,7 +53,26 @@ public class RoundedPanel extends JPanel {
 
   @Override
   public Dimension getPreferredSize() {
-    return dimension;
+    int width =
+      (int) dimension.getWidth()
+      + getBorder().getBorderInsets(this).right
+      + getBorder().getBorderInsets(this).left;
+    int height = (int) dimension.getHeight()
+      + getBorder().getBorderInsets(this).top
+      + getBorder().getBorderInsets(this).bottom;
+    
+    if (location.getY() < 0) {
+      height += location.getY();
+    }
+
+    if (location.getX() < 0) {
+      width += location.getX();
+    }
+
+    return new Dimension(
+      width,
+      height
+    );
   }
 
   @Override

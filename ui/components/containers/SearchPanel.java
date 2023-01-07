@@ -1,0 +1,102 @@
+package ui.components.containers;
+
+import ui.components.buttons.*;
+import ui.components.text.*;
+import ui.core.*;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.*;
+
+import tunable.CommonColors;
+import tunable.CommonDimensions;
+import tunable.CommonFonts;
+import tunable.CommonPaddings;
+
+public class SearchPanel extends JPanel implements IComponent {
+  private final RoundedTextField searchField;
+  private final RoundedTextField startDateField;
+  private final RoundedTextField endDateField;
+  private final RoundedButton searchButton;
+  
+  public SearchPanel() {
+    super(
+      new FlowLayout(
+        FlowLayout.CENTER,
+        CommonPaddings.SEARCH_PANEL_HORIZONTAL_PADDING.getPadding(),
+        0
+      )
+    );
+
+    searchField = new RoundedTextField(
+      "Search description",
+      CommonColors.TEXTBOX.getColor(),
+      CommonColors.TEXTBOX_INVALID.getColor(),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
+      CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
+      CommonDimensions.SEARCH_TEXT_FIELD.getDimension(),
+      25
+    );
+
+    startDateField = new RoundedTextField(
+      "00/01/2022",
+      CommonColors.TEXTBOX.getColor(),
+      CommonColors.TEXTBOX_INVALID.getColor(),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
+      CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
+      CommonDimensions.DATE_START_TEXT_FIELD.getDimension(),
+      25
+    );
+
+    endDateField = new RoundedTextField(
+      "00/01/2023",
+      CommonColors.TEXTBOX.getColor(),
+      CommonColors.TEXTBOX_INVALID.getColor(),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
+      CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
+      CommonDimensions.DATE_END_TEXT_FIELD.getDimension(),
+      25
+    );
+
+    searchButton = new RoundedButton(
+      "Search",
+      CommonColors.BUTTON.getColor(),
+      CommonColors.TEXT.getColor(),
+      CommonFonts.TEXT_NORMAL
+        .getFont()
+        .deriveFont(25f),
+      CommonDimensions.ADD_BUTTON.getDimension(),
+      63
+    );
+
+    composeView();
+  }
+
+  public void composeView() {
+    setBackground(CommonColors.BACKGROUND.getColor());
+    setBorder(
+      new EmptyBorder(
+        0,
+        0,
+        CommonPaddings.SEARCH_PANEL_BOTTOM_PADDING.getPadding(),
+        0
+      )
+    );
+
+    add(searchField);
+    add(
+      new FlatText("From")
+        .setColorMonadic(CommonColors.TEXT.getColor())
+        .setOpacityMonadic(1f)
+        .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f))
+    );
+    add(startDateField);
+    add(
+      new FlatText("To")
+        .setColorMonadic(CommonColors.TEXT.getColor())
+        .setOpacityMonadic(1f)
+        .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f))
+    );
+    add(endDateField);
+    add(searchButton);
+  }
+}

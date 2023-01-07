@@ -99,11 +99,11 @@ public class UpperPanel extends RoundedPanel implements IComponent {
   @Override
   public void composeView() {
     setBorder(
-      BorderFactory.createEmptyBorder(
+      new EmptyBorder(
         0,
         0,
-        0,
-        CommonPaddings.UPPER_PANEL_BOTTOM_PADDING.getPadding()
+        CommonPaddings.UPPER_PANEL_BOTTOM_PADDING.getPadding(),
+        0
       )
     );
 

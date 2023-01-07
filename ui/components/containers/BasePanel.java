@@ -13,8 +13,6 @@ import javax.swing.border.*;
  * Panel that stays in the background of the window.
  */
 public class BasePanel extends JPanel implements IComponent {
-  private static final int PADDING = 10;
-
   public BasePanel() {
     super();
     
@@ -35,6 +33,21 @@ public class BasePanel extends JPanel implements IComponent {
 
     add(
       new UpperPanel(),
+      BorderLayout.NORTH
+    );
+
+    var centerPanel = new JPanel(
+      new BorderLayout()
+    );
+    centerPanel.setBackground(CommonColors.BACKGROUND.getColor());
+
+    add(
+      centerPanel,
+      BorderLayout.CENTER
+    );
+
+    centerPanel.add(
+      new SearchPanel(),
       BorderLayout.NORTH
     );
 

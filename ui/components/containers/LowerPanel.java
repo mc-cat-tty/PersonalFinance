@@ -51,7 +51,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       CommonColors.PLUS.getColor(),
       CommonFonts.TEXT_NORMAL
         .getFont()
-        .deriveFont(64f),
+        .deriveFont(60f),
       CommonDimensions.PLUS_MINUS_SELECTOR.getDimension(),
       20
     );
@@ -62,7 +62,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       CommonColors.MINUS.getColor(),
       CommonFonts.TEXT_NORMAL
         .getFont()
-        .deriveFont(64f),
+        .deriveFont(60f),
       CommonDimensions.PLUS_MINUS_SELECTOR.getDimension(),
       20
     );
@@ -74,7 +74,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       CommonColors.TEXT.getColor(),
       CommonFonts.TEXT_NORMAL
         .getFont()
-        .deriveFont(40f),
+        .deriveFont(35f),
       CommonDimensions.ADD_BUTTON.getDimension(),
       63
     );
@@ -84,7 +84,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
       ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
-      CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f),
+      CommonFonts.TEXT_NORMAL.getFont().deriveFont(30f),
       CommonDimensions.MONEY_TEXT_FIELD.getDimension(),
       30
     ).setMaxLengthMonadic(7)
@@ -96,7 +96,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
       ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
-      CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f),
+      CommonFonts.TEXT_NORMAL.getFont().deriveFont(30f),
       CommonDimensions.DATE_TEXT_FIELD.getDimension(),
       30
     ).setMaxLengthMonadic(10)
@@ -108,7 +108,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
       ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
-      CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f),
+      CommonFonts.TEXT_NORMAL.getFont().deriveFont(30f),
       CommonDimensions.DESCRIPTION_TEXT_FIELD.getDimension(),
       30
     );
@@ -125,6 +125,14 @@ public class LowerPanel extends RoundedPanel implements IComponent {
         0,
         0,
         CommonPaddings.LOWER_PANEL_UPPER_PADDING.getPadding()
+      )
+    );
+
+    setLayout(
+      new FlowLayout(
+        FlowLayout.CENTER,
+        CommonPaddings.LOWER_PANEL_HORIZONTAL_PADDING.getPadding(),
+        0
       )
     );
 
