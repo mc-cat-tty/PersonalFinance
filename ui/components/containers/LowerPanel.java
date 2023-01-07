@@ -79,10 +79,10 @@ public class LowerPanel extends RoundedPanel implements IComponent {
     );
 
     moneyField = new RoundedTextField(
-      "Azz",
+      "000,00",
       CommonColors.TEXTBOX.getColor(),
-      CommonColors.TEXT.getColor(),
-      CommonFonts.TEXT_NORMAL.getFont(),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
+      CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f),
       CommonDimensions.MONEY_TEXT_FIELD.getDimension(),
       30
     );

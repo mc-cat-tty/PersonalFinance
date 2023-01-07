@@ -76,6 +76,11 @@ public class RoundedButton extends JButton implements IComponent {
   public void composeView() { }
 
   @Override
+  public Insets getInsets() {
+    return new Insets(0, 0, 0, 0);
+  }
+
+  @Override
   protected void paintComponent(Graphics g) {
     Graphics2D g2d = (Graphics2D) g.create();
 
