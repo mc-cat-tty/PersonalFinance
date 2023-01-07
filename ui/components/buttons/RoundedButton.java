@@ -11,13 +11,11 @@ import javax.swing.text.Position;
 public class RoundedButton extends JButton implements IComponent {
   private int radius;
   private Color backgroundColor;
-  private Color armedBackgroundColor;
   private Color foregroundColor;
 
   public RoundedButton(
     String innerText,
     Color backgroundColor,
-    Color armedBackgroundColor,
     Color foregroundColor,
     Font font,
     Dimension dimension,
@@ -27,7 +25,6 @@ public class RoundedButton extends JButton implements IComponent {
     setFont(font);
     setRadius(radius);
     setBackgroundColor(backgroundColor);
-    setArmedBackgroundColor(armedBackgroundColor);
     setForegroundColor(foregroundColor);
     setPreferredSize(dimension);
     setContentAreaFilled(false);
@@ -44,10 +41,6 @@ public class RoundedButton extends JButton implements IComponent {
 
   public void setBackgroundColor(Color color) {
     this.backgroundColor = color;
-  }
-
-  public void setArmedBackgroundColor(Color color) {
-    this.armedBackgroundColor = color;
   }
 
   public void setForegroundColor(Color color) {
@@ -104,7 +97,7 @@ public class RoundedButton extends JButton implements IComponent {
       g2d.setColor(backgroundColor);
     }
     else {
-      g2d.setColor(armedBackgroundColor);
+      g2d.setColor(backgroundColor.darker());
     }
     
     g2d.fillRoundRect(

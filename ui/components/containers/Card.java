@@ -1,16 +1,20 @@
 package ui.components.containers;
 
 import ui.core.*;
-import javax.swing.*;
-
 import tunable.*;
+
+import java.awt.*;
+import javax.swing.*;
 
 /**
  * Element of a scrollable list.
  */
 public class Card extends RoundedPanel implements IComponent {
   public Card() {
-    super(0, 0, 0);
+    super(
+      new Dimension(0, 0),
+      10
+    );
   }
 
   @Override

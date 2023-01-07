@@ -17,6 +17,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
   private static final int RADIUS = 80;
   private final RoundedButton plusButton;
   private final RoundedButton minusButton;
+  private final RoundedButton addButton;
 
   public LowerPanel() {
     super(
@@ -44,7 +45,6 @@ public class LowerPanel extends RoundedPanel implements IComponent {
     plusButton = new RoundedButton(
       "+",
       CommonColors.TEXTBOX.toColor(),
-      CommonColors.BUTTON_PRESSED.toColor(),
       CommonColors.PLUS.toColor(),
       CommonFonts.TEXT_NORMAL
         .getFont()
@@ -56,7 +56,6 @@ public class LowerPanel extends RoundedPanel implements IComponent {
     minusButton = new RoundedButton(
       "-",
       CommonColors.TEXTBOX.toColor(),
-      CommonColors.BUTTON_PRESSED.toColor(),
       CommonColors.MINUS.toColor(),
       CommonFonts.TEXT_NORMAL
         .getFont()
@@ -65,6 +64,17 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       20
     );
     minusButton.setGrayedOut();
+
+    addButton = new RoundedButton(
+      "Add",
+      CommonColors.BUTTON.toColor(),
+      CommonColors.TEXT.toColor(),
+      CommonFonts.TEXT_NORMAL
+        .getFont()
+        .deriveFont(40f),
+      new Dimension(134, 63),
+      63
+    );
 
     composeView();
     registerCallbacks();
@@ -83,6 +93,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
 
     add(plusButton);
     add(minusButton);
+    add(addButton);
   }
 
   @Override
