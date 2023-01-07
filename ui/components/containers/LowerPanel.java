@@ -1,15 +1,14 @@
 package ui.components.containers;
 
 import ui.components.buttons.RoundedButton;
+import ui.components.text.FlatText;
 import ui.components.text.RoundedTextField;
 import ui.core.*;
 import tunable.*;
 
 import java.awt.*;
 
-import javax.sound.midi.MidiUnavailableException;
 import javax.swing.*;
-import javax.swing.plaf.InsetsUIResource;
 
 /**
  * Lower panel allowing interaction.
@@ -20,6 +19,8 @@ public class LowerPanel extends RoundedPanel implements IComponent {
   private final RoundedButton minusButton;
   private final RoundedButton addButton;
   private final RoundedTextField moneyField;
+  private final RoundedTextField dateField;
+  private final RoundedTextField descriptionField;
 
   public LowerPanel() {
     super(
@@ -36,7 +37,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
     );
 
     setInsets(
-      new InsetsUIResource(
+      new Insets(
         RADIUS + 10,
         10,
         10,
@@ -87,6 +88,24 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       30
     );
 
+    dateField = new RoundedTextField(
+      "01/01/2022",
+      CommonColors.TEXTBOX.getColor(),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
+      CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f),
+      CommonDimensions.DATE_TEXT_FIELD.getDimension(),
+      30
+    );
+
+    descriptionField = new RoundedTextField(
+      "Description",
+      CommonColors.TEXTBOX.getColor(),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
+      CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f),
+      CommonDimensions.DESCRIPTION_TEXT_FIELD.getDimension(),
+      30
+    );
+
     composeView();
     registerCallbacks();
   }
@@ -105,6 +124,14 @@ public class LowerPanel extends RoundedPanel implements IComponent {
     add(plusButton);
     add(minusButton);
     add(moneyField);
+    add(
+      new FlatText("€ on")
+        .setColorMonadic(CommonColors.TEXT.getColor())
+        .setOpacityMonadic(1f)
+        .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f))
+    );
+    add(dateField);
+    add(descriptionField);
     add(addButton);
   }
 

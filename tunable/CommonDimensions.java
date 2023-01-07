@@ -8,7 +8,9 @@ public enum CommonDimensions {
   LOWER_PANEL (1370, 91),
   PLUS_MINUS_SELECTOR (63, 63),
   ADD_BUTTON (134, 63),
-  MONEY_TEXT_FIELD (147, 63);
+  MONEY_TEXT_FIELD (147, 63),
+  DESCRIPTION_TEXT_FIELD (497, 63),
+  DATE_TEXT_FIELD (261, 63);
 
 
   private final Dimension dimension;
