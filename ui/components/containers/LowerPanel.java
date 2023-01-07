@@ -66,7 +66,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       CommonDimensions.PLUS_MINUS_SELECTOR.getDimension(),
       20
     );
-    minusButton.setGrayedOut();
+    minusButton.deactivate();
 
     addButton = new RoundedButton(
       "Add",
@@ -82,24 +82,31 @@ public class LowerPanel extends RoundedPanel implements IComponent {
     moneyField = new RoundedTextField(
       "000,00",
       CommonColors.TEXTBOX.getColor(),
+      CommonColors.TEXTBOX_INVALID.getColor(),
       ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f),
       CommonDimensions.MONEY_TEXT_FIELD.getDimension(),
       30
-    );
+    ).setMaxLengthMonadic(7)
+    .setInputFilterMonadic(c -> Character.isDigit(c) || c == ',')
+    .setInputValidatorMonadic(text -> text.matches("[0-9]{1,4}?,[0-9]{2}?") || text.equals(""));
 
     dateField = new RoundedTextField(
-      "01/01/2022",
+      "00/01/2022",
       CommonColors.TEXTBOX.getColor(),
+      CommonColors.TEXTBOX_INVALID.getColor(),
       ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f),
       CommonDimensions.DATE_TEXT_FIELD.getDimension(),
       30
-    );
+    ).setMaxLengthMonadic(10)
+    .setInputFilterMonadic(c -> Character.isDigit(c) || c == '/')
+    .setInputValidatorMonadic(text -> text.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}") || text.equals(""));
 
     descriptionField = new RoundedTextField(
       "Description",
       CommonColors.TEXTBOX.getColor(),
+      CommonColors.TEXTBOX_INVALID.getColor(),
       ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f),
       CommonDimensions.DESCRIPTION_TEXT_FIELD.getDimension(),
@@ -139,15 +146,15 @@ public class LowerPanel extends RoundedPanel implements IComponent {
   public void registerCallbacks() {
     plusButton.addActionListener(
       event -> {
-        plusButton.setColored();
-        minusButton.setGrayedOut();
+        plusButton.activate();
+        minusButton.deactivate();
       }
     );
 
     minusButton.addActionListener(
       event -> {
-        minusButton.setColored();
-        plusButton.setGrayedOut();
+        minusButton.activate();
+        plusButton.deactivate();
       }
     );
   }

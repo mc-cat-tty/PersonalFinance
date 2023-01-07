@@ -6,6 +6,7 @@ public enum CommonColors {
   BACKGROUND ("#1F1F1F"),
   CARD ("#505050"),
   TEXTBOX ("#404040"),
+  TEXTBOX_INVALID ("#592D2D"),
   BUTTON_PRESSED ("#353535"),
   TEXT ("#FFFFFF"),
   PLUS ("#00C04B"),

@@ -42,7 +42,4 @@ public class FlatText extends JLabel implements IComponent {
     setFont(font);
     return this;
   }
-
-  @Override
-  public void composeView() { }
 }

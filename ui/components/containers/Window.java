@@ -1,6 +1,7 @@
 package ui.components.containers;
 
 import tunable.*;
+import ui.components.buttons.FlatMenuBar;
 import ui.core.*;
 import javax.swing.*;
 
@@ -31,6 +32,8 @@ public class Window extends JFrame implements IComponent {
       new BasePanel()
     );
     
+    setJMenuBar(new FlatMenuBar());
+
     pack();
   }
 }

@@ -12,6 +12,7 @@ public class RoundedButton extends JButton implements IComponent {
   private int radius;
   private Color backgroundColor;
   private Color foregroundColor;
+  private boolean isActive;
 
   public RoundedButton(
     String innerText,
@@ -29,6 +30,7 @@ public class RoundedButton extends JButton implements IComponent {
     setPreferredSize(dimension);
     setContentAreaFilled(false);
     setFocusPainted(false);
+    this.isActive = true;
   }
 
   private void setRadius(int radius) {
@@ -48,19 +50,23 @@ public class RoundedButton extends JButton implements IComponent {
     this.foregroundColor = color;
   }
 
-  public void setGrayedOut() {
+  public void deactivate() {
+    isActive = false;
+
     setForegroundColor(
       new Color(
         foregroundColor.getRed(),
         foregroundColor.getGreen(),
         foregroundColor.getBlue(),
-        127
+        80
       )
     );
     repaint();
   }
 
-  public void setColored() {
+  public void activate() {
+    isActive = true;
+
     setForegroundColor(
       new Color(
         foregroundColor.getRed(),
@@ -72,8 +78,9 @@ public class RoundedButton extends JButton implements IComponent {
     repaint();
   }
 
-  @Override
-  public void composeView() { }
+  public boolean isActive() {
+    return isActive;
+  }
 
   @Override
   public Insets getInsets() {
