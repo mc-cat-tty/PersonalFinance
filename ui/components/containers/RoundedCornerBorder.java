@@ -10,9 +10,11 @@ import javax.swing.border.AbstractBorder;
 public class RoundedCornerBorder extends AbstractBorder {
   private static final int SELECTOR_POPUP_DISTANCE = 6;
   private final int radius;
+  private final int borderWidth;
 
-  public RoundedCornerBorder(int radius) {
+  public RoundedCornerBorder(int radius, int borderWidth) {
     this.radius = radius;
+    this.borderWidth = borderWidth;
   }
   
   @Override public void paintBorder(
@@ -48,10 +50,10 @@ public class RoundedCornerBorder extends AbstractBorder {
 
       if (Objects.nonNull(parent)) {
         var round = new Area(new RoundRectangle2D.Float(
-          x,
-          y,
-          width - 1,
-          height - 1,
+          x + borderWidth,
+          y + borderWidth,
+          width - 2 * borderWidth,
+          height - 2 * borderWidth,
           radius,
           radius
         ));
@@ -60,6 +62,19 @@ public class RoundedCornerBorder extends AbstractBorder {
         var corner = new Area(new Rectangle2D.Float(x, y, width, height));
         corner.subtract(round);
         g2d.fill(corner);
+
+        var roundExtern = new Area(new RoundRectangle2D.Float(
+          x,
+          y,
+          width,
+          height,
+          radius,
+          radius
+        ));
+
+        roundExtern.subtract(round);
+        g2d.setPaint(c.getForeground());
+        g2d.fill(roundExtern);
       }
     }
     

@@ -66,7 +66,7 @@ public class RoundedComboBox extends JComboBox<String> implements IComponent {
 
 
   @Override public void composeView() {
-    UIManager.put("ComboBox.border", new RoundedCornerBorder(radius));
+    UIManager.put("ComboBox.border", new RoundedCornerBorder(radius, 0));
     UIManager.put("ComboBox.foreground", foregroundColor);
     UIManager.put("ComboBox.background", backgroundColor);
     UIManager.put("ComboBox.selectionForeground", foregroundColor.darker());
@@ -87,7 +87,7 @@ public class RoundedComboBox extends JComboBox<String> implements IComponent {
     var o = getAccessibleContext().getAccessibleChild(0);      
     if (o instanceof JPopupMenu) {
       var c = (JComponent) o;
-      c.setBorder(new RoundedCornerBorder(radius));
+      c.setBorder(new RoundedCornerBorder(radius, 0));
       c.setForeground(foregroundColor);
       c.setBackground(backgroundColor);
     }
@@ -106,10 +106,12 @@ public class RoundedComboBox extends JComboBox<String> implements IComponent {
       new PopupMenuListener() {
         @Override public void popupMenuWillBecomeVisible(PopupMenuEvent e) {
           setArrowDirection(SwingConstants.NORTH);
+          setBorder(new RoundedCornerBorder(radius, 1));
         }
 
         @Override public void popupMenuWillBecomeInvisible(PopupMenuEvent e) {
           setArrowDirection(SwingConstants.SOUTH);
+          setBorder(new RoundedCornerBorder(radius, 0));
         }
         
         @Override public void popupMenuCanceled(PopupMenuEvent e) {}
