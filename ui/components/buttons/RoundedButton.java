@@ -89,7 +89,7 @@ public class RoundedButton extends JButton implements IComponent {
 
   @Override
   protected void paintComponent(Graphics g) {
-    Graphics2D g2d = (Graphics2D) g.create();
+    var g2d = (Graphics2D) g.create();
 
     g2d.setRenderingHint(
       RenderingHints.KEY_ANTIALIASING,

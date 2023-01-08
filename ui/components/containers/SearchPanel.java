@@ -4,6 +4,8 @@ import ui.components.buttons.*;
 import ui.components.text.*;
 import ui.core.*;
 import java.awt.*;
+import java.time.Period;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
@@ -14,6 +16,7 @@ import tunable.CommonPaddings;
 
 public class SearchPanel extends JPanel implements IComponent {
   private final RoundedTextField searchField;
+  private final RoundedComboBox perdiodSelector;
   private final RoundedTextField startDateField;
   private final RoundedTextField endDateField;
   private final RoundedButton searchButton;
@@ -34,6 +37,20 @@ public class SearchPanel extends JPanel implements IComponent {
       ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
       CommonDimensions.SEARCH_TEXT_FIELD.getDimension(),
+      25
+    );
+
+    perdiodSelector = new RoundedComboBox(
+      new String[] {
+        "Day",
+        "Week",
+        "Year",
+        "Custom"
+      },
+      CommonColors.TEXTBOX.getColor(),
+      CommonColors.TEXT.getColor(),
+      CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
+      CommonDimensions.PERIOD_SELECTOR.getDimension(),
       25
     );
 
@@ -63,7 +80,7 @@ public class SearchPanel extends JPanel implements IComponent {
 
     searchButton = new RoundedButton(
       "Search",
-      CommonColors.BUTTON.getColor(),
+      CommonColors.BUTTON_PRIMARY.getColor(),
       CommonColors.TEXT.getColor(),
       CommonFonts.TEXT_NORMAL
         .getFont()
@@ -87,6 +104,9 @@ public class SearchPanel extends JPanel implements IComponent {
     );
 
     add(searchField);
+    
+    add(perdiodSelector);
+
     add(
       new FlatText("From")
         .setColorMonadic(CommonColors.TEXT.getColor())
@@ -94,6 +114,7 @@ public class SearchPanel extends JPanel implements IComponent {
         .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f))
     );
     add(startDateField);
+
     add(
       new FlatText("To")
         .setColorMonadic(CommonColors.TEXT.getColor())

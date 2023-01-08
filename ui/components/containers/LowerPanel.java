@@ -70,7 +70,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
 
     addButton = new RoundedButton(
       "Add",
-      CommonColors.BUTTON.getColor(),
+      CommonColors.BUTTON_PRIMARY.getColor(),
       CommonColors.TEXT.getColor(),
       CommonFonts.TEXT_NORMAL
         .getFont()

@@ -79,7 +79,7 @@ public class RoundedPanel extends JPanel {
   protected void paintComponent(Graphics g) {
     super.paintComponent(g);
 
-    Graphics2D g2d = (Graphics2D) g.create();
+    var g2d = (Graphics2D) g.create();
 
     g2d.setRenderingHint(
       RenderingHints.KEY_ANTIALIASING,

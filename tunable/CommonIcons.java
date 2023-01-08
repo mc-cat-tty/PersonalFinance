@@ -11,9 +11,11 @@ public enum CommonIcons {
   EXPORT (".." + File.separator + "assets" + File.separator + "export.png"),
   PRINT (".." + File.separator + "assets" + File.separator + "print.png"),
   EDIT (".." + File.separator + "assets" + File.separator + "edit.png"),
-  DELETE (".." + File.separator + "assets" + File.separator + "delete.png");
+  DELETE (".." + File.separator + "assets" + File.separator + "delete.png"),
+  DROPDOWN (".." + File.separator + "assets" + File.separator + "dropdown.png"),
+  DROPUP (".." + File.separator + "assets" + File.separator + "dropup.png");
 
-  private final Icon icon;
+  private final ImageIcon icon;
 
   private CommonIcons(String iconPath) {
     final var url = getClass().getResource(iconPath);
@@ -25,7 +27,7 @@ public enum CommonIcons {
     }
   }
 
-  public Icon getIcon() {
+  public ImageIcon getIcon() {
     return icon;
   }
 }

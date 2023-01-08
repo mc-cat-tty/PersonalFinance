@@ -11,7 +11,8 @@ public enum CommonColors {
   TEXT ("#FFFFFF"),
   PLUS ("#00C04B"),
   MINUS ("#F44336"),
-  BUTTON ("#757DE8"),
+  BUTTON_PRIMARY ("#757DE8"),
+  BUTTON_SECONDARY ("#505050"),
   TOPBAR ("#303030");
 
   private final String hexVal;
