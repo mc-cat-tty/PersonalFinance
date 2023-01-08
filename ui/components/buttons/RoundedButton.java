@@ -82,13 +82,11 @@ public class RoundedButton extends JButton implements IComponent {
     return isActive;
   }
 
-  @Override
-  public Insets getInsets() {
+  @Override public Insets getInsets() {
     return new Insets(0, 0, 0, 0);
   }
 
-  @Override
-  protected void paintComponent(Graphics g) {
+  @Override protected void paintComponent(Graphics g) {
     var g2d = (Graphics2D) g.create();
 
     g2d.setRenderingHint(

@@ -117,8 +117,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
     registerCallbacks();
   }
 
-  @Override
-  public void composeView() {
+  @Override public void composeView() {
     setBorder(
       BorderFactory.createEmptyBorder(
         0,
@@ -150,8 +149,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
     add(addButton);
   }
 
-  @Override
-  public void registerCallbacks() {
+  @Override public void registerCallbacks() {
     plusButton.addActionListener(
       event -> {
         plusButton.activate();

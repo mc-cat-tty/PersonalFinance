@@ -66,8 +66,7 @@ public class RoundedCornerBorder extends AbstractBorder {
     g2d.dispose();
   }
 
-  @Override
-  public Insets getBorderInsets(Component c, Insets insets) {
+  @Override public Insets getBorderInsets(Component c, Insets insets) {
     if (c instanceof JPopupMenu) {
       insets.set(SELECTOR_POPUP_DISTANCE + 4, 8, SELECTOR_POPUP_DISTANCE + 4, 8);
     }

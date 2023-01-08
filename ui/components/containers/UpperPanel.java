@@ -96,8 +96,7 @@ public class UpperPanel extends RoundedPanel implements IComponent {
     this.dateEnd.setText(dateEnd.toString());
   }
 
-  @Override
-  public void composeView() {
+  @Override public void composeView() {
     setBorder(
       new EmptyBorder(
         0,

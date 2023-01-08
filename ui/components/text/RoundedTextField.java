@@ -110,8 +110,7 @@ public class RoundedTextField extends JTextField implements IComponent {
     }
   }
 
-  @Override
-  protected void paintComponent(Graphics g) {
+  @Override protected void paintComponent(Graphics g) {
     var g2d = (Graphics2D) g.create();
     
     g2d.setRenderingHint(
@@ -135,8 +134,7 @@ public class RoundedTextField extends JTextField implements IComponent {
     g.dispose();
   }
 
-  @Override
-  public void registerCallbacks() {
+  @Override public void registerCallbacks() {
     addFocusListener(new FocusListener() {
       public void focusGained(FocusEvent e) {
         if (getText().equals(innerText)) {

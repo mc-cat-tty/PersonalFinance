@@ -28,8 +28,7 @@ public class FlatMenu extends JMenu implements IComponent {
     this("", icon);
   }
 
-  @Override
-  public void setBackground(Color color) {
+  @Override public void setBackground(Color color) {
     super.setBackground(color);
     
     if (items == null) {
@@ -41,8 +40,7 @@ public class FlatMenu extends JMenu implements IComponent {
     }
   }
 
-  @Override
-  public void setForeground(Color color) {
+  @Override public void setForeground(Color color) {
     super.setForeground(color);
     
     if (items == null) {
@@ -54,8 +52,7 @@ public class FlatMenu extends JMenu implements IComponent {
     }
   }
 
-  @Override
-  public void setFont(Font font) {
+  @Override public void setFont(Font font) {
     super.setFont(font);
     
     if (items == null) {
@@ -67,8 +64,7 @@ public class FlatMenu extends JMenu implements IComponent {
     }
   }
 
-  @Override
-  public void setBorder(Border border) {
+  @Override public void setBorder(Border border) {
     super.setBorder(border);
     
     if (items == null) {

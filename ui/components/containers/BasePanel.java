@@ -19,8 +19,7 @@ public class BasePanel extends JPanel implements IComponent {
     composeView();
   }
   
-  @Override
-  public void composeView() {
+  @Override public void composeView() {
     setPreferredSize(
       CommonDimensions.WINDOW.getDimension()
     );

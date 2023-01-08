@@ -46,13 +46,11 @@ public class RoundedPanel extends JPanel {
     this.insets = insets;
   }
 
-  @Override
-  public Insets getInsets() {
+  @Override public Insets getInsets() {
     return this.insets;
   }
 
-  @Override
-  public Dimension getPreferredSize() {
+  @Override public Dimension getPreferredSize() {
     int width =
       (int) dimension.getWidth()
       + getBorder().getBorderInsets(this).right
@@ -75,8 +73,7 @@ public class RoundedPanel extends JPanel {
     );
   }
 
-  @Override
-  protected void paintComponent(Graphics g) {
+  @Override protected void paintComponent(Graphics g) {
     super.paintComponent(g);
 
     var g2d = (Graphics2D) g.create();
