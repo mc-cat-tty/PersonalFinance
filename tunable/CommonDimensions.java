@@ -15,7 +15,7 @@ public enum CommonDimensions {
   DATE_START_TEXT_FIELD(180, 49),
   DATE_END_TEXT_FIELD (180, 49),
   SEARCH_BUTTON (150, 49),
-  PERIOD_SELECTOR (120, 49);
+  PERIOD_SELECTOR (150, 49);
 
 
   private final Dimension dimension;

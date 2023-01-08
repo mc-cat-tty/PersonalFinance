@@ -118,7 +118,12 @@ public class RoundedTextField extends JTextField implements IComponent {
       RenderingHints.VALUE_ANTIALIAS_ON
     );
     
-    g2d.setColor(currentBackgroundColor);
+    if (isEditable()) {
+      g2d.setColor(currentBackgroundColor);
+    }
+    else {
+      g2d.setColor(currentBackgroundColor.darker());
+    }
 
     g2d.fillRoundRect(
       0,
@@ -129,7 +134,13 @@ public class RoundedTextField extends JTextField implements IComponent {
       radius
     );
     
-    setForeground(foregroundColor);
+    if (isEditable()) {
+      setForeground(foregroundColor);
+    }
+    else {
+      setForeground(ColorOpaqueBuilder.build(foregroundColor, 0.2f));
+    }
+
     super.paintComponent(g);
     g.dispose();
   }
@@ -137,6 +148,10 @@ public class RoundedTextField extends JTextField implements IComponent {
   @Override public void registerCallbacks() {
     addFocusListener(new FocusListener() {
       public void focusGained(FocusEvent e) {
+        if (!isEditable()) {
+          return;
+        }
+
         if (getText().equals(innerText)) {
           setText("");
           foregroundColor = ColorOpaqueBuilder.build(foregroundColor, 1f);
@@ -144,6 +159,10 @@ public class RoundedTextField extends JTextField implements IComponent {
       }
 
       public void focusLost(FocusEvent e) {
+        if (!isEditable()) {
+          return;
+        }
+        
         if (currentText.equals("")) {
           setText(innerText);
           foregroundColor = ColorOpaqueBuilder.build(foregroundColor, 0.5f);
