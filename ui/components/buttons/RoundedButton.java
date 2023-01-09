@@ -4,14 +4,20 @@ import ui.core.IComponent;
 
 import java.awt.*;
 import java.awt.geom.*;
+import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.MouseInputAdapter;
+import javax.swing.event.MouseInputListener;
 import javax.swing.text.Position;
+
+import org.w3c.dom.events.MouseEvent;
 
 public class RoundedButton extends JButton implements IComponent {
   private int radius;
   private Color backgroundColor;
   private Color foregroundColor;
+  private Dimension dimension;
   private boolean isActive;
 
   public RoundedButton(
@@ -30,6 +36,7 @@ public class RoundedButton extends JButton implements IComponent {
     setPreferredSize(dimension);
     setContentAreaFilled(false);
     setFocusPainted(false);
+    this.dimension = dimension;
     this.isActive = true;
   }
 
@@ -101,14 +108,27 @@ public class RoundedButton extends JButton implements IComponent {
       g2d.setColor(backgroundColor.darker());
     }
     
-    g2d.fillRoundRect(
-      0,
-      0,
-      getWidth(),
-      getHeight(),
-      radius,
-      radius
-    );
+
+    if (!getModel().isRollover()) {
+      g2d.fillRoundRect(
+        1,
+        1,
+        getWidth() - 2,
+        getHeight() - 2,
+        radius,
+        radius
+      );
+    }
+    else {
+      g2d.fillRoundRect(
+        0,
+        0,
+        getWidth(),
+        getHeight(),
+        radius,
+        radius
+      );
+    }
 
     setForeground(foregroundColor);
     super.paintComponent(g);
