@@ -44,6 +44,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
     getViewport().add(viewportPanel);
     setVerticalScrollBar(scrollBar);
     setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
+    scrollBar.setUnitIncrement(30);
 
     verticalBox.add(new Card(new Transaction()));
     verticalBox.add(new Card(new Transaction()));

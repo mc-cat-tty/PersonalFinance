@@ -37,14 +37,21 @@ public class Card extends RoundedPanel implements IComponent {
       50,
       CommonColors.CARD.getColor()
     );
+    this.transaction = new Transaction();
 
     composeView();
     setTransaction(transaction);
   }
 
   public void setTransaction(Transaction transaction) {
-    this.transaction = transaction;
+    setAmount(transaction.getAmount());
+    setDate(transaction.getDate());
+    setDescription(transaction.getDescription());
+  }
 
+  public void setAmount(float amount) {
+    this.transaction.setAmount(amount);
+    
     if (transaction.getAmount() < 0) {
       sign
         .setColorMonadic(CommonColors.MINUS.getColor())
@@ -58,21 +65,28 @@ public class Card extends RoundedPanel implements IComponent {
       sentenceConnector.setText(" income on ");
     }
 
-    amount.setText(
+    this.amount.setText(
       Float.toString(
-        Math.abs( transaction.getAmount() )
+        Math.abs( amount )
       )
     );
+  }
+
+  public void setDate(Date date) {
+    this.transaction.setDate(date);
 
     final var pattern = "dd/mm/yyyy";
     final var formatter = new SimpleDateFormat(pattern);
-    date.setText(
-      formatter.format(
-        transaction.getDate()
-      )
+    
+    this.date.setText(
+      formatter.format( date )
     );
+  }
 
-    description.setText(
+  public void setDescription(String description) {
+    this.transaction.setDescription(description);
+
+    this.description.setText(
       transaction.getDescription()
     );
   }
