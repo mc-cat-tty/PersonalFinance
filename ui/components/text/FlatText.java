@@ -10,6 +10,10 @@ import javax.swing.*;
 public class FlatText extends JLabel implements IComponent {
   private Color textColor;
 
+  public FlatText() {
+    this("");
+  }
+
   public FlatText(String text) {
     super(text);
   }

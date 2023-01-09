@@ -35,12 +35,16 @@ public class UpperPanel extends RoundedPanel implements IComponent {
         CommonDimensions.UPPER_PANEL.getWidth(),
         CommonDimensions.UPPER_PANEL.getHeight() + RADIUS
       ),
+      new Point(
+        0,
+        -RADIUS
+      ),
       RADIUS,
       CommonColors.CARD.getColor()
     );
 
     setInsets(
-      new InsetsUIResource(
+      new Insets(
         30,  // empiric
         5,
         5,

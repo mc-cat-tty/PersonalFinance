@@ -53,7 +53,6 @@ public class SearchPanel extends JPanel implements IComponent {
       CommonDimensions.PERIOD_SELECTOR.getDimension(),
       25
     );
-    perdiodSelector.setSelectedIndex(3);
 
     startDateField = new RoundedTextField(
       "00/01/2022",
@@ -125,6 +124,10 @@ public class SearchPanel extends JPanel implements IComponent {
     );
     add(endDateField);
     add(searchButton);
+
+    perdiodSelector.setSelectedIndex(0);
+    startDateField.setEditable(false);
+    endDateField.setEditable(false);
   }
 
   @Override public void registerCallbacks() {

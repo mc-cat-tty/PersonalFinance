@@ -2,6 +2,7 @@ package ui.components.containers;
 
 import java.awt.*;
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 /**
  * Base class for rounded JPanels.
@@ -9,20 +10,15 @@ import javax.swing.*;
 public class RoundedPanel extends JPanel {
   private int radius;
   private Dimension dimension;
+  private Point shift;
   private Point location;
   private Color backgroundColor;
   private Insets insets;
-
-  public RoundedPanel(
-    Dimension dimension,
-    int radius
-  ) {
-    this(new Point(0, 0), dimension, radius, Color.WHITE);
-  }
   
   public RoundedPanel(
     Point location,
     Dimension dimension,
+    Point shift,
     int radius,
     Color backgroundColor
   ) {
@@ -30,6 +26,7 @@ public class RoundedPanel extends JPanel {
 
     this.radius = radius;
     this.dimension = dimension;
+    this.shift = shift;
     this.location = location;
     this.backgroundColor = backgroundColor;
     this.insets = new Insets(
@@ -38,6 +35,7 @@ public class RoundedPanel extends JPanel {
       radius/6,
       radius/6
     );
+    setBorder(new EmptyBorder(0, 0, 0, 0));
 
     setOpaque(false);
   }
@@ -54,18 +52,13 @@ public class RoundedPanel extends JPanel {
     int width =
       (int) dimension.getWidth()
       + getBorder().getBorderInsets(this).right
-      + getBorder().getBorderInsets(this).left;
+      + getBorder().getBorderInsets(this).left
+      - Math.abs((int) shift.getX());
+
     int height = (int) dimension.getHeight()
       + getBorder().getBorderInsets(this).top
-      + getBorder().getBorderInsets(this).bottom;
-    
-    if (location.getY() < 0) {
-      height += location.getY();
-    }
-
-    if (location.getX() < 0) {
-      width += location.getX();
-    }
+      + getBorder().getBorderInsets(this).bottom
+      - Math.abs((int) shift.getY());
 
     return new Dimension(
       width,
@@ -83,11 +76,18 @@ public class RoundedPanel extends JPanel {
       RenderingHints.VALUE_ANTIALIAS_ON
     );
     g2d.setColor(backgroundColor);
+
     g2d.fillRoundRect(
-      (int) location.getX(),
-      (int) location.getY(),
-      (int) dimension.getWidth(),
-      (int) dimension.getHeight(),
+      (int) location.getX()
+        + getBorder().getBorderInsets(this).right,
+      (int) location.getY()
+        + getBorder().getBorderInsets(this).top,
+      (int) dimension.getWidth()
+      - getBorder().getBorderInsets(this).right
+      - getBorder().getBorderInsets(this).left,
+      (int) dimension.getHeight()
+        - getBorder().getBorderInsets(this).top
+        - getBorder().getBorderInsets(this).bottom,
       radius,  // radius X
       radius  // radius Y 
     );

@@ -50,6 +50,10 @@ public class BasePanel extends JPanel implements IComponent {
       BorderLayout.NORTH
     );
 
+    centerPanel.add(
+      new CenterPanel()
+    );
+
     add(
       new LowerPanel(),
       BorderLayout.SOUTH

@@ -9,6 +9,7 @@ import tunable.*;
 import java.awt.*;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 
 /**
  * Lower panel allowing interaction.
@@ -24,13 +25,14 @@ public class LowerPanel extends RoundedPanel implements IComponent {
 
   public LowerPanel() {
     super(
-      new Point(
-        0,
-        RADIUS
-      ),
+      new Point(0, 0),
       new Dimension(
         CommonDimensions.LOWER_PANEL.getWidth(),
         CommonDimensions.LOWER_PANEL.getHeight() + RADIUS
+      ),
+      new Point(
+        0,
+        RADIUS
       ),
       RADIUS,
       CommonColors.CARD.getColor()
@@ -38,7 +40,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
 
     setInsets(
       new Insets(
-        RADIUS + 20,
+        20 + CommonPaddings.LOWER_PANEL_UPPER_PADDING.getPadding(),
         10,
         10,
         10
@@ -119,11 +121,11 @@ public class LowerPanel extends RoundedPanel implements IComponent {
 
   @Override public void composeView() {
     setBorder(
-      BorderFactory.createEmptyBorder(
+      new EmptyBorder(
+        CommonPaddings.LOWER_PANEL_UPPER_PADDING.getPadding(),
         0,
         0,
-        0,
-        CommonPaddings.LOWER_PANEL_UPPER_PADDING.getPadding()
+        0
       )
     );
 
