@@ -30,7 +30,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
     );
     viewportPanel.setBackground(CommonColors.BACKGROUND.getColor());
     verticalBox = Box.createVerticalBox();
-    viewportPanel.add(verticalBox, BorderLayout.PAGE_START);
+    viewportPanel.add(verticalBox);
 
     composeView();
   }

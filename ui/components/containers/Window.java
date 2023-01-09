@@ -41,7 +41,7 @@ public class Window extends JFrame implements IComponent {
       new FlatMenuBar(
         new ArrayList<>() {{
           add(
-            new FlatMenu(CommonIcons.FOLDER.getIcon())
+            new FlatMenu("File", CommonIcons.FOLDER.getIcon())
               .addItems(new ArrayList<>() {{
                 add(new FlatMenuItem("Save"));
                 add(new FlatMenuItem("Load"));
@@ -49,7 +49,7 @@ public class Window extends JFrame implements IComponent {
           );
 
           add(
-            new FlatMenu(CommonIcons.EXPORT.getIcon())
+            new FlatMenu("Export", CommonIcons.EXPORT.getIcon())
               .addItems(new ArrayList<>() {{
                 add(new FlatMenuItem("TXT"));
                 add(new FlatMenuItem("CSV"));
@@ -58,7 +58,7 @@ public class Window extends JFrame implements IComponent {
           );
 
           add(
-            new FlatMenu(CommonIcons.PRINT.getIcon())
+            new FlatMenu("Print", CommonIcons.PRINT.getIcon())
               .addItems(new ArrayList<>() {{
                 add(new FlatMenuItem("PDF"));
                 add(new FlatMenuItem("Printer"));

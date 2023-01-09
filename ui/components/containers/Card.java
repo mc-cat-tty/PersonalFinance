@@ -3,6 +3,7 @@ package ui.components.containers;
 import ui.core.*;
 import tunable.*;
 import balance.*;
+import ui.components.buttons.IconButton;
 import ui.components.text.FlatText;
 
 import java.awt.*;
@@ -22,19 +23,22 @@ import java.util.concurrent.Flow;
  * Element of a scrollable list.
  */
 public class Card extends RoundedPanel implements IComponent {
+  private static final int RADIUS = 50;
   private Transaction transaction;
   private FlatText sign;
   private FlatText amount;
   private FlatText sentenceConnector;
   private FlatText date;
   private FlatText description;
+  private JButton editButton;
+  private JButton deleteButton;
 
   public Card(Transaction transaction) {
     super(
       new Point(0, 0),
       CommonDimensions.CARD.getDimension(),
       new Point(0, 0),
-      50,
+      RADIUS,
       CommonColors.CARD.getColor()
     );
     this.transaction = new Transaction();
@@ -96,10 +100,7 @@ public class Card extends RoundedPanel implements IComponent {
   }
 
   @Override public void composeView() {
-    setAlignmentX(CENTER_ALIGNMENT);
-    setAlignmentY(TOP_ALIGNMENT);
-
-    setBorder(
+     setBorder(
       new EmptyBorder(
         0,
         0,
@@ -144,7 +145,6 @@ public class Card extends RoundedPanel implements IComponent {
 
     final var middleUpperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     middleUpperPanel.setBackground(CommonColors.CARD.getColor());
-    middleUpperPanel.setAlignmentX(LEFT_ALIGNMENT);
     middlePanel.add(
       middleUpperPanel,
       BorderLayout.NORTH
@@ -178,6 +178,29 @@ public class Card extends RoundedPanel implements IComponent {
         .setColorMonadic(CommonColors.TEXT.getColor())
         .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f)),
       BorderLayout.NORTH
+    );
+
+
+    final var eastPanel = new RoundedPanel(
+      new Point(0, 0),
+      new Dimension(50, 50),
+      new Point(0, 0),
+      RADIUS,
+      CommonColors.CARD.getColor()
+    );
+
+    eastPanel.setBackground(CommonColors.CARD.getColor());
+    add(
+      eastPanel,
+      BorderLayout.EAST
+    );
+
+    eastPanel.add(
+      editButton = new IconButton(CommonIcons.EDIT.getIcon())
+    );
+
+    eastPanel.add(
+      deleteButton = new IconButton(CommonIcons.DELETE.getIcon())
     );
   }
 }

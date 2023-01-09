@@ -104,7 +104,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(30f),
       CommonDimensions.DESCRIPTION_TEXT_FIELD.getDimension(),
       30
-    );
+    ).setMaxLengthMonadic(60);
 
     composeView();
     registerCallbacks();
