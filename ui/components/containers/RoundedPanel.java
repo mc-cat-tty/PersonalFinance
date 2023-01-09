@@ -29,23 +29,9 @@ public class RoundedPanel extends JPanel {
     this.shift = shift;
     this.location = location;
     this.backgroundColor = backgroundColor;
-    this.insets = new Insets(
-      radius/6,
-      radius/6,
-      radius/6,
-      radius/6
-    );
     setBorder(new EmptyBorder(0, 0, 0, 0));
 
     setOpaque(false);
-  }
-
-  public void setInsets(Insets insets) {
-    this.insets = insets;
-  }
-
-  @Override public Insets getInsets() {
-    return this.insets;
   }
 
   @Override public Dimension getPreferredSize() {
@@ -55,7 +41,8 @@ public class RoundedPanel extends JPanel {
       + getBorder().getBorderInsets(this).left
       - Math.abs((int) shift.getX());
 
-    int height = (int) dimension.getHeight()
+    int height =
+      (int) dimension.getHeight()
       + getBorder().getBorderInsets(this).top
       + getBorder().getBorderInsets(this).bottom
       - Math.abs((int) shift.getY());
@@ -82,12 +69,8 @@ public class RoundedPanel extends JPanel {
         + getBorder().getBorderInsets(this).right,
       (int) location.getY()
         + getBorder().getBorderInsets(this).top,
-      (int) dimension.getWidth()
-      - getBorder().getBorderInsets(this).right
-      - getBorder().getBorderInsets(this).left,
-      (int) dimension.getHeight()
-        - getBorder().getBorderInsets(this).top
-        - getBorder().getBorderInsets(this).bottom,
+      (int) dimension.getWidth(),
+      (int) dimension.getHeight(),
       radius,  // radius X
       radius  // radius Y 
     );

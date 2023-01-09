@@ -16,7 +16,7 @@ public enum CommonDimensions {
   DATE_END_TEXT_FIELD (180, 49),
   SEARCH_BUTTON (150, 49),
   PERIOD_SELECTOR (150, 49),
-  CARD (1296, 116);
+  CARD (1296, 100);
 
 
   private final Dimension dimension;

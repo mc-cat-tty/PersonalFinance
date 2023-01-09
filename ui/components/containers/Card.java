@@ -16,6 +16,7 @@ import javax.swing.plaf.BorderUIResource;
 import javax.swing.text.Position;
 
 import java.util.*;
+import java.util.concurrent.Flow;
 
 /**
  * Element of a scrollable list.
@@ -35,12 +36,6 @@ public class Card extends RoundedPanel implements IComponent {
       new Point(0, 0),
       50,
       CommonColors.CARD.getColor()
-    );
-
-    setInsets(
-      new Insets(
-        0, 0, 5, 0
-      )
     );
 
     composeView();
@@ -104,7 +99,7 @@ public class Card extends RoundedPanel implements IComponent {
     );
 
     final var horizontalBox = Box.createHorizontalBox();
-    add(horizontalBox, BorderLayout.PAGE_START);
+    add(horizontalBox, BorderLayout.WEST);
 
 
     horizontalBox.add(
@@ -126,18 +121,15 @@ public class Card extends RoundedPanel implements IComponent {
     );
 
 
-    final var middlePanelSize = new Dimension(
-      CommonDimensions.CARD.getWidth() - 200,
-      CommonDimensions.CARD.getHeight()
-    );
     final var middlePanel = new JPanel(new BorderLayout());
-    middlePanel.setMaximumSize(middlePanelSize);
+    middlePanel.setBorder(
+      new EmptyBorder(5, 5, 5, 5)
+    );
     middlePanel.setBackground(CommonColors.CARD.getColor());
     horizontalBox.add(middlePanel);
 
     final var middleUpperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     middleUpperPanel.setBackground(CommonColors.CARD.getColor());
-    middleUpperPanel.setMaximumSize(middlePanelSize);
     middleUpperPanel.setAlignmentX(LEFT_ALIGNMENT);
     middlePanel.add(
       middleUpperPanel,
@@ -148,7 +140,7 @@ public class Card extends RoundedPanel implements IComponent {
     middlePanel.add(
       description = new FlatText()
         .setColorMonadic(CommonColors.TEXT.getColor())
-        .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f))
+        .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f))
         .setOpacityMonadic(0.6f),
       BorderLayout.SOUTH
     );
@@ -156,23 +148,22 @@ public class Card extends RoundedPanel implements IComponent {
     middleUpperPanel.add(
       amount = new FlatText()
         .setColorMonadic(CommonColors.TEXT.getColor())
-        .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(36f)),
+        .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f)),
       BorderLayout.NORTH
     );
 
     middleUpperPanel.add(
       sentenceConnector = new FlatText()
       .setColorMonadic(CommonColors.TEXT.getColor())
-      .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f)),
+      .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f)),
       BorderLayout.NORTH
     );
 
     middleUpperPanel.add(
       date = new FlatText()
         .setColorMonadic(CommonColors.TEXT.getColor())
-        .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(36f)),
+        .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f)),
       BorderLayout.NORTH
     );
-
   }
 }

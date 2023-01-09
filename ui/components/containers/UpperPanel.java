@@ -43,15 +43,6 @@ public class UpperPanel extends RoundedPanel implements IComponent {
       CommonColors.CARD.getColor()
     );
 
-    setInsets(
-      new Insets(
-        30,  // empiric
-        5,
-        5,
-        5
-      )
-    );
-
     plusMinus = new FlatText("+")
       .setColorMonadic(CommonColors.PLUS.getColor())
       .setOpacityMonadic(1f)
@@ -110,26 +101,39 @@ public class UpperPanel extends RoundedPanel implements IComponent {
       )
     );
 
-    add(plusMinus);
+    final var internalPanel = new JPanel();
+    internalPanel.setBackground(CommonColors.CARD.getColor());
+    internalPanel.setBorder(
+      new EmptyBorder(
+        30,
+        5,
+        5,
+        5
+      )
+    );
+    add(internalPanel);
 
-    add(balance);
+    
+    internalPanel.add(plusMinus);
 
-    add(
+    internalPanel.add(balance);
+
+    internalPanel.add(
       new FlatText("Your balance from ")
         .setColorMonadic(CommonColors.TEXT.getColor())
         .setOpacityMonadic(1f)
         .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f))
     );
 
-    add(dateStart);
+    internalPanel.add(dateStart);
 
-    add(
+    internalPanel.add(
       new FlatText(" to ")
         .setColorMonadic(CommonColors.TEXT.getColor())
         .setOpacityMonadic(1f)
         .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f))
     );
     
-    add(dateEnd);
+    internalPanel.add(dateEnd);
   }
 }

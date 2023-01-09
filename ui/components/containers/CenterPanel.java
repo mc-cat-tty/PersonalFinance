@@ -26,7 +26,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
     
     viewportPanel = new JPanel();
     viewportPanel.setLayout(
-      new BorderLayout()
+      new FlowLayout()
     );
     viewportPanel.setBackground(CommonColors.BACKGROUND.getColor());
     verticalBox = Box.createVerticalBox();
@@ -44,13 +44,14 @@ public class CenterPanel extends JScrollPane implements IComponent {
     getViewport().add(viewportPanel);
     setVerticalScrollBar(scrollBar);
     setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
-    
-    final var card = new Card(new Transaction(
-      -123.45f,
-      Calendar.getInstance().getTime(),
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    ));
-    card.setAlignmentX(CENTER_ALIGNMENT);
-    verticalBox.add(card);
+
+    verticalBox.add(new Card(new Transaction()));
+    verticalBox.add(new Card(new Transaction()));
+    verticalBox.add(new Card(new Transaction()));
+    verticalBox.add(new Card(new Transaction()));
+    verticalBox.add(new Card(new Transaction()));
+    verticalBox.add(new Card(new Transaction()));
+    verticalBox.add(new Card(new Transaction()));
+    verticalBox.add(new Card(new Transaction()));
   }
 }

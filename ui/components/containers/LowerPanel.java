@@ -38,15 +38,6 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       CommonColors.CARD.getColor()
     );
 
-    setInsets(
-      new Insets(
-        20 + CommonPaddings.LOWER_PANEL_UPPER_PADDING.getPadding(),
-        10,
-        10,
-        10
-      )
-    );
-
     plusButton = new RoundedButton(
       "+",
       CommonColors.TEXTBOX.getColor(),
@@ -133,7 +124,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       new FlowLayout(
         FlowLayout.CENTER,
         CommonPaddings.LOWER_PANEL_HORIZONTAL_PADDING.getPadding(),
-        0
+        20
       )
     );
 
