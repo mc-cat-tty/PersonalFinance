@@ -12,6 +12,7 @@ import java.text.DateFormatSymbols;
 import java.text.SimpleDateFormat;
 
 import javax.swing.*;
+import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.text.Position;
@@ -183,10 +184,26 @@ public class Card extends RoundedPanel implements IComponent {
 
     final var eastPanel = new RoundedPanel(
       new Point(0, 0),
-      new Dimension(50, 50),
+      CommonDimensions.CARD_ACTIONS.getDimension(),
       new Point(0, 0),
       RADIUS,
       CommonColors.CARD.getColor()
+    );
+
+    eastPanel.setLayout(
+      new BorderLayout(
+        CommonPaddings.CARD_HORIZONTAL_PADDING.getPadding(),
+        0
+      )
+    );
+
+    eastPanel.setBorder(
+      new EmptyBorder(
+        26,
+        0,
+        0,
+        CommonPaddings.CARD_HORIZONTAL_PADDING.getPadding()
+      )
     );
 
     eastPanel.setBackground(CommonColors.CARD.getColor());
@@ -196,11 +213,13 @@ public class Card extends RoundedPanel implements IComponent {
     );
 
     eastPanel.add(
-      editButton = new IconButton(CommonIcons.EDIT.getIcon())
+      editButton = new IconButton(CommonIcons.EDIT.getIcon()),
+      BorderLayout.WEST
     );
 
     eastPanel.add(
-      deleteButton = new IconButton(CommonIcons.DELETE.getIcon())
+      deleteButton = new IconButton(CommonIcons.DELETE.getIcon()),
+      BorderLayout.CENTER
     );
   }
 }
