@@ -45,6 +45,7 @@ public class Card extends RoundedPanel implements IComponent {
     this.transaction = new Transaction();
 
     composeView();
+    registerCallbacks();
     setTransaction(transaction);
   }
 
@@ -220,6 +221,16 @@ public class Card extends RoundedPanel implements IComponent {
     eastPanel.add(
       deleteButton = new IconButton(CommonIcons.DELETE.getIcon()),
       BorderLayout.CENTER
+    );
+  }
+
+  @Override public void registerCallbacks() {
+    editButton.addActionListener(
+      e -> System.out.println("Edit")
+    );
+
+    deleteButton.addActionListener(
+      e -> System.out.println("Delete")
     );
   }
 }
