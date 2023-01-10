@@ -27,7 +27,7 @@ public class Window extends JFrame implements IComponent {
         CommonFonts.TEXT_NORMAL.getFont().deriveFont(DEFAULT_FONT_SIZE)
       );
     
-    setResizable(false);
+    setMinimumSize(CommonDimensions.WINDOW_MINIMUM_SIZE.getDimension());
     setLocationRelativeTo(null);
     setVisible(true);
   }

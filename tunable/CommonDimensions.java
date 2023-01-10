@@ -4,6 +4,7 @@ import java.awt.*;
 
 public enum CommonDimensions {
   WINDOW (1370, 962),
+  WINDOW_MINIMUM_SIZE (1350, 460),
   UPPER_PANEL (1370, 181),
   LOWER_PANEL (1370, 91),
   PLUS_MINUS_SELECTOR (55, 55),
