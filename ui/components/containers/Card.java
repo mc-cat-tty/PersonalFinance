@@ -3,7 +3,10 @@ package ui.components.containers;
 import ui.core.*;
 import tunable.*;
 import balance.*;
+import ui.components.buttons.CardActionButtonsPanel;
 import ui.components.buttons.IconButton;
+import ui.components.buttons.RoundedButton;
+import ui.components.buttons.CardActionButtonsPanel.CardAction;
 import ui.components.text.FlatText;
 
 import java.awt.*;
@@ -15,6 +18,7 @@ import javax.swing.*;
 import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.BorderUIResource;
+import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 import javax.swing.text.Position;
 
 import java.util.*;
@@ -33,6 +37,8 @@ public class Card extends RoundedPanel implements IComponent {
   private FlatText description;
   private JButton editButton;
   private JButton deleteButton;
+  private JButton confirmButton;
+  private CardActionButtonsPanel actionPanel;
 
   public Card(Transaction transaction) {
     super(
@@ -182,55 +188,35 @@ public class Card extends RoundedPanel implements IComponent {
       BorderLayout.NORTH
     );
 
-
-    final var eastPanel = new RoundedPanel(
-      new Point(0, 0),
-      CommonDimensions.CARD_ACTIONS.getDimension(),
-      new Point(0, 0),
-      RADIUS,
-      CommonColors.CARD.getColor()
-    );
-
-    eastPanel.setLayout(
-      new BorderLayout(
-        CommonPaddings.CARD_HORIZONTAL_PADDING.getPadding(),
-        0
-      )
-    );
-
-    eastPanel.setBorder(
-      new EmptyBorder(
-        26,
-        0,
-        0,
-        CommonPaddings.CARD_HORIZONTAL_PADDING.getPadding()
-      )
-    );
-
-    eastPanel.setBackground(CommonColors.CARD.getColor());
     add(
-      eastPanel,
+      actionPanel = new CardActionButtonsPanel(
+        editButton = new IconButton(CommonIcons.EDIT.getIcon()),
+        deleteButton = new IconButton(CommonIcons.DELETE.getIcon()),
+        confirmButton = new RoundedButton(
+          "Ok",
+          CommonColors.BUTTON_PRIMARY.getColor(),
+          CommonColors.TEXT.getColor(),
+          CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
+          new Dimension(48, 48),
+          10
+        ),
+        RADIUS
+      ),
       BorderLayout.EAST
-    );
-
-    eastPanel.add(
-      editButton = new IconButton(CommonIcons.EDIT.getIcon()),
-      BorderLayout.WEST
-    );
-
-    eastPanel.add(
-      deleteButton = new IconButton(CommonIcons.DELETE.getIcon()),
-      BorderLayout.CENTER
     );
   }
 
   @Override public void registerCallbacks() {
     editButton.addActionListener(
-      e -> System.out.println("Edit")
+      e -> actionPanel.setCurrentAction(CardAction.CONFIRM)
     );
 
     deleteButton.addActionListener(
-      e -> System.out.println("Delete")
+      e -> setVisible(false)
+    );
+
+    confirmButton.addActionListener(
+      e -> actionPanel.setCurrentAction(CardAction.EDIT_DELETE)
     );
   }
 }
