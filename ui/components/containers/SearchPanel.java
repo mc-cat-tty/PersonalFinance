@@ -15,10 +15,27 @@ import java.util.stream.Stream;
 
 public class SearchPanel extends JPanel implements IComponent {
   public enum SearchPeriod {
-    DAY,
-    WEEK,
-    YEAR,
-    CUSTOM;
+    DAY ("01/01/2022", "01/01/2022"),
+    WEEK ("01/01/2022", "07/01/2022"),
+    MONTH ("01/2022", "01/2022"),
+    YEAR ("2022", "2022"),
+    CUSTOM ("00/01/2022", "00/02/2023");
+
+    private String mockStartText;
+    private String mockEndText;
+
+    private SearchPeriod(String mockStartText, String mockEndText) {
+      this.mockStartText = mockStartText;
+      this.mockEndText = mockEndText;
+    }
+
+    public String getMockStartText() {
+      return mockStartText;
+    }
+
+    public String getMockEndText() {
+      return mockEndText;
+    }
 
     public String toString() {
       final var name = name();
@@ -40,6 +57,7 @@ public class SearchPanel extends JPanel implements IComponent {
   private final RoundedTextField startDateField;
   private final RoundedTextField endDateField;
   private final RoundedButton searchButton;
+  private SearchPeriod searchPeriod;
   
   public SearchPanel() {
     super(
@@ -70,19 +88,17 @@ public class SearchPanel extends JPanel implements IComponent {
     );
 
     startDateField = new RoundedTextField(
-      "00/01/2022",
+      "",
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
       ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
       CommonDimensions.DATE_START_TEXT_FIELD.getDimension(),
       25
-    ).setMaxLengthMonadic(10)
-    .setInputFilterMonadic(c -> Character.isDigit(c) || c == '/')
-    .setInputValidatorMonadic(text -> text.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}") || text.equals(""));
+    ).setInputFilterMonadic(c -> Character.isDigit(c) || c == '/');
   
     endDateField = new RoundedTextField(
-      "00/01/2023",
+      "",
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
       ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
@@ -106,6 +122,8 @@ public class SearchPanel extends JPanel implements IComponent {
 
     composeView();
     registerCallbacks();
+
+    setSearchPeriod(SearchPeriod.DAY);
   }
 
   public void composeView() {
@@ -139,26 +157,82 @@ public class SearchPanel extends JPanel implements IComponent {
     );
     add(endDateField);
     add(searchButton);
+  }
 
-    perdiodSelector.setSelectedIndex(0);
-    startDateField.setEditable(false);
+  public void setSearchPeriod(SearchPeriod period) {
+    switch (period) {
+      case DAY:
+      case WEEK:
+      case CUSTOM:
+
+      startDateField
+        .setInputValidatorMonadic(
+          text -> text.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}") || text.equals("")
+        )
+        .setMaxLengthMonadic(10);
+
+      endDateField
+        .setInputValidatorMonadic(
+          text -> text.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}") || text.equals("")
+        )
+        .setMaxLengthMonadic(10);
+
+      break;
+
+      case MONTH:
+
+      startDateField
+        .setInputValidatorMonadic(
+          text -> text.matches("[0-9]{2}/[0-9]{4}") || text.equals("")
+        )
+        .setMaxLengthMonadic(8);
+
+      endDateField
+        .setInputValidatorMonadic(
+          text -> text.matches("[0-9]{2}/[0-9]{4}") || text.equals("")
+        )
+        .setMaxLengthMonadic(8);
+
+      break;
+
+      case YEAR:
+
+      startDateField
+        .setInputValidatorMonadic(
+          text -> text.matches("[0-9]{4}") || text.equals("")
+        )
+        .setMaxLengthMonadic(4);
+
+      endDateField
+        .setInputValidatorMonadic(
+          text -> text.matches("[0-9]{4}") || text.equals("")
+        )
+        .setMaxLengthMonadic(4);
+      break;
+    }
+
+    startDateField.setInnerText(period.getMockStartText());
+    endDateField.setInnerText(period.getMockEndText());
+    
+    if (period == SearchPeriod.CUSTOM) {
+      startDateField.setEditable(true);
+      endDateField.setEditable(true);
+      return;
+    }
+
+    startDateField.setEditable(true);
     endDateField.setEditable(false);
   }
 
   @Override public void registerCallbacks() {
     perdiodSelector.addActionListener(
       event -> {
-        if (!perdiodSelector.getSelectedItem().equals("Custom")) {
-          startDateField.setEditable(false);
-          endDateField.setEditable(false);
-        }
-        else {
-          startDateField.setEditable(true);
-          endDateField.setEditable(true);
-        }
+        setSearchPeriod(
+          SearchPeriod.valueOf(
+            perdiodSelector.getSelectedItem().toString().toUpperCase()
+          )
+        );
       }
     );
   }
-
-
 }

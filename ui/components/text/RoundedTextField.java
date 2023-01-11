@@ -76,6 +76,7 @@ public class RoundedTextField extends JTextField implements IComponent {
 
   public void setInnerText(String innerText) {
     this.innerText = innerText;
+    setText(innerText);
   }
 
   /**
