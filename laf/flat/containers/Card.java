@@ -71,7 +71,7 @@ public class Card extends RoundedPanel implements IComponent {
     amount = new FlatText()
       .setColorMonadic(CommonColors.TEXT.getColor())
       .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f));
-    amount.setBorder(new EmptyBorder(0, 15, 0, 15));
+    amount.setBorder(new EmptyBorder(0, 20, 0, 20));
 
     sign = new FlatText("+")
       .setColorMonadic(CommonColors.TEXT.getColor())
@@ -190,9 +190,8 @@ public class Card extends RoundedPanel implements IComponent {
       sentenceConnector.setText("income on");
     }
 
-    final var amountAbs = Float.toString( Math.abs(amount) );
-    this.amount.setText(amountAbs);
-    amountEditor.setText(amountAbs);
+    this.amount.setText(Float.toString( Math.abs(amount) ));
+    amountEditor.setText(Float.toString(amount));
   }
 
   public void setDate(Date date) {
