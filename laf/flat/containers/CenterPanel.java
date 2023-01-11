@@ -53,7 +53,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
     )));
   
     verticalBox.add(new Card(new Transaction(
-      1234.56f,
+      -1234.56f,
       Calendar.getInstance().getTime(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
@@ -65,7 +65,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
     )));
 
     verticalBox.add(new Card(new Transaction(
-      1234.56f,
+      -1234.56f,
       Calendar.getInstance().getTime(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
@@ -77,7 +77,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
     )));
 
     verticalBox.add(new Card(new Transaction(
-      1234.56f,
+      -1234.56f,
       Calendar.getInstance().getTime(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
@@ -89,7 +89,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
     )));
 
     verticalBox.add(new Card(new Transaction(
-      1234.56f,
+      -1234.56f,
       Calendar.getInstance().getTime(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
