@@ -3,18 +3,38 @@ package ui.components.containers;
 import ui.components.buttons.*;
 import ui.components.text.*;
 import ui.core.*;
-import java.awt.*;
-import java.time.Period;
+import tunable.*;
 
+import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import java.time.Period;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
-import tunable.CommonColors;
-import tunable.CommonDimensions;
-import tunable.CommonFonts;
-import tunable.CommonPaddings;
 
 public class SearchPanel extends JPanel implements IComponent {
+  public enum SearchPeriod {
+    DAY,
+    WEEK,
+    YEAR,
+    CUSTOM;
+
+    public String toString() {
+      final var name = name();
+      return
+        name.substring(0, 1).toUpperCase() +
+        name.substring(1).toLowerCase();
+    }
+
+    public static String[] getStrings() {
+      return
+        Stream.of(SearchPeriod.values())
+        .map(SearchPeriod::toString)
+        .toArray(String[]::new);
+    }
+  }
+
   private final RoundedTextField searchField;
   private final RoundedComboBox perdiodSelector;
   private final RoundedTextField startDateField;
@@ -41,12 +61,7 @@ public class SearchPanel extends JPanel implements IComponent {
     );
 
     perdiodSelector = new RoundedComboBox(
-      new String[] {
-        "Day",
-        "Week",
-        "Year",
-        "Custom"
-      },
+      SearchPeriod.getStrings(),
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXT.getColor(),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
@@ -144,4 +159,6 @@ public class SearchPanel extends JPanel implements IComponent {
       }
     );
   }
+
+
 }

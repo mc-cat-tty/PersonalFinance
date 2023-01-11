@@ -5,7 +5,6 @@ import ui.core.*;
 import ui.components.containers.*;
 import java.awt.*;
 
-import javax.smartcardio.CardChannel;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
