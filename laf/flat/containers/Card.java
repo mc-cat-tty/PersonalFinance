@@ -198,7 +198,7 @@ public class Card extends RoundedPanel implements IComponent {
   public void setDate(Date date) {
     this.transaction.setDate(date);
 
-    final var pattern = "dd/mm/yyyy";
+    final var pattern = "dd/MM/yyyy";
     final var formatter = new SimpleDateFormat(pattern);
     final var dateStr = formatter.format(date);
 

@@ -47,49 +47,49 @@ public class CenterPanel extends JScrollPane implements IComponent {
     scrollBar.setUnitIncrement(30);
 
     verticalBox.add(new Card(new Transaction(
-      1234.45f,
+      1234.56f,
       Calendar.getInstance().getTime(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
   
     verticalBox.add(new Card(new Transaction(
-      1234.45f,
+      1234.56f,
       Calendar.getInstance().getTime(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
 
     verticalBox.add(new Card(new Transaction(
-      1234.45f,
+      1234.56f,
       Calendar.getInstance().getTime(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
 
     verticalBox.add(new Card(new Transaction(
-      1234.45f,
+      1234.56f,
       Calendar.getInstance().getTime(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
 
     verticalBox.add(new Card(new Transaction(
-      1234.45f,
+      1234.56f,
       Calendar.getInstance().getTime(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
 
     verticalBox.add(new Card(new Transaction(
-      1234.45f,
+      1234.56f,
       Calendar.getInstance().getTime(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
 
     verticalBox.add(new Card(new Transaction(
-      1234.45f,
+      1234.56f,
       Calendar.getInstance().getTime(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
 
     verticalBox.add(new Card(new Transaction(
-      1234.45f,
+      1234.56f,
       Calendar.getInstance().getTime(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
