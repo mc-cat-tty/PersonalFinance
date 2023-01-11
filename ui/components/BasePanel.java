@@ -1,7 +1,11 @@
-package ui.components.containers;
+package ui.components;
 
 import ui.core.*;
 import assets.*;
+import laf.flat.containers.CenterPanel;
+import laf.flat.containers.LowerPanel;
+import laf.flat.containers.SearchPanel;
+import laf.flat.containers.UpperPanel;
 import tunable.*;
 
 import java.awt.*;

@@ -1,9 +1,11 @@
-package ui.components.containers;
+package laf.flat.containers;
 
 import ui.core.*;
-import ui.components.containers.*;
 
 import javax.swing.*;
+
+import laf.flat.containers.*;
+
 import java.util.*;
 import java.awt.CardLayout;
 

@@ -1,4 +1,4 @@
-package ui.components.containers;
+package laf.flat.containers;
 
 import java.awt.*;
 import java.awt.geom.*;

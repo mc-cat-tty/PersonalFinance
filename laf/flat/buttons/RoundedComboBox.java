@@ -1,6 +1,5 @@
-package ui.components.buttons;
+package laf.flat.buttons;
 
-import ui.components.containers.RoundedCornerBorder;
 import ui.core.IComponent;
 
 import java.awt.*;
@@ -12,6 +11,7 @@ import javax.swing.event.PopupMenuListener;
 import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
+import laf.flat.containers.RoundedCornerBorder;
 import tunable.CommonColors;
 import tunable.CommonIcons;
 

@@ -1,4 +1,4 @@
-package ui.components.buttons;
+package ui.components;
 
 import ui.core.*;
 import java.awt.*;

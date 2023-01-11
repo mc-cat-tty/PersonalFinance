@@ -1,9 +1,7 @@
-package ui.components.containers;
+package laf.flat.containers;
 
-import ui.components.buttons.RoundedButton;
-import ui.components.text.FlatText;
-import ui.components.text.RoundedTextField;
 import ui.core.*;
+import ui.utils.ColorOpaqueBuilder;
 import tunable.*;
 
 import java.awt.*;
@@ -11,6 +9,10 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import laf.flat.buttons.RoundedButton;
+import laf.flat.text.FlatText;
+import laf.flat.text.RoundedTextField;
 
 /**
  * Lower panel allowing interaction.

@@ -1,15 +1,17 @@
-package ui.components.buttons;
+package ui.components;
 
 import tunable.*;
 import ui.core.*;
-import ui.components.containers.*;
+
 import java.awt.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import laf.flat.containers.*;
 
-public class CardActionButtonsPanel extends RoundedPanel implements IComponent {
+
+public class CardActionPanel extends RoundedPanel implements IComponent {
   public enum CardAction {
     EDIT_DELETE,
     CONFIRM;
@@ -21,7 +23,7 @@ public class CardActionButtonsPanel extends RoundedPanel implements IComponent {
   private JPanel cards;
   private CardAction currentAction;
 
-  public CardActionButtonsPanel(
+  public CardActionPanel(
     AbstractButton editButton,
     AbstractButton deleteButton,
     AbstractButton confirmButton,

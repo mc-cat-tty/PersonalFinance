@@ -1,8 +1,8 @@
-package ui.components.containers;
+package laf.flat.containers;
 
 import assets.*;
+import laf.flat.text.FlatText;
 import tunable.*;
-import ui.components.text.FlatText;
 import ui.core.*;
 
 import java.text.DateFormat;

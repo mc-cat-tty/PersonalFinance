@@ -1,14 +1,11 @@
-package ui.components.containers;
+package laf.flat.containers;
 
 import ui.core.*;
 import tunable.*;
 import model.core.*;
-import ui.components.buttons.CardActionButtonsPanel;
-import ui.components.buttons.IconButton;
-import ui.components.buttons.RoundedButton;
-import ui.components.buttons.CardActionButtonsPanel.CardAction;
-import ui.components.text.FlatText;
-import ui.components.text.RoundedTextField;
+import ui.components.CardActionPanel;
+import ui.components.IconButton;
+import ui.components.CardActionPanel.CardAction;
 
 import java.awt.*;
 import java.text.DateFormat;
@@ -21,6 +18,10 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 import javax.swing.text.Position;
+
+import laf.flat.buttons.RoundedButton;
+import laf.flat.text.FlatText;
+import laf.flat.text.RoundedTextField;
 
 import java.util.*;
 import java.util.concurrent.Flow;
@@ -53,7 +54,7 @@ public class Card extends RoundedPanel implements IComponent {
   private JButton editButton;
   private JButton deleteButton;
   private JButton confirmButton;
-  private CardActionButtonsPanel actionPanel;
+  private CardActionPanel actionPanel;
 
 
   public Card(Transaction transaction) {
@@ -127,7 +128,7 @@ public class Card extends RoundedPanel implements IComponent {
     ).setMaxLengthMonadic(CommonValidators.DESCRIPTION.getMaxLength());
     descriptionEditor.setHorizontalAlignment(SwingConstants.LEFT);
 
-    actionPanel = new CardActionButtonsPanel(
+    actionPanel = new CardActionPanel(
       editButton = new IconButton(CommonIcons.EDIT.getIcon()),
       deleteButton = new IconButton(CommonIcons.DELETE.getIcon()),
       confirmButton = new RoundedButton(

@@ -1,8 +1,7 @@
-package ui.components.containers;
+package laf.flat.containers;
 
 import tunable.CommonColors;
 import tunable.CommonDimensions;
-import ui.components.buttons.FlatScrollBar;
 import ui.core.IComponent;
 
 import java.awt.*;
@@ -12,6 +11,7 @@ import javax.sql.CommonDataSource;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
+import laf.flat.buttons.FlatScrollBar;
 import model.core.*;
 
 public class CenterPanel extends JScrollPane implements IComponent {

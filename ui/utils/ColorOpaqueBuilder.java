@@ -1,4 +1,4 @@
-package ui.core;
+package ui.utils;
 
 import java.awt.*;
 

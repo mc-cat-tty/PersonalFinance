@@ -1,4 +1,4 @@
-package ui.components.buttons;
+package laf.flat.buttons;
 
 import ui.core.IComponent;
 

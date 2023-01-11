@@ -1,4 +1,4 @@
-package ui.components.text;
+package laf.flat.text;
 
 import java.awt.*;
 import ui.core.IComponent;

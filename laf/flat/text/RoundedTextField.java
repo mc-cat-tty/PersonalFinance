@@ -1,4 +1,4 @@
-package ui.components.text;
+package laf.flat.text;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -9,8 +9,8 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.*;
 
-import ui.core.ColorOpaqueBuilder;
 import ui.core.IComponent;
+import ui.utils.ColorOpaqueBuilder;
 
 public class RoundedTextField extends JTextField implements IComponent {
   private int radius;

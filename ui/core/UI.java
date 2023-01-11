@@ -1,7 +1,6 @@
 package ui.core;
 
 import ui.components.*;
-import ui.components.containers.Window;
 
 /**
  * Parent class for the GUI. Manages views, model and control logic.

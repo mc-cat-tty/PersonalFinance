@@ -1,13 +1,16 @@
-package ui.components.containers;
+package laf.flat.containers;
 
-import ui.components.buttons.*;
-import ui.components.text.*;
 import ui.core.*;
+import ui.utils.ColorOpaqueBuilder;
 import tunable.*;
 
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
+
+import laf.flat.buttons.*;
+import laf.flat.text.*;
+
 import java.time.Period;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
