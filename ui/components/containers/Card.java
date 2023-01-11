@@ -2,12 +2,13 @@ package ui.components.containers;
 
 import ui.core.*;
 import tunable.*;
-import balance.*;
+import model.core.*;
 import ui.components.buttons.CardActionButtonsPanel;
 import ui.components.buttons.IconButton;
 import ui.components.buttons.RoundedButton;
 import ui.components.buttons.CardActionButtonsPanel.CardAction;
 import ui.components.text.FlatText;
+import ui.components.text.RoundedTextField;
 
 import java.awt.*;
 import java.text.DateFormat;
@@ -29,16 +30,31 @@ import java.util.concurrent.Flow;
  */
 public class Card extends RoundedPanel implements IComponent {
   private static final int RADIUS = 50;
+  private static final String VIEW_KEY = "VIEW";
+  private static final String EDIT_KEY = "EDIT";
+
   private Transaction transaction;
   private FlatText sign;
+  
   private FlatText amount;
+  private RoundedTextField amountEditor;
+  private LayeredPanel amountPanel;
+
   private FlatText sentenceConnector;
+  
   private FlatText date;
+  private RoundedTextField dateEditor;
+  private LayeredPanel datePanel;
+
   private FlatText description;
+  private RoundedTextField descriptionEditor;
+  private LayeredPanel descriptionPanel;
+  
   private JButton editButton;
   private JButton deleteButton;
   private JButton confirmButton;
   private CardActionButtonsPanel actionPanel;
+
 
   public Card(Transaction transaction) {
     super(
@@ -47,8 +63,104 @@ public class Card extends RoundedPanel implements IComponent {
       new Point(0, 0),
       RADIUS,
       CommonColors.CARD.getColor()
+      );
+      this.transaction = new Transaction();
+      
+      
+    amount = new FlatText()
+      .setColorMonadic(CommonColors.TEXT.getColor())
+      .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f));
+    amount.setBorder(new EmptyBorder(0, 15, 0, 15));
+
+    sign = new FlatText("+")
+      .setColorMonadic(CommonColors.TEXT.getColor())
+      .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(64f));
+
+    description = new FlatText()
+      .setColorMonadic(CommonColors.TEXT.getColor())
+      .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f))
+      .setOpacityMonadic(0.6f);
+    description.setBorder(new EmptyBorder(0, 15, 0, 0));
+    description.setPreferredSize(new Dimension(1050, 40));
+    
+    sentenceConnector = new FlatText()
+      .setColorMonadic(CommonColors.TEXT.getColor())
+      .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f));
+
+    date = new FlatText()
+      .setColorMonadic(CommonColors.TEXT.getColor())
+      .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f));
+    date.setBorder(new EmptyBorder(0, 15, 0, 15));
+
+    amountEditor = new RoundedTextField(
+      "",
+      CommonColors.TEXTBOX.getColor(),
+      CommonColors.TEXTBOX_INVALID.getColor(),
+      CommonColors.TEXT.getColor(),
+      CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f),
+      new Dimension(0, 0),
+      30
+    ).setMaxLengthMonadic(CommonValidators.MONEY_AMOUNT.getMaxLength() + 1)
+    .setInputFilterMonadic(c -> CommonValidators.MONEY_AMOUNT.getFilter().test(c) || c == '-')
+    .setInputValidatorMonadic(CommonValidators.MONEY_AMOUNT.getValidator());
+      
+    dateEditor = new RoundedTextField(
+      "",
+      CommonColors.TEXTBOX.getColor(),
+      CommonColors.TEXTBOX_INVALID.getColor(),
+      CommonColors.TEXT.getColor(),
+      CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f),
+      new Dimension(0, 0),
+      30
+    ).setMaxLengthMonadic(CommonValidators.DATE.getMaxLength())
+    .setInputFilterMonadic(c -> CommonValidators.DATE.getFilter().test(c))
+    .setInputValidatorMonadic(CommonValidators.DATE.getValidator());
+
+    descriptionEditor = new RoundedTextField(
+      "",
+      CommonColors.TEXTBOX.getColor(),
+      CommonColors.TEXTBOX_INVALID.getColor(),
+      CommonColors.TEXT.getColor(),
+      CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f),
+      new Dimension(0, 0),
+      30
+    ).setMaxLengthMonadic(CommonValidators.DESCRIPTION.getMaxLength());
+    descriptionEditor.setHorizontalAlignment(SwingConstants.LEFT);
+
+    actionPanel = new CardActionButtonsPanel(
+      editButton = new IconButton(CommonIcons.EDIT.getIcon()),
+      deleteButton = new IconButton(CommonIcons.DELETE.getIcon()),
+      confirmButton = new RoundedButton(
+        "Confirm",
+        CommonColors.BUTTON_PRIMARY.getColor(),
+        CommonColors.TEXT.getColor(),
+        CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
+        new Dimension(48, 48),
+        10
+      ),
+      RADIUS
     );
-    this.transaction = new Transaction();
+
+    amountPanel = new LayeredPanel(new HashMap<>(){{
+      put(VIEW_KEY, amount);
+      put(EDIT_KEY, amountEditor);
+    }});
+    amountPanel.setBackground(CommonColors.CARD.getColor());
+    amountPanel.setVisibleComponent(VIEW_KEY);
+
+    datePanel = new LayeredPanel(new HashMap<>(){{
+      put(VIEW_KEY, date);
+      put(EDIT_KEY, dateEditor);
+    }});
+    datePanel.setBackground(CommonColors.CARD.getColor());
+    datePanel.setVisibleComponent(VIEW_KEY);
+
+    descriptionPanel = new LayeredPanel(new HashMap<>(){{
+      put(VIEW_KEY, description);
+      put(EDIT_KEY, descriptionEditor);
+    }});
+    descriptionPanel.setBackground(CommonColors.CARD.getColor());
+    descriptionPanel.setVisibleComponent(VIEW_KEY);
 
     composeView();
     registerCallbacks();
@@ -68,20 +180,18 @@ public class Card extends RoundedPanel implements IComponent {
       sign
         .setColorMonadic(CommonColors.MINUS.getColor())
         .setText("-");
-      sentenceConnector.setText(" outcome on");
+      sentenceConnector.setText("outcome on");
     }
     else {
       sign
         .setColorMonadic(CommonColors.PLUS.getColor())
         .setText("+");
-      sentenceConnector.setText(" income on ");
+      sentenceConnector.setText("income on");
     }
 
-    this.amount.setText(
-      Float.toString(
-        Math.abs( amount )
-      )
-    );
+    final var amountAbs = Float.toString( Math.abs(amount) );
+    this.amount.setText(amountAbs);
+    amountEditor.setText(amountAbs);
   }
 
   public void setDate(Date date) {
@@ -89,16 +199,20 @@ public class Card extends RoundedPanel implements IComponent {
 
     final var pattern = "dd/mm/yyyy";
     final var formatter = new SimpleDateFormat(pattern);
-    
-    this.date.setText(
-      formatter.format( date )
-    );
+    final var dateStr = formatter.format(date);
+
+    this.date.setText(dateStr);
+    dateEditor.setText(dateStr);
   }
 
   public void setDescription(String description) {
     this.transaction.setDescription(description);
 
     this.description.setText(
+      transaction.getDescription()
+    );
+
+    descriptionEditor.setText(
       transaction.getDescription()
     );
   }
@@ -131,17 +245,8 @@ public class Card extends RoundedPanel implements IComponent {
       )
     );
 
-    horizontalBox.add(
-      sign = new FlatText("+")
-        .setColorMonadic(CommonColors.TEXT.getColor())
-        .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(64f))
-    );
-
-    horizontalBox.add(
-      Box.createRigidArea(
-        new Dimension(CommonPaddings.CARD_HORIZONTAL_PADDING.getPadding(), 0)
-      )
-    );
+    sign.setPreferredSize(new Dimension(50, 50));
+    horizontalBox.add(sign);
 
 
     final var middlePanel = new JPanel(new BorderLayout());
@@ -153,62 +258,28 @@ public class Card extends RoundedPanel implements IComponent {
 
     final var middleUpperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
     middleUpperPanel.setBackground(CommonColors.CARD.getColor());
-    middlePanel.add(
-      middleUpperPanel,
-      BorderLayout.NORTH
-    );
+    middlePanel.add(middleUpperPanel, BorderLayout.NORTH);
 
 
-    middlePanel.add(
-      description = new FlatText()
-        .setColorMonadic(CommonColors.TEXT.getColor())
-        .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f))
-        .setOpacityMonadic(0.6f),
-      BorderLayout.SOUTH
-    );
+    middlePanel.add(descriptionPanel, BorderLayout.SOUTH);
 
-    middleUpperPanel.add(
-      amount = new FlatText()
-        .setColorMonadic(CommonColors.TEXT.getColor())
-        .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f)),
-      BorderLayout.NORTH
-    );
+    middleUpperPanel.add(amountPanel, BorderLayout.NORTH);
 
-    middleUpperPanel.add(
-      sentenceConnector = new FlatText()
-      .setColorMonadic(CommonColors.TEXT.getColor())
-      .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f)),
-      BorderLayout.NORTH
-    );
+    middleUpperPanel.add(sentenceConnector, BorderLayout.NORTH);
 
-    middleUpperPanel.add(
-      date = new FlatText()
-        .setColorMonadic(CommonColors.TEXT.getColor())
-        .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f)),
-      BorderLayout.NORTH
-    );
+    middleUpperPanel.add(datePanel, BorderLayout.NORTH);
 
-    add(
-      actionPanel = new CardActionButtonsPanel(
-        editButton = new IconButton(CommonIcons.EDIT.getIcon()),
-        deleteButton = new IconButton(CommonIcons.DELETE.getIcon()),
-        confirmButton = new RoundedButton(
-          "Ok",
-          CommonColors.BUTTON_PRIMARY.getColor(),
-          CommonColors.TEXT.getColor(),
-          CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
-          new Dimension(48, 48),
-          10
-        ),
-        RADIUS
-      ),
-      BorderLayout.EAST
-    );
+    add(actionPanel, BorderLayout.EAST);
   }
 
   @Override public void registerCallbacks() {
     editButton.addActionListener(
-      e -> actionPanel.setCurrentAction(CardAction.CONFIRM)
+      e -> {
+        amountPanel.setVisibleComponent(EDIT_KEY);
+        datePanel.setVisibleComponent(EDIT_KEY);
+        descriptionPanel.setVisibleComponent(EDIT_KEY);
+        actionPanel.setCurrentAction(CardAction.CONFIRM);
+      }
     );
 
     deleteButton.addActionListener(
@@ -216,7 +287,12 @@ public class Card extends RoundedPanel implements IComponent {
     );
 
     confirmButton.addActionListener(
-      e -> actionPanel.setCurrentAction(CardAction.EDIT_DELETE)
+      e -> {
+        amountPanel.setVisibleComponent(VIEW_KEY);
+        datePanel.setVisibleComponent(VIEW_KEY);
+        descriptionPanel.setVisibleComponent(VIEW_KEY);
+        actionPanel.setCurrentAction(CardAction.EDIT_DELETE);
+      }
     );
   }
 }

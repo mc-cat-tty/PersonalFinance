@@ -13,7 +13,6 @@ public class RoundedPanel extends JPanel {
   private Point shift;
   private Point location;
   private Color backgroundColor;
-  private Insets insets;
   
   public RoundedPanel(
     Point location,

@@ -95,7 +95,7 @@ public class SearchPanel extends JPanel implements IComponent {
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
       CommonDimensions.DATE_START_TEXT_FIELD.getDimension(),
       25
-    ).setInputFilterMonadic(c -> Character.isDigit(c) || c == '/');
+    ).setInputFilterMonadic(CommonValidators.DATE.getFilter());
   
     endDateField = new RoundedTextField(
       "",
@@ -105,9 +105,9 @@ public class SearchPanel extends JPanel implements IComponent {
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
       CommonDimensions.DATE_END_TEXT_FIELD.getDimension(),
       25
-    ).setMaxLengthMonadic(10)
-    .setInputFilterMonadic(c -> Character.isDigit(c) || c == '/')
-    .setInputValidatorMonadic(text -> text.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}") || text.equals(""));
+    ).setMaxLengthMonadic(CommonValidators.DATE.getMaxLength())
+    .setInputFilterMonadic(CommonValidators.DATE.getFilter())
+    .setInputValidatorMonadic(CommonValidators.DATE.getValidator());
 
     searchButton = new RoundedButton(
       "Search",

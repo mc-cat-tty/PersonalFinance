@@ -1,4 +1,4 @@
-package balance;
+package model.core;
 
 import java.util.*;
 

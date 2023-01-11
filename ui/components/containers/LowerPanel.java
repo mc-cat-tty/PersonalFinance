@@ -81,9 +81,9 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(30f),
       CommonDimensions.MONEY_TEXT_FIELD.getDimension(),
       30
-    ).setMaxLengthMonadic(7)
-    .setInputFilterMonadic(c -> Character.isDigit(c) || c == ',')
-    .setInputValidatorMonadic(text -> text.matches("[0-9]{1,4}?,[0-9]{2}?") || text.equals(""));
+    ).setMaxLengthMonadic(CommonValidators.MONEY_AMOUNT.getMaxLength())
+    .setInputFilterMonadic(CommonValidators.MONEY_AMOUNT.getFilter())
+    .setInputValidatorMonadic(CommonValidators.MONEY_AMOUNT.getValidator());
 
     dateField = new RoundedTextField(
       "00/01/2022",
@@ -93,9 +93,9 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(30f),
       CommonDimensions.DATE_TEXT_FIELD.getDimension(),
       30
-    ).setMaxLengthMonadic(10)
-    .setInputFilterMonadic(c -> Character.isDigit(c) || c == '/')
-    .setInputValidatorMonadic(text -> text.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}") || text.equals(""));
+    ).setMaxLengthMonadic(CommonValidators.DATE.getMaxLength())
+    .setInputFilterMonadic(CommonValidators.DATE.getFilter())
+    .setInputValidatorMonadic(CommonValidators.DATE.getValidator());
 
     descriptionField = new RoundedTextField(
       "Description",
@@ -105,7 +105,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(30f),
       CommonDimensions.DESCRIPTION_TEXT_FIELD.getDimension(),
       30
-    ).setMaxLengthMonadic(60);
+    ).setMaxLengthMonadic(CommonValidators.DESCRIPTION.getMaxLength());
 
     composeView();
     registerCallbacks();

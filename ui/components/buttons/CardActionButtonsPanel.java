@@ -47,8 +47,8 @@ public class CardActionButtonsPanel extends RoundedPanel implements IComponent {
 
   public void setCurrentAction(CardAction action) {
     this.currentAction = action;
-    CardLayout c = (CardLayout) cards.getLayout();
-    c.show(cards, action.name());
+    final var layout = (CardLayout) cards.getLayout();
+    layout.show(cards, action.name());
   }
 
   @Override public void composeView() {

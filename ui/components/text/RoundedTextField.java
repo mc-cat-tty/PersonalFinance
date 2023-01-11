@@ -45,6 +45,7 @@ public class RoundedTextField extends JTextField implements IComponent {
     setRadius(radius);
     setOpaque(false);
     setHorizontalAlignment(CENTER);
+    setBorder(new EmptyBorder(0, 10, 0, 10));
 
     registerCallbacks();
   }

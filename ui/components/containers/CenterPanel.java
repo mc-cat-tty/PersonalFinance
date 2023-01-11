@@ -12,7 +12,7 @@ import javax.sql.CommonDataSource;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import balance.Transaction;
+import model.core.*;
 
 public class CenterPanel extends JScrollPane implements IComponent {
   private final JScrollBar scrollBar;
@@ -46,13 +46,52 @@ public class CenterPanel extends JScrollPane implements IComponent {
     setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
     scrollBar.setUnitIncrement(30);
 
-    verticalBox.add(new Card(new Transaction()));
-    verticalBox.add(new Card(new Transaction()));
-    verticalBox.add(new Card(new Transaction()));
-    verticalBox.add(new Card(new Transaction()));
-    verticalBox.add(new Card(new Transaction()));
-    verticalBox.add(new Card(new Transaction()));
-    verticalBox.add(new Card(new Transaction()));
-    verticalBox.add(new Card(new Transaction()));
+    verticalBox.add(new Card(new Transaction(
+      1234.45f,
+      Calendar.getInstance().getTime(),
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    )));
+  
+    verticalBox.add(new Card(new Transaction(
+      1234.45f,
+      Calendar.getInstance().getTime(),
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    )));
+
+    verticalBox.add(new Card(new Transaction(
+      1234.45f,
+      Calendar.getInstance().getTime(),
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    )));
+
+    verticalBox.add(new Card(new Transaction(
+      1234.45f,
+      Calendar.getInstance().getTime(),
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    )));
+
+    verticalBox.add(new Card(new Transaction(
+      1234.45f,
+      Calendar.getInstance().getTime(),
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    )));
+
+    verticalBox.add(new Card(new Transaction(
+      1234.45f,
+      Calendar.getInstance().getTime(),
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    )));
+
+    verticalBox.add(new Card(new Transaction(
+      1234.45f,
+      Calendar.getInstance().getTime(),
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    )));
+
+    verticalBox.add(new Card(new Transaction(
+      1234.45f,
+      Calendar.getInstance().getTime(),
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    )));
   }
 }
