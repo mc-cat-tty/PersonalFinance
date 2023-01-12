@@ -8,6 +8,11 @@ public enum CommonValidators {
     text -> text.matches("[0-9]{1,4}?.[0-9]{2}?") || text.equals(""),
     7
   ),
+  MONEY_AMOUNT_EDITOR (
+    c -> Character.isDigit(c) || c == '.' || c == '-' || c == '+',
+    text -> text.matches("[+-]?[0-9]{1,4}.[0-9]{2}") || text.equals(""),
+    8
+  ),
   DATE (
     c -> Character.isDigit(c) || c == '/',
     text -> text.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}") || text.equals(""),

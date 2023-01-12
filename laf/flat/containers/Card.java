@@ -101,9 +101,9 @@ public class Card extends RoundedPanel implements IComponent {
       CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f),
       new Dimension(0, 0),
       30
-    ).setMaxLengthMonadic(CommonValidators.MONEY_AMOUNT.getMaxLength() + 1)
-    .setInputFilterMonadic(c -> CommonValidators.MONEY_AMOUNT.getFilter().test(c) || c == '-')
-    .setInputValidatorMonadic(CommonValidators.MONEY_AMOUNT.getValidator());
+    ).setMaxLengthMonadic(CommonValidators.MONEY_AMOUNT_EDITOR.getMaxLength())
+    .setInputFilterMonadic(CommonValidators.MONEY_AMOUNT_EDITOR.getFilter())
+    .setInputValidatorMonadic(CommonValidators.MONEY_AMOUNT_EDITOR.getValidator());
       
     dateEditor = new RoundedTextField(
       "",
