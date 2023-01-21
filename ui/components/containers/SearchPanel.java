@@ -3,7 +3,7 @@ package ui.components.containers;
 import tunable.*;
 import ui.core.*;
 import ui.utils.ColorOpaqueBuilder;
-import ui.components.buttons.*;
+import ui.components.clickable.*;
 import ui.components.text.*;
 
 import java.awt.*;

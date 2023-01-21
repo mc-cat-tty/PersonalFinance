@@ -1,4 +1,4 @@
-package ui.components.buttons;
+package ui.components.clickable;
 
 import javax.swing.JScrollBar;
 import javax.swing.plaf.ColorUIResource;
@@ -10,8 +10,8 @@ import ui.core.IComponent;
 import java.awt.*;
 import javax.swing.*;
 
-public class ScrollBar extends JScrollBar implements IComponent {
-  public ScrollBar() {
+public class MinimalScrollBar extends JScrollBar implements IComponent {
+  public MinimalScrollBar() {
     super();
     UIManager.put("ScrollBar.background", CommonColors.BACKGROUND.getColor());
     UIManager.put("ScrollBar.thumb", CommonColors.CARD.getColor().brighter());

@@ -1,4 +1,4 @@
-package ui.components.buttons;
+package ui.components.clickable;
 
 import tunable.*;
 import ui.core.*;

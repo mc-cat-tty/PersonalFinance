@@ -10,7 +10,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import ui.components.buttons.*;
+import ui.components.clickable.*;
 import ui.components.text.*;
 
 /**

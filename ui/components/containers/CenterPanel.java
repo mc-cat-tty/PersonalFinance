@@ -2,6 +2,7 @@ package ui.components.containers;
 
 import tunable.CommonColors;
 import tunable.CommonDimensions;
+import ui.components.clickable.MinimalScrollBar;
 import ui.core.IComponent;
 
 import java.awt.*;
@@ -11,7 +12,6 @@ import javax.sql.CommonDataSource;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import ui.components.buttons.ScrollBar;
 import model.core.*;
 
 public class CenterPanel extends JScrollPane implements IComponent {
@@ -22,7 +22,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
   public CenterPanel() {
     super();
 
-    scrollBar = new ScrollBar();
+    scrollBar = new MinimalScrollBar();
     
     viewportPanel = new JPanel();
     viewportPanel.setLayout(

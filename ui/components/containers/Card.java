@@ -3,9 +3,6 @@ package ui.components.containers;
 import ui.core.*;
 import tunable.*;
 import model.core.*;
-import ui.components.buttons.CardActionPanel;
-import ui.components.buttons.IconButton;
-import ui.components.buttons.CardActionPanel.CardAction;
 
 import java.awt.*;
 import java.text.DateFormat;
@@ -19,7 +16,8 @@ import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 import javax.swing.text.Position;
 
-import ui.components.buttons.*;
+import ui.components.clickable.*;
+import ui.components.clickable.CardActionPanel.CardAction;
 import ui.components.text.*;
 
 import java.util.*;

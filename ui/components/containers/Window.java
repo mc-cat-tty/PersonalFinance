@@ -1,13 +1,12 @@
 package ui.components.containers;
 
 import tunable.*;
+import ui.components.clickable.*;
 import ui.core.*;
 
 import java.util.ArrayList;
 
 import javax.swing.*;
-
-import ui.components.buttons.*;
 
 public class Window extends JFrame implements IComponent {
   private static final float DEFAULT_FONT_SIZE = 36;
