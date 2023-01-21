@@ -1,4 +1,4 @@
-package laf.flat.buttons;
+package ui.components.buttons;
 
 import tunable.CommonIcons;
 import java.awt.*;

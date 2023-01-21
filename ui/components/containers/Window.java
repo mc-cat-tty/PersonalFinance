@@ -1,4 +1,4 @@
-package ui.components;
+package ui.components.containers;
 
 import tunable.*;
 import ui.core.*;
@@ -7,9 +7,7 @@ import java.util.ArrayList;
 
 import javax.swing.*;
 
-import laf.flat.buttons.FlatMenu;
-import laf.flat.buttons.FlatMenuBar;
-import laf.flat.buttons.FlatMenuItem;
+import ui.components.buttons.*;
 
 public class Window extends JFrame implements IComponent {
   private static final float DEFAULT_FONT_SIZE = 36;

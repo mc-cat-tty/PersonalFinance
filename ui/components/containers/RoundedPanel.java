@@ -1,4 +1,4 @@
-package laf.flat.containers;
+package ui.components.containers;
 
 import java.awt.*;
 import javax.swing.*;

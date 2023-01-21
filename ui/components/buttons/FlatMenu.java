@@ -1,4 +1,4 @@
-package laf.flat.buttons;
+package ui.components.buttons;
 
 import ui.core.IComponent;
 import javax.swing.JMenu;

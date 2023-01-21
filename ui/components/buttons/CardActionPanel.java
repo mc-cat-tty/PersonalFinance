@@ -1,4 +1,4 @@
-package ui.components;
+package ui.components.buttons;
 
 import tunable.*;
 import ui.core.*;
@@ -8,7 +8,7 @@ import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import laf.flat.containers.*;
+import ui.components.containers.*;
 
 
 public class CardActionPanel extends RoundedPanel implements IComponent {

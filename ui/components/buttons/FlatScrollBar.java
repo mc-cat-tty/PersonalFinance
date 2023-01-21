@@ -1,4 +1,4 @@
-package laf.flat.buttons;
+package ui.components.buttons;
 
 import javax.swing.JScrollBar;
 import javax.swing.plaf.ColorUIResource;

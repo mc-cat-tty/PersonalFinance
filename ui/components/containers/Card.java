@@ -1,11 +1,11 @@
-package laf.flat.containers;
+package ui.components.containers;
 
 import ui.core.*;
 import tunable.*;
 import model.core.*;
-import ui.components.CardActionPanel;
-import ui.components.IconButton;
-import ui.components.CardActionPanel.CardAction;
+import ui.components.buttons.CardActionPanel;
+import ui.components.buttons.IconButton;
+import ui.components.buttons.CardActionPanel.CardAction;
 
 import java.awt.*;
 import java.text.DateFormat;
@@ -19,9 +19,8 @@ import javax.swing.plaf.BorderUIResource;
 import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 import javax.swing.text.Position;
 
-import laf.flat.buttons.RoundedButton;
-import laf.flat.text.FlatText;
-import laf.flat.text.RoundedTextField;
+import ui.components.buttons.*;
+import ui.components.text.*;
 
 import java.util.*;
 import java.util.concurrent.Flow;

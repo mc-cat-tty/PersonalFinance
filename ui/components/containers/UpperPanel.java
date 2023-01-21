@@ -1,7 +1,7 @@
-package laf.flat.containers;
+package ui.components.containers;
 
 import assets.*;
-import laf.flat.text.FlatText;
+import ui.components.text.FlatText;
 import tunable.*;
 import ui.core.*;
 
