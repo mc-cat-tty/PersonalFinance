@@ -10,8 +10,8 @@ import ui.core.IComponent;
 import java.awt.*;
 import javax.swing.*;
 
-public class FlatScrollBar extends JScrollBar implements IComponent {
-  public FlatScrollBar() {
+public class ScrollBar extends JScrollBar implements IComponent {
+  public ScrollBar() {
     super();
     UIManager.put("ScrollBar.background", CommonColors.BACKGROUND.getColor());
     UIManager.put("ScrollBar.thumb", CommonColors.CARD.getColor().brighter());

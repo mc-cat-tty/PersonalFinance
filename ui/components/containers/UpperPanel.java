@@ -1,7 +1,7 @@
 package ui.components.containers;
 
 import assets.*;
-import ui.components.text.FlatText;
+import ui.components.text.TunableText;
 import tunable.*;
 import ui.core.*;
 
@@ -20,10 +20,10 @@ import javax.swing.text.Position;
 public class UpperPanel extends RoundedPanel implements IComponent {
   private final static int RADIUS = 80;
 
-  private final FlatText plusMinus;
-  private final FlatText balance;
-  private final FlatText dateStart;
-  private final FlatText dateEnd;
+  private final TunableText plusMinus;
+  private final TunableText balance;
+  private final TunableText dateStart;
+  private final TunableText dateEnd;
 
   public UpperPanel() {
     super(
@@ -43,22 +43,22 @@ public class UpperPanel extends RoundedPanel implements IComponent {
       CommonColors.CARD.getColor()
     );
 
-    plusMinus = new FlatText("+")
+    plusMinus = new TunableText("+")
       .setColorMonadic(CommonColors.PLUS.getColor())
       .setOpacityMonadic(1f)
       .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(96f));
     
-    balance = new FlatText("000,00 ")
+    balance = new TunableText("000,00 ")
       .setColorMonadic(CommonColors.TEXT.getColor())
       .setOpacityMonadic(1f)
       .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(96f));
     
-    dateStart = new FlatText("01/01/'22")
+    dateStart = new TunableText("01/01/'22")
       .setColorMonadic(CommonColors.TEXT.getColor())
       .setOpacityMonadic(1f)
       .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(36f));
 
-    dateEnd = new FlatText("02/02/'23")
+    dateEnd = new TunableText("02/02/'23")
       .setColorMonadic(CommonColors.TEXT.getColor())
       .setOpacityMonadic(1f)
       .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(36f));
@@ -119,7 +119,7 @@ public class UpperPanel extends RoundedPanel implements IComponent {
     internalPanel.add(balance);
 
     internalPanel.add(
-      new FlatText("Your balance from ")
+      new TunableText("Your balance from ")
         .setColorMonadic(CommonColors.TEXT.getColor())
         .setOpacityMonadic(1f)
         .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f))
@@ -128,7 +128,7 @@ public class UpperPanel extends RoundedPanel implements IComponent {
     internalPanel.add(dateStart);
 
     internalPanel.add(
-      new FlatText(" to ")
+      new TunableText(" to ")
         .setColorMonadic(CommonColors.TEXT.getColor())
         .setOpacityMonadic(1f)
         .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f))

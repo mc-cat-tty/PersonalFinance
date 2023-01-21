@@ -8,10 +8,10 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.List;
 
-public class FlatMenu extends JMenu implements IComponent {
+public class Menu extends JMenu implements IComponent {
   private List<JMenuItem> items;
   
-  public FlatMenu(String text, Icon icon) {
+  public Menu(String text, Icon icon) {
     super(text);
     System.out.println(icon);
     if (icon != null) {
@@ -20,11 +20,11 @@ public class FlatMenu extends JMenu implements IComponent {
     getPopupMenu().setBorder(new EmptyBorder(0, 0, 0, 0));
   }
 
-  public FlatMenu(String text) {
+  public Menu(String text) {
     this(text, null);
   }
 
-  public FlatMenu(Icon icon) {
+  public Menu(Icon icon) {
     this("", icon);
   }
 
@@ -76,7 +76,7 @@ public class FlatMenu extends JMenu implements IComponent {
     }
   }
 
-  public FlatMenu addItems(List<JMenuItem> items) {
+  public Menu addItems(List<JMenuItem> items) {
     this.items = items;
     
     for (var item : items) {

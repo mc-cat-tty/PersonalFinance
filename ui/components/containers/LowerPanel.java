@@ -134,7 +134,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
     add(minusButton);
     add(moneyField);
     add(
-      new FlatText("€ on")
+      new TunableText("€ on")
         .setColorMonadic(CommonColors.TEXT.getColor())
         .setOpacityMonadic(1f)
         .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f))

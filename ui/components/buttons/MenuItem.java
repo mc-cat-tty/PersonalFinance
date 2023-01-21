@@ -5,8 +5,8 @@ import ui.core.IComponent;
 import java.awt.*;
 import javax.swing.*;
 
-public class FlatMenuItem extends JMenuItem implements IComponent {
-  public FlatMenuItem(String text) {
+public class MenuItem extends JMenuItem implements IComponent {
+  public MenuItem(String text) {
     super(text);
   }
 }

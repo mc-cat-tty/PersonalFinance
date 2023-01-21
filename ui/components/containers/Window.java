@@ -37,30 +37,30 @@ public class Window extends JFrame implements IComponent {
     );
     
     setJMenuBar(
-      new FlatMenuBar(
+      new MenuBar(
         new ArrayList<>() {{
           add(
-            new FlatMenu("File", CommonIcons.FOLDER.getIcon())
+            new Menu("File", CommonIcons.FOLDER.getIcon())
               .addItems(new ArrayList<>() {{
-                add(new FlatMenuItem("Save"));
-                add(new FlatMenuItem("Load"));
+                add(new MenuItem("Save"));
+                add(new MenuItem("Load"));
               }})
           );
 
           add(
-            new FlatMenu("Export", CommonIcons.EXPORT.getIcon())
+            new Menu("Export", CommonIcons.EXPORT.getIcon())
               .addItems(new ArrayList<>() {{
-                add(new FlatMenuItem("TXT"));
-                add(new FlatMenuItem("CSV"));
-                add(new FlatMenuItem("OpenDocument"));
+                add(new MenuItem("TXT"));
+                add(new MenuItem("CSV"));
+                add(new MenuItem("OpenDocument"));
               }})
           );
 
           add(
-            new FlatMenu("Print", CommonIcons.PRINT.getIcon())
+            new Menu("Print", CommonIcons.PRINT.getIcon())
               .addItems(new ArrayList<>() {{
-                add(new FlatMenuItem("PDF"));
-                add(new FlatMenuItem("Printer"));
+                add(new MenuItem("PDF"));
+                add(new MenuItem("Printer"));
               }})
           );
         }},

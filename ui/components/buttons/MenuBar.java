@@ -10,9 +10,9 @@ import java.util.*;
 import tunable.CommonColors;
 import tunable.CommonFonts;
 
-public class FlatMenuBar extends JMenuBar implements IComponent {
-  public FlatMenuBar(
-    java.util.List<FlatMenu> menus,
+public class MenuBar extends JMenuBar implements IComponent {
+  public MenuBar(
+    java.util.List<Menu> menus,
     Color backgroundColor,
     Color foregroundColor,
     Font font

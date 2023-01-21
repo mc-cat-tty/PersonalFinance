@@ -11,7 +11,7 @@ import javax.sql.CommonDataSource;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
-import ui.components.buttons.FlatScrollBar;
+import ui.components.buttons.ScrollBar;
 import model.core.*;
 
 public class CenterPanel extends JScrollPane implements IComponent {
@@ -22,7 +22,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
   public CenterPanel() {
     super();
 
-    scrollBar = new FlatScrollBar();
+    scrollBar = new ScrollBar();
     
     viewportPanel = new JPanel();
     viewportPanel.setLayout(

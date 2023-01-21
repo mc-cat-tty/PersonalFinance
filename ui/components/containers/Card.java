@@ -34,19 +34,19 @@ public class Card extends RoundedPanel implements IComponent {
   private static final String EDIT_KEY = "EDIT";
 
   private Transaction transaction;
-  private FlatText sign;
+  private TunableText sign;
   
-  private FlatText amount;
+  private TunableText amount;
   private RoundedTextField amountEditor;
   private LayeredPanel amountPanel;
 
-  private FlatText sentenceConnector;
+  private TunableText sentenceConnector;
   
-  private FlatText date;
+  private TunableText date;
   private RoundedTextField dateEditor;
   private LayeredPanel datePanel;
 
-  private FlatText description;
+  private TunableText description;
   private RoundedTextField descriptionEditor;
   private LayeredPanel descriptionPanel;
   
@@ -67,27 +67,27 @@ public class Card extends RoundedPanel implements IComponent {
       this.transaction = new Transaction();
       
       
-    amount = new FlatText()
+    amount = new TunableText()
       .setColorMonadic(CommonColors.TEXT.getColor())
       .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f));
     amount.setBorder(new EmptyBorder(0, 20, 0, 20));
 
-    sign = new FlatText("+")
+    sign = new TunableText("+")
       .setColorMonadic(CommonColors.TEXT.getColor())
       .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(64f));
 
-    description = new FlatText()
+    description = new TunableText()
       .setColorMonadic(CommonColors.TEXT.getColor())
       .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f))
       .setOpacityMonadic(0.6f);
     description.setBorder(new EmptyBorder(0, 15, 0, 0));
     description.setPreferredSize(new Dimension(1050, 40));
     
-    sentenceConnector = new FlatText()
+    sentenceConnector = new TunableText()
       .setColorMonadic(CommonColors.TEXT.getColor())
       .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f));
 
-    date = new FlatText()
+    date = new TunableText()
       .setColorMonadic(CommonColors.TEXT.getColor())
       .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f));
     date.setBorder(new EmptyBorder(0, 15, 0, 15));

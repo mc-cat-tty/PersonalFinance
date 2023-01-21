@@ -7,24 +7,24 @@ import javax.swing.*;
 /**
  * Tunable (weight, size, opacity) JLabel for material text. Build pattern.
  */
-public class FlatText extends JLabel implements IComponent {
+public class TunableText extends JLabel implements IComponent {
   private Color textColor;
 
-  public FlatText() {
+  public TunableText() {
     this("");
   }
 
-  public FlatText(String text) {
+  public TunableText(String text) {
     super(text);
   }
   
-  public FlatText setColorMonadic(Color color) {
+  public TunableText setColorMonadic(Color color) {
     textColor = color;
     setForeground(color);
     return this;
   }
 
-  public FlatText setOpacityMonadic(float alphaPercentage) {
+  public TunableText setOpacityMonadic(float alphaPercentage) {
     final var AlphaMaxVal = 255;
 
     if (alphaPercentage < 0.f || alphaPercentage > 1.f) {
@@ -42,7 +42,7 @@ public class FlatText extends JLabel implements IComponent {
     return this;
   }
 
-  public FlatText setFontMonadic(Font font) {
+  public TunableText setFontMonadic(Font font) {
     setFont(font);
     return this;
   }

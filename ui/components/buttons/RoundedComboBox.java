@@ -79,7 +79,7 @@ public class RoundedComboBox extends JComboBox<String> implements IComponent {
     setUI(
       new BasicComboBoxUI() {
         @Override protected JButton createArrowButton() {
-          return new FlatArrowButton(SwingConstants.SOUTH);
+          return new ArrowButton(SwingConstants.SOUTH);
         }
       }
     );

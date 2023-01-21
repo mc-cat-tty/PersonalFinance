@@ -145,7 +145,7 @@ public class SearchPanel extends JPanel implements IComponent {
     add(perdiodSelector);
 
     add(
-      new FlatText("From")
+      new TunableText("From")
         .setColorMonadic(CommonColors.TEXT.getColor())
         .setOpacityMonadic(1f)
         .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f))
@@ -153,7 +153,7 @@ public class SearchPanel extends JPanel implements IComponent {
     add(startDateField);
 
     add(
-      new FlatText("To")
+      new TunableText("To")
         .setColorMonadic(CommonColors.TEXT.getColor())
         .setOpacityMonadic(1f)
         .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f))
