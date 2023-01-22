@@ -1,17 +1,18 @@
 package ui.components.containers;
 
-import ui.core.*;
-import ui.utils.ColorOpaqueBuilder;
 import tunable.*;
+import ui.core.*;
+import ui.components.clickable.*;
+import ui.components.text.*;
+import ui.utils.ColorOpaqueBuilder;
+
+import java.util.*;
 
 import java.awt.*;
 import java.awt.event.*;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
-import ui.components.clickable.*;
-import ui.components.text.*;
 
 /**
  * Lower panel allowing interaction.
@@ -87,16 +88,23 @@ public class LowerPanel extends RoundedPanel implements IComponent {
     .setInputValidatorMonadic(CommonValidators.MONEY_AMOUNT.getValidator());
 
     dateField = new RoundedTextField(
-      "00/01/2022",
+      "",
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
-      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 1f),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(30f),
       CommonDimensions.DATE_TEXT_FIELD.getDimension(),
       30
     ).setMaxLengthMonadic(CommonValidators.DATE.getMaxLength())
     .setInputFilterMonadic(CommonValidators.DATE.getFilter())
     .setInputValidatorMonadic(CommonValidators.DATE.getValidator());
+    
+    // Proposing today as default transaction date
+    dateField.setText(
+      CommonDateFormats.EU_DATE_FORMAT_LONG
+        .getFormatter()
+        .format(new Date())
+    );
 
     descriptionField = new RoundedTextField(
       "Description",
