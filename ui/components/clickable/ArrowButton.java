@@ -6,8 +6,7 @@ import javax.swing.*;
 import javax.swing.plaf.basic.BasicArrowButton;
 
 public class ArrowButton extends BasicArrowButton {
-  public ArrowButton(
-    int direction) {
+  public ArrowButton(int direction) {
     super(direction);
     setIcon(CommonIcons.FOLDER.getIcon());
   }
