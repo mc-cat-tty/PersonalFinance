@@ -5,9 +5,7 @@ import tunable.*;
 import model.core.*;
 
 import java.awt.*;
-import java.text.DateFormat;
-import java.text.DateFormatSymbols;
-import java.text.SimpleDateFormat;
+import java.text.*;
 
 import javax.swing.*;
 import javax.swing.border.Border;
@@ -194,9 +192,11 @@ public class Card extends RoundedPanel implements IComponent {
   public void setDate(Date date) {
     this.transaction.setDate(date);
 
-    final var pattern = "dd/MM/yyyy";
-    final var formatter = new SimpleDateFormat(pattern);
-    final var dateStr = formatter.format(date);
+    final var dateStr =
+      CommonDateFormats
+      .EU_DATE_FORMAT_LONG
+      .getFormatter()
+      .format(date);
 
     this.date.setText(dateStr);
     dateEditor.setText(dateStr);

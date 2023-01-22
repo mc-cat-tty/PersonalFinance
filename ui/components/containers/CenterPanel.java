@@ -6,7 +6,7 @@ import ui.components.clickable.MinimalScrollBar;
 import ui.core.IComponent;
 
 import java.awt.*;
-import java.util.Calendar;
+import java.util.*;
 
 import javax.sql.CommonDataSource;
 import javax.swing.*;
@@ -48,49 +48,49 @@ public class CenterPanel extends JScrollPane implements IComponent {
 
     verticalBox.add(new Card(new Transaction(
       1234.56f,
-      Calendar.getInstance().getTime(),
+      new Date(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
   
     verticalBox.add(new Card(new Transaction(
       -1234.56f,
-      Calendar.getInstance().getTime(),
+      new Date(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
 
     verticalBox.add(new Card(new Transaction(
       1234.56f,
-      Calendar.getInstance().getTime(),
+      new Date(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
 
     verticalBox.add(new Card(new Transaction(
       -1234.56f,
-      Calendar.getInstance().getTime(),
+      new Date(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
 
     verticalBox.add(new Card(new Transaction(
       1234.56f,
-      Calendar.getInstance().getTime(),
+      new Date(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
 
     verticalBox.add(new Card(new Transaction(
       -1234.56f,
-      Calendar.getInstance().getTime(),
+      new Date(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
 
     verticalBox.add(new Card(new Transaction(
       1234.56f,
-      Calendar.getInstance().getTime(),
+      new Date(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
 
     verticalBox.add(new Card(new Transaction(
       -1234.56f,
-      Calendar.getInstance().getTime(),
+      new Date(),
       "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
     )));
   }
