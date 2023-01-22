@@ -2,65 +2,29 @@ package ui.components.containers;
 
 import tunable.*;
 import ui.core.*;
-import ui.utils.ColorOpaqueBuilder;
+import ui.utils.*;
 import ui.components.clickable.*;
 import ui.components.text.*;
+import ui.behaviour.*;
 
 import java.awt.*;
+import java.text.SimpleDateFormat;
+
 import javax.swing.*;
 import javax.swing.border.*;
 
 
 import java.time.Period;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
+import java.util.*;
+import java.util.stream.*;
 
 
 public class SearchPanel extends JPanel implements IComponent {
-  public enum SearchPeriod {
-    DAY ("01/01/2022", "01/01/2022"),
-    WEEK ("01/01/2022", "07/01/2022"),
-    MONTH ("01/2022", "01/2022"),
-    YEAR ("2022", "2022"),
-    CUSTOM ("00/01/2022", "00/02/2023");
-
-    private String mockStartText;
-    private String mockEndText;
-
-    private SearchPeriod(String mockStartText, String mockEndText) {
-      this.mockStartText = mockStartText;
-      this.mockEndText = mockEndText;
-    }
-
-    public String getMockStartText() {
-      return mockStartText;
-    }
-
-    public String getMockEndText() {
-      return mockEndText;
-    }
-
-    public String toString() {
-      final var name = name();
-      return
-        name.substring(0, 1).toUpperCase() +
-        name.substring(1).toLowerCase();
-    }
-
-    public static String[] getStrings() {
-      return
-        Stream.of(SearchPeriod.values())
-        .map(SearchPeriod::toString)
-        .toArray(String[]::new);
-    }
-  }
-
   private final RoundedTextField searchField;
   private final RoundedComboBox perdiodSelector;
   private final RoundedTextField startDateField;
   private final RoundedTextField endDateField;
   private final RoundedButton searchButton;
-  private SearchPeriod searchPeriod;
   
   public SearchPanel() {
     super(
@@ -82,7 +46,7 @@ public class SearchPanel extends JPanel implements IComponent {
     );
 
     perdiodSelector = new RoundedComboBox(
-      SearchPeriod.getStrings(),
+      SearchPeriods.getStrings(),
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXT.getColor(),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
@@ -90,6 +54,7 @@ public class SearchPanel extends JPanel implements IComponent {
       25
     );
 
+    
     startDateField = new RoundedTextField(
       "",
       CommonColors.TEXTBOX.getColor(),
@@ -111,7 +76,7 @@ public class SearchPanel extends JPanel implements IComponent {
     ).setMaxLengthMonadic(CommonValidators.DATE.getMaxLength())
     .setInputFilterMonadic(CommonValidators.DATE.getFilter())
     .setInputValidatorMonadic(CommonValidators.DATE.getValidator());
-
+    
     searchButton = new RoundedButton(
       "Search",
       CommonColors.BUTTON_PRIMARY.getColor(),
@@ -126,9 +91,9 @@ public class SearchPanel extends JPanel implements IComponent {
     composeView();
     registerCallbacks();
 
-    setSearchPeriod(SearchPeriod.DAY);
+    setSearchPeriod(SearchPeriods.YEAR);
   }
-
+  
   public void composeView() {
     setBackground(CommonColors.BACKGROUND.getColor());
     setBorder(
@@ -162,12 +127,12 @@ public class SearchPanel extends JPanel implements IComponent {
     add(searchButton);
   }
 
-  public void setSearchPeriod(SearchPeriod period) {
+  public void setSearchPeriod(SearchPeriods period) {
     switch (period) {
       case DAY:
       case WEEK:
       case CUSTOM:
-
+      
       startDateField
         .setInputValidatorMonadic(
           text -> text.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}") || text.equals("")
@@ -216,8 +181,9 @@ public class SearchPanel extends JPanel implements IComponent {
 
     startDateField.setDefaultText(period.getMockStartText());
     endDateField.setDefaultText(period.getMockEndText());
+    perdiodSelector.setSelectedItem(period.toString());
     
-    if (period == SearchPeriod.CUSTOM) {
+    if (period == SearchPeriods.CUSTOM) {
       startDateField.setEditable(true);
       endDateField.setEditable(true);
       return;
@@ -226,12 +192,12 @@ public class SearchPanel extends JPanel implements IComponent {
     startDateField.setEditable(true);
     endDateField.setEditable(false);
   }
-
+  
   @Override public void registerCallbacks() {
     perdiodSelector.addActionListener(
       event -> {
         setSearchPeriod(
-          SearchPeriod.valueOf(
+          SearchPeriods.valueOf(
             perdiodSelector.getSelectedItem().toString().toUpperCase()
           )
         );

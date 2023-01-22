@@ -15,8 +15,8 @@ import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
 import javax.swing.text.Position;
 
 import ui.components.clickable.*;
-import ui.components.clickable.CardActionPanel.CardAction;
 import ui.components.text.*;
+import ui.behaviour.*;
 
 import java.util.*;
 import java.util.concurrent.Flow;
@@ -275,7 +275,7 @@ public class Card extends RoundedPanel implements IComponent {
         amountPanel.setVisibleComponent(EDIT_KEY);
         datePanel.setVisibleComponent(EDIT_KEY);
         descriptionPanel.setVisibleComponent(EDIT_KEY);
-        actionPanel.setCurrentAction(CardAction.CONFIRM);
+        actionPanel.setCurrentAction(CardActions.CONFIRM);
       }
     );
 
@@ -288,7 +288,7 @@ public class Card extends RoundedPanel implements IComponent {
         amountPanel.setVisibleComponent(VIEW_KEY);
         datePanel.setVisibleComponent(VIEW_KEY);
         descriptionPanel.setVisibleComponent(VIEW_KEY);
-        actionPanel.setCurrentAction(CardAction.EDIT_DELETE);
+        actionPanel.setCurrentAction(CardActions.EDIT_DELETE);
       }
     );
   }

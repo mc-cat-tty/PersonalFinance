@@ -9,19 +9,14 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import ui.components.containers.*;
-
+import ui.behaviour.*;
 
 public class CardActionPanel extends RoundedPanel implements IComponent {
-  public enum CardAction {
-    EDIT_DELETE,
-    CONFIRM;
-  }
-
   private final AbstractButton editButton;
   private final AbstractButton deleteButton;
   private final AbstractButton confirmButton;
   private JPanel cards;
-  private CardAction currentAction;
+  private CardActions currentAction;
 
   public CardActionPanel(
     AbstractButton editButton,
@@ -39,15 +34,15 @@ public class CardActionPanel extends RoundedPanel implements IComponent {
     this.editButton = editButton;
     this.deleteButton = deleteButton;
     this.confirmButton = confirmButton;
-    this.currentAction = CardAction.EDIT_DELETE;
+    this.currentAction = CardActions.EDIT_DELETE;
     composeView();
   }
 
-  public CardAction getCurrentAction() {
+  public CardActions getCurrentAction() {
     return currentAction;
   }
 
-  public void setCurrentAction(CardAction action) {
+  public void setCurrentAction(CardActions action) {
     this.currentAction = action;
     final var layout = (CardLayout) cards.getLayout();
     layout.show(cards, action.name());
@@ -87,7 +82,7 @@ public class CardActionPanel extends RoundedPanel implements IComponent {
       BorderLayout.CENTER
     );
 
-    cards.add(editDeleteCard, CardAction.EDIT_DELETE.name());
-    cards.add(confirmButton, CardAction.CONFIRM.name());
+    cards.add(editDeleteCard, CardActions.EDIT_DELETE.name());
+    cards.add(confirmButton, CardActions.CONFIRM.name());
   }
 }
