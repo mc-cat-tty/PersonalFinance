@@ -114,7 +114,7 @@ public class RoundedComboBox extends JComboBox<String> implements IComponent {
           setBorder(new RoundedCornerBorder(radius, 0));
         }
         
-        @Override public void popupMenuCanceled(PopupMenuEvent e) {}
+        @Override public void popupMenuCanceled(PopupMenuEvent e) { }
       }
     );
   }
