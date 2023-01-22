@@ -15,7 +15,7 @@ import ui.utils.ColorOpaqueBuilder;
 public class RoundedTextField extends JTextField implements IComponent {
   private int radius;
   private int maxLength;
-  private String innerText;
+  private String defaultText;
   private String currentText;
   private Color backgroundColor;
   private Color invalidBackgroundColor;
@@ -25,7 +25,7 @@ public class RoundedTextField extends JTextField implements IComponent {
   private Predicate<String> inputValidator;
 
   public RoundedTextField(
-    String innerText,
+    String defaultText,
     Color backgroundColor,
     Color invalidBackgroundColor,
     Color foregroundColor,
@@ -33,8 +33,8 @@ public class RoundedTextField extends JTextField implements IComponent {
     Dimension dimension,
     int radius
   ) {
-    super(innerText);
-    setInnerText(innerText);
+    super(defaultText);
+    setDefaultText(defaultText);
     setFont(font);
     setPreferredSize(dimension);
     setBackgroundColor(backgroundColor);
@@ -75,9 +75,9 @@ public class RoundedTextField extends JTextField implements IComponent {
     this.currentBackgroundColor = currentBackgroundColor;
   }
 
-  public void setInnerText(String innerText) {
-    this.innerText = innerText;
-    setText(innerText);
+  public void setDefaultText(String defaultText) {
+    this.defaultText = defaultText;
+    setText(defaultText);
   }
 
   /**
@@ -154,7 +154,7 @@ public class RoundedTextField extends JTextField implements IComponent {
           return;
         }
 
-        if (getText().equals(innerText)) {
+        if (getText().equals(defaultText)) {
           setText("");
           foregroundColor = ColorOpaqueBuilder.build(foregroundColor, 1f);
         }
@@ -166,7 +166,7 @@ public class RoundedTextField extends JTextField implements IComponent {
         }
         
         if (currentText.equals("")) {
-          setText(innerText);
+          setText(defaultText);
           foregroundColor = ColorOpaqueBuilder.build(foregroundColor, 0.5f);
         }
         else {
@@ -199,17 +199,26 @@ public class RoundedTextField extends JTextField implements IComponent {
       }
     });
 
-    addKeyListener(new KeyAdapter() {
-      public void keyTyped(KeyEvent e) {
-        char c = e.getKeyChar();
-        if (
-          ( inputFilter != null && !inputFilter.test(c) ) ||
-          ( maxLength != 0 && getText().length() >= maxLength )
-          ) {
-          e.consume();
+    addKeyListener(
+      new KeyAdapter() {
+        public void keyTyped(KeyEvent e) {
+          final char insertedChar = e.getKeyChar();
+
+          final boolean isTextNotSelected = getSelectedText() == null;
+
+          final boolean isCharNotAllowed =
+            inputFilter != null &&
+            !inputFilter.test(insertedChar);
+
+          final boolean isLengthNotOk =
+            maxLength != 0 &&
+            getText().length() >= maxLength;
+
+          if (isTextNotSelected && (isCharNotAllowed || isLengthNotOk)) {
+            e.consume();
+          }
         }
       }
-    }
     );
 
   }
