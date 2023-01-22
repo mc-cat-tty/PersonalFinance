@@ -214,8 +214,8 @@ public class SearchPanel extends JPanel implements IComponent {
       break;
     }
 
-    startDateField.setInnerText(period.getMockStartText());
-    endDateField.setInnerText(period.getMockEndText());
+    startDateField.setDefaultText(period.getMockStartText());
+    endDateField.setDefaultText(period.getMockEndText());
     
     if (period == SearchPeriod.CUSTOM) {
       startDateField.setEditable(true);
