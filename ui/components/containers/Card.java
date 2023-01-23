@@ -185,8 +185,12 @@ public class Card extends RoundedPanel implements IComponent {
       sentenceConnector.setText("income on");
     }
 
-    this.amount.setText(Float.toString( Math.abs(amount) ));
-    amountEditor.setText(Float.toString(amount));
+    this.amount.setText(
+      String.format("%.2f", Math.abs(amount))
+    );
+    amountEditor.setText(
+      String.format("%.2f", amount)
+    );
   }
 
   public void setDate(Date date) {

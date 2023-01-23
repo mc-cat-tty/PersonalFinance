@@ -10,9 +10,15 @@ import java.util.*;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.text.ParseException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+
+import model.core.BalanceModelManager;
+import model.core.ModelEditFailedException;
+import model.core.Transaction;
+import model.events.EventsBroker;
 
 /**
  * Lower panel allowing interaction.
@@ -22,7 +28,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
   private final RoundedButton plusButton;
   private final RoundedButton minusButton;
   private final RoundedButton addButton;
-  private final RoundedTextField moneyField;
+  private final RoundedTextField amountField;
   private final RoundedTextField dateField;
   private final RoundedTextField descriptionField;
 
@@ -62,7 +68,6 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       CommonDimensions.PLUS_MINUS_SELECTOR.getDimension(),
       20
     );
-    minusButton.deactivate();
 
     addButton = new RoundedButton(
       "Add",
@@ -75,8 +80,8 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       63
     );
 
-    moneyField = new RoundedTextField(
-      "000,00",
+    amountField = new RoundedTextField(
+      "000.00",
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
       ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
@@ -98,7 +103,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
     ).setMaxLengthMonadic(CommonValidators.DATE.getMaxLength())
     .setInputFilterMonadic(CommonValidators.DATE.getFilter())
     .setInputValidatorMonadic(CommonValidators.DATE.getValidator());
-    
+
     // Proposing today as default transaction date
     dateField.setText(
       CommonDateFormats.EU_DATE_FORMAT_LONG
@@ -118,6 +123,14 @@ public class LowerPanel extends RoundedPanel implements IComponent {
 
     composeView();
     registerCallbacks();
+    toDefault();
+  }
+
+  public void toDefault() {
+    amountField.toDefault();
+    descriptionField.toDefault();
+    plusButton.activate();
+    minusButton.deactivate();
   }
 
   @Override public void composeView() {
@@ -140,7 +153,7 @@ public class LowerPanel extends RoundedPanel implements IComponent {
 
     add(plusButton);
     add(minusButton);
-    add(moneyField);
+    add(amountField);
     add(
       new TunableText("€ on")
         .setColorMonadic(CommonColors.TEXT.getColor())
@@ -164,6 +177,60 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       event -> {
         minusButton.activate();
         plusButton.deactivate();
+      }
+    );
+
+    addButton.addActionListener(
+      event -> {
+        final boolean isDescriptionValid = descriptionField.isValidText() && !descriptionField.isDefaultText();
+        final boolean isAmountValid = amountField.isValidText() && !amountField.isDefaultText();
+        final boolean isDateValid = dateField.isValidText();
+
+        if (!isDescriptionValid || !isAmountValid || !isDateValid) {
+          return;
+        }
+
+        final Float sign = plusButton.isActive() ? +1f : -1f;
+        final Float amount = Float.parseFloat(amountField.getText());
+        final Date date;
+        try {
+          date = CommonDateFormats
+            .EU_DATE_FORMAT_LONG
+            .getFormatter()
+            .parse(
+              dateField.getText()
+            );
+        }
+        catch (ParseException e) {
+          dateField.setValidGUI(false);
+          dateField.repaint();
+          return;
+        }
+
+        final var transaction = new Transaction(
+          sign * amount,
+          date,
+          descriptionField.getText()
+        );
+
+        try {
+          BalanceModelManager
+            .getInstance()
+            .addTransaction(
+              transaction
+            );
+        }
+        catch (ModelEditFailedException e) {
+          e.printStackTrace();
+          return;
+        }
+
+        EventsBroker
+          .getInstance()
+          .getAddEvent()
+          .notifyAllObservers(transaction);
+
+        toDefault();
       }
     );
   }

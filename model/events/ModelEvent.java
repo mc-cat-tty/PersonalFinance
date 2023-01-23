@@ -3,6 +3,8 @@ package model.events;
 import model.core.*;
 import java.util.*;
 
+import javax.sql.rowset.spi.SyncResolver;
+
 /**
  * Defines a generic event in the data model.
  * @see Observer design pattern
@@ -19,20 +21,26 @@ public class ModelEvent implements IEvent<Transaction> {
    * @param observer
    */
   public void attachObserver(IObserver observer) {
-    observers.add(observer);
+    synchronized (observers) {
+      observers.add(observer);
+    }
   }
 
   /**
-   * Remve
+   * Remove
    * @param observer
    */
   public void detachObserver(IObserver observer) {
-    observers.remove(observer);
+    synchronized (observers) {
+      observers.remove(observer);
+    }
   }
 
   public void notifyAllObservers(Transaction change) {
-    for (var o : observers) {
-      o.accept(change);
+    synchronized (observers) {
+      for (final var o : observers) {
+        o.accept(change);
+      }
     }
   }
 }

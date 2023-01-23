@@ -103,13 +103,30 @@ public class RoundedTextField extends JTextField implements IComponent {
     return this;
   }
 
-  public void setValid(boolean isValid) {
+  public void setValidGUI(boolean isValid) {
     if (isValid) {
       setCurrentBackgroundColor(backgroundColor);
     }
     else {
       setCurrentBackgroundColor(invalidBackgroundColor);
     }
+  }
+
+  public boolean isDefaultText() {
+    return getText().equals(defaultText);
+  }
+
+  public boolean isEmptyText() {
+    return getText().equals("");
+  }
+
+  public boolean isValidText() {
+    return inputValidator != null ? inputValidator.test(getText()) : true;
+  }
+
+  public void toDefault() {
+    setText(defaultText);
+    foregroundColor = ColorOpaqueBuilder.build(foregroundColor, 0.5f);
   }
 
   @Override protected void paintComponent(Graphics g) {
@@ -154,7 +171,7 @@ public class RoundedTextField extends JTextField implements IComponent {
           return;
         }
 
-        if (getText().equals(defaultText)) {
+        if (isDefaultText()) {
           setText("");
           foregroundColor = ColorOpaqueBuilder.build(foregroundColor, 1f);
         }
@@ -165,7 +182,7 @@ public class RoundedTextField extends JTextField implements IComponent {
           return;
         }
         
-        if (currentText.equals("")) {
+        if (isEmptyText()) {
           setText(defaultText);
           foregroundColor = ColorOpaqueBuilder.build(foregroundColor, 0.5f);
         }
@@ -188,14 +205,10 @@ public class RoundedTextField extends JTextField implements IComponent {
 
       public void changedUpdate(DocumentEvent e) { }
 
-      private void updateCurrentText() {
-        currentText = getText();
-      }
+      private void updateCurrentText() { }
 
       private void checkValidity() {
-        if (inputValidator != null) {
-          setValid(inputValidator.test(currentText));
-        }
+        setValidGUI(isValidText());
       }
     });
 

@@ -13,6 +13,7 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import model.core.*;
+import model.events.EventsBroker;
 
 public class CenterPanel extends JScrollPane implements IComponent {
   private final JScrollBar scrollBar;
@@ -33,6 +34,32 @@ public class CenterPanel extends JScrollPane implements IComponent {
     viewportPanel.add(verticalBox);
 
     composeView();
+    registerCallbacks();
+  }
+
+  private void addTransactionCard(Transaction transaction) {
+    verticalBox.add(
+      new Card(transaction)  
+    );
+  }
+
+  private void removeAllCards() {
+    verticalBox.removeAll();
+  }
+
+  private void reloadModel() {
+    removeAllCards();
+    
+    final var transactions = BalanceModelManager
+      .getInstance()
+      .getTransactions();
+
+    for (final var t : transactions) {
+      addTransactionCard(t);
+    }
+
+    repaint();
+    revalidate();
   }
 
   @Override public void composeView() {
@@ -46,52 +73,28 @@ public class CenterPanel extends JScrollPane implements IComponent {
     setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
     scrollBar.setUnitIncrement(30);
 
-    verticalBox.add(new Card(new Transaction(
-      1234.56f,
-      new Date(),
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    )));
-  
-    verticalBox.add(new Card(new Transaction(
-      -1234.56f,
-      new Date(),
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    )));
+    addTransactionCard(
+      new Transaction(
+        +123.45f,
+        new Date(),
+        "MOCK CARD: Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+      )
+    );
+  }
 
-    verticalBox.add(new Card(new Transaction(
-      1234.56f,
-      new Date(),
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    )));
+  @Override public void registerCallbacks() {
+    EventsBroker
+      .getInstance()
+      .getAddEvent()
+      .attachObserver(
+        t -> reloadModel()
+      );
 
-    verticalBox.add(new Card(new Transaction(
-      -1234.56f,
-      new Date(),
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    )));
-
-    verticalBox.add(new Card(new Transaction(
-      1234.56f,
-      new Date(),
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    )));
-
-    verticalBox.add(new Card(new Transaction(
-      -1234.56f,
-      new Date(),
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    )));
-
-    verticalBox.add(new Card(new Transaction(
-      1234.56f,
-      new Date(),
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    )));
-
-    verticalBox.add(new Card(new Transaction(
-      -1234.56f,
-      new Date(),
-      "Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-    )));
+    EventsBroker
+      .getInstance()
+      .getDeleteEvent()
+      .attachObserver(
+        t -> reloadModel()
+      ); 
   }
 }

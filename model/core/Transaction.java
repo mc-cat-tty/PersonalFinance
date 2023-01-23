@@ -59,12 +59,12 @@ public class Transaction implements Comparable<Transaction> {
   }
 
   @Override public int compareTo(Transaction other) {
-    final var dateComparison = this.date.compareTo(other.date);
+    final var dateComparison = other.date.compareTo(this.date);
 
     if (dateComparison != 0) {
       return dateComparison;
     }
 
-    return this.idx - other.idx;
+    return other.idx - this.idx;
   }
 }
