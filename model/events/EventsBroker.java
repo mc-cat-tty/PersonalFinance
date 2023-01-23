@@ -1,12 +1,8 @@
 package model.events;
 
-import org.w3c.dom.events.Event;
-
-import model.core.*;
-
 /**
  * Dispatches events to the subscribed observers.
- * @see Singleton, Observer design patterns
+ * @see \Singleton, Observer design patterns
  */
 public class EventsBroker {
   private static EventsBroker instance;
@@ -14,14 +10,16 @@ public class EventsBroker {
   private final ModelEvent deleteEvent;
   private final ModelEvent editEvent;
   private final ModelEvent filterEvent;
-  private final ModelEvent selectionEvent;
+  private final SelectEvent selectionEvent;
+  private final FilterDateEvent filterDateEvent;
 
   private EventsBroker() {
     addEvent = new ModelEvent();
     deleteEvent = new ModelEvent();
     editEvent = new ModelEvent();
     filterEvent = new ModelEvent();
-    selectionEvent = new ModelEvent();
+    selectionEvent = new SelectEvent();
+    filterDateEvent = new FilterDateEvent();
   }
 
   public static EventsBroker getInstance() {
@@ -48,7 +46,11 @@ public class EventsBroker {
     return filterEvent;
   }
 
-  public ModelEvent getSelectionEvent() {
+  public SelectEvent getSelectionEvent() {
     return selectionEvent;
+  }
+
+  public FilterDateEvent getFilterDateEvent() {
+    return filterDateEvent;
   }
 }

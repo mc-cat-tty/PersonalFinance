@@ -1,9 +1,6 @@
 package tunable;
 
 import java.io.File;
-import java.io.IOException;
-import java.util.IllegalFormatCodePointException;
-
 import javax.swing.*;
 
 public enum CommonIcons {

@@ -4,8 +4,6 @@ import ui.core.*;
 
 import javax.swing.*;
 
-import ui.components.containers.*;
-
 import java.util.*;
 import java.awt.CardLayout;
 

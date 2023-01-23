@@ -3,7 +3,6 @@ package tunable;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import javax.swing.plaf.FontUIResource;
 
 
 public enum CommonFonts {

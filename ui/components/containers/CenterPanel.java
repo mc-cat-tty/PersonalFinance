@@ -9,10 +9,8 @@ import ui.core.IComponent;
 import java.awt.*;
 import java.util.*;
 
-import javax.sql.CommonDataSource;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import javax.swing.text.AttributeSet.ColorAttribute;
 
 import model.core.*;
 import model.events.EventsBroker;
@@ -60,7 +58,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
     revalidate();
   }
   
-  private void selectCards(Collection<Transaction> transactions) {
+  private void selectCard(Transaction transaction) {
     final var children = verticalBox.getComponents();
     int cardCount = 0;
 
@@ -71,7 +69,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
 
       final var card = (Card) component;
 
-      if (transactions.stream().anyMatch(t -> t.equals(card.getTransaction()))) {
+      if (transaction.equals(card.getTransaction())) {
         card.setBackground(CommonColors.CARD_SELECTED.getColor());
 
         viewport.setViewPosition(
@@ -119,7 +117,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
         .getInstance()
         .getSelectionEvent()
         .attachObserver(
-          selectedTransactions -> selectCards(selectedTransactions)
+          selectedTransactions -> selectCard(selectedTransactions)
         );
   }
 }

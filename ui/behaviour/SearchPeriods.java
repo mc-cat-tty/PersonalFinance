@@ -7,8 +7,6 @@ import java.util.*;
 import java.util.function.UnaryOperator;
 import java.util.stream.*;
 
-import javax.xml.stream.util.EventReaderDelegate;
-
 import java.text.*;
 
 public enum SearchPeriods {

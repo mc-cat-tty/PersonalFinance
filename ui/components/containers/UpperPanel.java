@@ -1,6 +1,5 @@
 package ui.components.containers;
 
-import assets.*;
 import ui.components.text.TunableText;
 import tunable.*;
 import ui.core.*;
@@ -10,8 +9,9 @@ import java.util.Date;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.*;
-import javax.swing.plaf.InsetsUIResource;
-import javax.swing.text.Position;
+
+import model.core.Transaction;
+import model.events.EventsBroker;
 
 /**
  * Upper panel showing balance.
@@ -20,9 +20,9 @@ public class UpperPanel extends RoundedPanel implements IComponent {
   private final static int RADIUS = 80;
 
   private final TunableText plusMinus;
-  private final TunableText balance;
-  private final TunableText dateStart;
-  private final TunableText dateEnd;
+  private final TunableText amount;
+  private final TunableText startDate;
+  private final TunableText endDate;
 
   public UpperPanel() {
     super(
@@ -47,31 +47,32 @@ public class UpperPanel extends RoundedPanel implements IComponent {
       .withOpacity(1f)
       .withFont(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(96f));
     
-    balance = new TunableText("000,00 ")
+    amount = new TunableText("000.00 ")
       .withColor(CommonColors.TEXT.getColor())
       .withOpacity(1f)
       .withFont(CommonFonts.TEXT_NORMAL.getFont().deriveFont(96f));
     
-    dateStart = new TunableText("01/01/'22")
+    startDate = new TunableText("01/01/'22")
       .withColor(CommonColors.TEXT.getColor())
       .withOpacity(1f)
       .withFont(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(36f));
 
-    dateEnd = new TunableText("02/02/'23")
+    endDate = new TunableText("02/02/'23")
       .withColor(CommonColors.TEXT.getColor())
       .withOpacity(1f)
       .withFont(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(36f));
 
     composeView();
+    registerCallbacks();
   }
 
-  public void setBalance(float balance) {
-    if (balance < 0f) {
+  public void setAmount(float amount) {
+    if (amount < 0f) {
       plusMinus
         .withColor(CommonColors.MINUS.getColor())
         .setText("-");
       
-      balance *= -1;  // remove sign
+      amount *= -1;  // remove sign
     }
     else {
       plusMinus
@@ -79,15 +80,21 @@ public class UpperPanel extends RoundedPanel implements IComponent {
         .setText("+");
     }
 
-    this.balance.setText(Float.toString(balance));
+    this.amount.setText(
+      String.format("%06.02f ", amount)
+    );
   }
 
-  public void setDateStart(Date dateStart) {
-    this.dateStart.setText(dateStart.toString());
+  public void setStartDate(Date startDate) {
+    this.startDate.setText(
+      CommonDateFormats.US_DATE_FORMAT_SHORT.getFormatter().format(startDate)
+    );
   }
 
-  public void setDateEnd(Date dateEnd) {
-    this.dateEnd.setText(dateEnd.toString());
+  public void setEndDate(Date endDate) {
+    this.endDate.setText(
+      CommonDateFormats.US_DATE_FORMAT_SHORT.getFormatter().format(endDate)
+    );
   }
 
   @Override public void composeView() {
@@ -115,7 +122,7 @@ public class UpperPanel extends RoundedPanel implements IComponent {
     
     internalPanel.add(plusMinus);
 
-    internalPanel.add(balance);
+    internalPanel.add(amount);
 
     internalPanel.add(
       new TunableText("Your balance from ")
@@ -124,7 +131,7 @@ public class UpperPanel extends RoundedPanel implements IComponent {
         .withFont(CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f))
     );
 
-    internalPanel.add(dateStart);
+    internalPanel.add(startDate);
 
     internalPanel.add(
       new TunableText(" to ")
@@ -133,6 +140,30 @@ public class UpperPanel extends RoundedPanel implements IComponent {
         .withFont(CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f))
     );
     
-    internalPanel.add(dateEnd);
+    internalPanel.add(endDate);
+  }
+
+  @Override public void registerCallbacks() {
+    EventsBroker
+      .getInstance()
+      .getFilterEvent()
+      .attachObserver(
+        transactions -> {
+          float balance = 0;
+
+          for (final Transaction t : transactions) {
+            balance += t.getAmount();
+          }
+
+          setAmount(balance);
+        }
+      );
+
+    EventsBroker
+        .getInstance()
+        .getFilterDateEvent()
+        .attachObserver(
+          (startDate, endDate) -> {setStartDate(startDate); setEndDate(endDate);}
+        );
   }
 }

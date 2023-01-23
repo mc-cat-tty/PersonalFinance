@@ -3,8 +3,6 @@ package ui.components.clickable;
 import ui.core.IComponent;
 
 import java.awt.*;
-import java.awt.geom.*;
-import java.util.List;
 import javax.swing.*;
 import javax.swing.event.PopupMenuEvent;
 import javax.swing.event.PopupMenuListener;
@@ -12,8 +10,6 @@ import javax.swing.plaf.basic.BasicArrowButton;
 import javax.swing.plaf.basic.BasicComboBoxUI;
 
 import ui.components.containers.RoundedCornerBorder;
-import tunable.CommonColors;
-import tunable.CommonIcons;
 
 public class RoundedComboBox extends JComboBox<String> implements IComponent {
   private int radius;

@@ -1,6 +1,5 @@
 package ui.core;
 
-import ui.components.*;
 import ui.components.containers.Window;
 
 /**

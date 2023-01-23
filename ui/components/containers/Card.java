@@ -6,21 +6,15 @@ import tunable.*;
 import model.core.*;
 
 import java.awt.*;
-import java.text.*;
 
 import javax.swing.*;
-import javax.swing.border.Border;
 import javax.swing.border.EmptyBorder;
-import javax.swing.plaf.BorderUIResource;
-import javax.swing.plaf.basic.BasicBorders.RadioButtonBorder;
-import javax.swing.text.Position;
 
 import ui.components.clickable.*;
 import ui.components.text.*;
 import ui.behaviour.*;
 
 import java.util.*;
-import java.util.concurrent.Flow;
 
 /**
  * Element of a scrollable list.

@@ -3,7 +3,6 @@ package ui.components.clickable;
 import ui.core.*;
 import java.awt.*;
 import javax.swing.*;
-import java.util.*;
 
 public class IconButton extends JButton implements IComponent {
   private static final int REDUCE_PIXELS = 4;

@@ -17,7 +17,6 @@ public class RoundedTextField extends JTextField implements IComponent {
   private int maxLength;
   private boolean defaultTextEnabled;
   private String defaultText;
-  private String currentText;
   private Color backgroundColor;
   private Color invalidBackgroundColor;
   private Color currentBackgroundColor;

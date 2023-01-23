@@ -1,7 +1,6 @@
 package ui.components.clickable;
 
 import javax.swing.JScrollBar;
-import javax.swing.plaf.ColorUIResource;
 import javax.swing.plaf.basic.BasicScrollBarUI;
 
 import tunable.CommonColors;

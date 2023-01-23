@@ -5,10 +5,6 @@ import ui.core.IComponent;
 import java.awt.*;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.util.*;
-
-import tunable.CommonColors;
-import tunable.CommonFonts;
 
 public class MenuBar extends JMenuBar implements IComponent {
   public MenuBar(

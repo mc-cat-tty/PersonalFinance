@@ -9,10 +9,8 @@ import ui.utils.ColorOpaqueBuilder;
 import java.util.*;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.text.ParseException;
 
-import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import model.core.BalanceModelManager;

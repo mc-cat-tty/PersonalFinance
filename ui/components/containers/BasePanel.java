@@ -1,14 +1,10 @@
 package ui.components.containers;
 
 import ui.core.*;
-import assets.*;
-import ui.components.containers.*;
 import tunable.*;
 
 import java.awt.*;
 import javax.swing.*;
-import javax.swing.BorderFactory;
-import javax.swing.border.*;
 
 /**
  * Panel that stays in the background of the window.

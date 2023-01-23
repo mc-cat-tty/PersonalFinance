@@ -8,21 +8,16 @@ import ui.components.text.*;
 import ui.behaviour.*;
 
 import java.awt.*;
-import java.beans.Customizer;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 
 import javax.swing.*;
 import javax.swing.border.*;
 
-import model.core.BalanceModel;
 import model.core.BalanceModelManager;
 import model.core.Transaction;
 import model.events.EventsBroker;
 
-import java.time.Period;
 import java.util.*;
-import java.util.stream.*;
 
 
 public class SearchPanel extends JPanel implements IComponent {
@@ -33,7 +28,8 @@ public class SearchPanel extends JPanel implements IComponent {
   private final RoundedButton searchButton;
   private Date startDate;
   private Date endDate;
-  private Iterator<Transaction> searchIterator = null;
+  private Iterator<Transaction> searchIterator;
+  private String currentSearchString;
   
   public SearchPanel() {
     super(
@@ -267,11 +263,13 @@ public class SearchPanel extends JPanel implements IComponent {
           .notifyAllObservers(
             BalanceModelManager
               .getInstance()
-              .filterTransactionsByDate(
-                startDate,
-                endDate
-              )
+              .filterTransactionsByDate(startDate, endDate)
           );
+        
+        EventsBroker
+          .getInstance()
+          .getFilterDateEvent()
+          .notifyAllObservers(startDate, endDate);
 
         // Mark iterator as null if not searching
         if (isSearchDescriptionDefault) {
@@ -280,10 +278,16 @@ public class SearchPanel extends JPanel implements IComponent {
         }
 
         // If it's a new search or the end of the previous one, query the model
-        if (searchIterator == null || !searchIterator.hasNext()) {
+        if (
+          searchIterator == null
+          || !searchIterator.hasNext()
+          || !currentSearchString.equals(searchField.getText())
+          ) {
+          currentSearchString = searchField.getText();
+
           searchIterator = BalanceModelManager
             .getInstance()
-            .filterTransactionsByDescription(searchField.getText())
+            .filterTransactionsByDescription(currentSearchString)
             .iterator();
         }
 
@@ -293,9 +297,7 @@ public class SearchPanel extends JPanel implements IComponent {
             .getInstance()
             .getSelectionEvent()
             .notifyAllObservers(
-              new ArrayList<>() {{
-                add(searchIterator.next());
-              }}
+              searchIterator.next()
             );
         }
       }

@@ -2,8 +2,6 @@ package model.core;
 
 import java.util.*;
 
-import javax.sql.rowset.spi.SyncResolver;
-import javax.swing.plaf.synth.SynthRadioButtonMenuItemUI;
 
 /**
  * Balance model keeps a transaction set ordered by date (in case of equal date, the creation order is used).

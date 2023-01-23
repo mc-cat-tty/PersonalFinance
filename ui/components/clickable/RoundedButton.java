@@ -3,21 +3,12 @@ package ui.components.clickable;
 import ui.core.IComponent;
 
 import java.awt.*;
-import java.awt.geom.*;
-import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.border.EmptyBorder;
-import javax.swing.event.MouseInputAdapter;
-import javax.swing.event.MouseInputListener;
-import javax.swing.text.Position;
-
-import org.w3c.dom.events.MouseEvent;
 
 public class RoundedButton extends JButton implements IComponent {
   private int radius;
   private Color backgroundColor;
   private Color foregroundColor;
-  private Dimension dimension;
   private boolean isActive;
 
   public RoundedButton(
@@ -36,7 +27,6 @@ public class RoundedButton extends JButton implements IComponent {
     setPreferredSize(dimension);
     setContentAreaFilled(false);
     setFocusPainted(false);
-    this.dimension = dimension;
     this.isActive = true;
   }
 
