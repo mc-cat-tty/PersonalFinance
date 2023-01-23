@@ -35,7 +35,7 @@ public class Menu extends JMenu implements IComponent {
       return;
     }
 
-    for (var item : items) {
+    for (final var item : items) {
       item.setBackground(color);
     }
   }
@@ -47,7 +47,7 @@ public class Menu extends JMenu implements IComponent {
       return;
     }
 
-    for (var item : items) {
+    for (final var item : items) {
       item.setForeground(color);
     }
   }
@@ -59,7 +59,7 @@ public class Menu extends JMenu implements IComponent {
       return;
     }
 
-    for (var item : items) {
+    for (final var item : items) {
       item.setFont(font);
     }
   }
@@ -71,7 +71,7 @@ public class Menu extends JMenu implements IComponent {
       return;
     }
 
-    for (var item : items) {
+    for (final var item : items) {
       item.setBorder(border);
     }
   }
@@ -79,7 +79,7 @@ public class Menu extends JMenu implements IComponent {
   public Menu addItems(List<JMenuItem> items) {
     this.items = items;
     
-    for (var item : items) {
+    for (final var item : items) {
       item.setBackground(getBackground());
       item.setForeground(getForeground());
       item.setFont(getFont());

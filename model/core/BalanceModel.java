@@ -2,6 +2,9 @@ package model.core;
 
 import java.util.*;
 
+import javax.sql.rowset.spi.SyncResolver;
+import javax.swing.plaf.synth.SynthRadioButtonMenuItemUI;
+
 /**
  * Balance model keeps a transaction set ordered by date (in case of equal date, the creation order is used).
  */
@@ -38,8 +41,9 @@ public class BalanceModel {
     Date newDate,
     String newDescription
   ) throws ModelEditFailedException {
+    final var searchResult = searchTransaction(transaction);
+   
     synchronized (transactions) {
-      final var searchResult = searchTransaction(transaction);
       
       if (!searchResult.isPresent()) {
         throw new ModelEditFailedException("Not found transaction " + transaction);
@@ -56,23 +60,29 @@ public class BalanceModel {
   }
 
   public Optional<Transaction> searchTransaction(Transaction transaction) {
-    return transactions
-      .stream()
-      .filter(t -> t.equals(transaction))
-      .findFirst();
+    synchronized (transactions) {
+      return transactions
+        .stream()
+        .filter(t -> t.equals(transaction))
+        .findFirst();
+    }
   }
 
-  public Collection<Transaction> searchTransactionByDate(Date startDate, Date endDate) {
-    return transactions
-      .stream()
-      .filter(t -> t.getDate().after(startDate) && t.getDate().before(endDate))
-      .collect(TreeSet::new, TreeSet::add, (x, y) -> x.addAll(y));
+  public Collection<Transaction> filterTransactionsByDate(Date startDate, Date endDate) {
+    synchronized (transactions) {
+      return transactions
+        .stream()
+        .filter(t -> t.getDate().after(startDate) && t.getDate().before(endDate))
+        .collect(TreeSet::new, TreeSet::add, (x, y) -> x.addAll(y));
+    }
   }
 
   public Collection<Transaction> searchTransactionByDescription(String description) {
-    return transactions
-      .stream()
-      .filter(t -> t.getDescription().equals(description))
-      .collect(TreeSet::new, TreeSet::add, (x, y) -> x.addAll(y));
+    synchronized (transactions) {
+      return transactions
+        .stream()
+        .filter(t -> t.getDescription().equals(description))
+        .collect(TreeSet::new, TreeSet::add, (x, y) -> x.addAll(y));
+    }
   }
 }

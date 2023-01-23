@@ -24,7 +24,7 @@ public class MenuBar extends JMenuBar implements IComponent {
     setFont(font);
     setBorder(new EmptyBorder(0, 0, 0, 0));
 
-    for (var menu : menus) {
+    for (final var menu : menus) {
       menu.setBackground(backgroundColor);
       menu.setForeground(foregroundColor);
       menu.setFont(font);

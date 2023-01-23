@@ -26,7 +26,7 @@ public class LayeredPanel extends JPanel implements IComponent {
   @Override public void composeView() {
     setLayout(new CardLayout());
 
-    for (var entry : components.entrySet()) {
+    for (final var entry : components.entrySet()) {
       add(entry.getValue(), entry.getKey());
     }
   }

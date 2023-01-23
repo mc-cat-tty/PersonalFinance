@@ -92,7 +92,7 @@ public class RoundedComboBox extends JComboBox<String> implements IComponent {
       c.setBackground(backgroundColor);
     }
 
-    for (var c : getComponents()) {
+    for (final var c : getComponents()) {
       if (c instanceof BasicArrowButton) {
         arrowButton = (BasicArrowButton) c;
       }

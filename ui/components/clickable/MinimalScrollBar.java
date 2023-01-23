@@ -23,7 +23,7 @@ public class MinimalScrollBar extends JScrollBar implements IComponent {
 
     setUI(new BasicScrollBarUI());
 
-    for (var c : getComponents()) {
+    for (final Component c : getComponents()) {
       if (c instanceof AbstractButton) {
         remove(c);  // removing increase and decrease button
       }
