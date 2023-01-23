@@ -33,6 +33,7 @@ public class SearchPanel extends JPanel implements IComponent {
   private final RoundedButton searchButton;
   private Date startDate;
   private Date endDate;
+  private Iterator<Transaction> searchIterator = null;
   
   public SearchPanel() {
     super(
@@ -259,6 +260,7 @@ public class SearchPanel extends JPanel implements IComponent {
           searchField.isDefaultText()
           || searchField.isEmptyText();
         
+        // Notify a filter event to all subscribers if the parse doesn't fail
         EventsBroker
           .getInstance()
           .getFilterEvent()
@@ -271,14 +273,29 @@ public class SearchPanel extends JPanel implements IComponent {
               )
           );
 
-        if (!isSearchDescriptionDefault) {
+        // Mark iterator as null if not searching
+        if (isSearchDescriptionDefault) {
+          searchIterator = null;
+          return;
+        }
+
+        // If it's a new search or the end of the previous one, query the model
+        if (searchIterator == null || !searchIterator.hasNext()) {
+          searchIterator = BalanceModelManager
+            .getInstance()
+            .filterTransactionsByDescription(searchField.getText())
+            .iterator();
+        }
+
+        // Select the next element
+        if (searchIterator.hasNext()) {
           EventsBroker
             .getInstance()
             .getSelectionEvent()
             .notifyAllObservers(
-              BalanceModelManager
-                .getInstance()
-                .filterTransactionsByDescription(searchField.getText())
+              new ArrayList<>() {{
+                add(searchIterator.next());
+              }}
             );
         }
       }
