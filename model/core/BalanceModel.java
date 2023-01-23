@@ -72,16 +72,29 @@ public class BalanceModel {
     synchronized (transactions) {
       return transactions
         .stream()
-        .filter(t -> t.getDate().after(startDate) && t.getDate().before(endDate))
+        .filter(t -> t.getDate().compareTo(startDate) >= 0 && t.getDate().compareTo(endDate) <= 0)
         .collect(TreeSet::new, TreeSet::add, (x, y) -> x.addAll(y));
     }
   }
 
-  public Collection<Transaction> searchTransactionByDescription(String description) {
+  public Collection<Transaction> filterTransactionsByDescription(String description) {
     synchronized (transactions) {
       return transactions
         .stream()
         .filter(t -> t.getDescription().equals(description))
+        .collect(TreeSet::new, TreeSet::add, (x, y) -> x.addAll(y));
+    }
+  }
+
+  public Collection<Transaction> filterTransactions(String description, Date startDate, Date endDate) {
+    synchronized (transactions) {
+      return transactions
+        .stream()
+        .filter(
+          t -> t.getDescription().equals(description)
+          && t.getDate().after(startDate)
+          && t.getDate().before(endDate)
+        )
         .collect(TreeSet::new, TreeSet::add, (x, y) -> x.addAll(y));
     }
   }

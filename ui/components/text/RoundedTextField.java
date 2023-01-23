@@ -110,6 +110,7 @@ public class RoundedTextField extends JTextField implements IComponent {
     else {
       setCurrentBackgroundColor(invalidBackgroundColor);
     }
+    repaint();
   }
 
   public boolean isDefaultText() {

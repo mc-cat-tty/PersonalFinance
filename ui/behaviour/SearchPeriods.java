@@ -14,13 +14,13 @@ public enum SearchPeriods {
     CommonDateFormats.EU_DATE_FORMAT_LONG.getFormatter()
   ),
   WEEK (
-    new Date(),
     new FutureDateBuilder().setBaseDate(new Date()).addWeeks(-1).createFutureDate(),
+    new Date(),
     CommonDateFormats.EU_DATE_FORMAT_LONG.getFormatter()
   ),
   MONTH (
-    new Date(),
     new FutureDateBuilder().setBaseDate(new Date()).addMonths(-1).createFutureDate(),
+    new Date(),
     CommonDateFormats.MONTH_FORMAT_LONG.getFormatter()
   ),
   YEAR (
@@ -29,8 +29,8 @@ public enum SearchPeriods {
     CommonDateFormats.YEAR_FORMAT_LONG.getFormatter()
   ),
   CUSTOM (
-    new Date(),
     new FutureDateBuilder().setBaseDate(new Date()).addWeeks(-3).createFutureDate(),
+    new Date(),
     CommonDateFormats.EU_DATE_FORMAT_LONG.getFormatter()
   );
 

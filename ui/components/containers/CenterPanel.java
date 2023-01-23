@@ -47,12 +47,8 @@ public class CenterPanel extends JScrollPane implements IComponent {
     verticalBox.removeAll();
   }
 
-  private void reloadModel() {
+  private void reloadModel(Collection<Transaction> transactions) {
     removeAllCards();
-    
-    final var transactions = BalanceModelManager
-      .getInstance()
-      .getTransactions();
 
     for (final var t : transactions) {
       addTransactionCard(t);
@@ -85,16 +81,9 @@ public class CenterPanel extends JScrollPane implements IComponent {
   @Override public void registerCallbacks() {
     EventsBroker
       .getInstance()
-      .getAddEvent()
+      .getFilterEvent()
       .attachObserver(
-        t -> reloadModel()
-      );
-
-    EventsBroker
-      .getInstance()
-      .getDeleteEvent()
-      .attachObserver(
-        t -> reloadModel()
+        t -> reloadModel(t)
       ); 
   }
 }

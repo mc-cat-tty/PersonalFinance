@@ -228,7 +228,9 @@ public class LowerPanel extends RoundedPanel implements IComponent {
         EventsBroker
           .getInstance()
           .getAddEvent()
-          .notifyAllObservers(transaction);
+          .notifyAllObservers(new ArrayList<>() {{
+            add(transaction);
+          }});
 
         toDefault();
       }

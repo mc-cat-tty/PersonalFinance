@@ -8,11 +8,16 @@ import ui.components.text.*;
 import ui.behaviour.*;
 
 import java.awt.*;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
 import javax.swing.*;
 import javax.swing.border.*;
 
+import model.core.BalanceModel;
+import model.core.BalanceModelManager;
+import model.core.Transaction;
+import model.events.EventsBroker;
 
 import java.time.Period;
 import java.util.*;
@@ -25,6 +30,8 @@ public class SearchPanel extends JPanel implements IComponent {
   private final RoundedTextField startDateField;
   private final RoundedTextField endDateField;
   private final RoundedButton searchButton;
+  private Date startDate;
+  private Date endDate;
   
   public SearchPanel() {
     super(
@@ -34,6 +41,8 @@ public class SearchPanel extends JPanel implements IComponent {
         0
       )
     );
+
+    startDate = endDate = new Date();
 
     searchField = new RoundedTextField(
       "Search description",
@@ -127,7 +136,7 @@ public class SearchPanel extends JPanel implements IComponent {
     add(searchButton);
   }
 
-  public void setSearchPeriod(SearchPeriods period) {
+  private void setSearchPeriod(SearchPeriods period) {
     switch (period) {
       case DAY:
       case WEEK:
@@ -192,15 +201,107 @@ public class SearchPanel extends JPanel implements IComponent {
     startDateField.setEditable(true);
     endDateField.setEditable(false);
   }
+
+  private SearchPeriods getSearchPeriod() {
+    return SearchPeriods.valueOf(
+      perdiodSelector.getSelectedItem().toString().toUpperCase()
+    );
+  }
+
+  private Date parseStringDate(String dateStr, SearchPeriods searchPeriod) throws ParseException {
+    switch (searchPeriod) {
+      case DAY:
+      case WEEK:
+      case CUSTOM:
+        return CommonDateFormats
+          .EU_DATE_FORMAT_LONG
+          .getFormatter()
+          .parse(dateStr);
+      
+      case MONTH:
+        return CommonDateFormats
+          .MONTH_FORMAT_LONG
+          .getFormatter()
+          .parse(dateStr);
+      
+      case YEAR:
+        return CommonDateFormats
+          .YEAR_FORMAT_LONG
+          .getFormatter()
+          .parse(dateStr);
+      
+      default:
+        return null;
+    }
+  }
   
   @Override public void registerCallbacks() {
     perdiodSelector.addActionListener(
       event -> {
-        setSearchPeriod(
-          SearchPeriods.valueOf(
-            perdiodSelector.getSelectedItem().toString().toUpperCase()
-          )
-        );
+        setSearchPeriod(getSearchPeriod());
+      }
+    );
+
+    searchButton.addActionListener(
+      event -> {
+        try {
+          startDate = parseStringDate(startDateField.getText(), getSearchPeriod());
+          endDate = parseStringDate(endDateField.getText(), getSearchPeriod());
+        }
+        catch (ParseException exception) {
+          startDate = endDate = null;
+          EventsBroker
+          .getInstance()
+          .getFilterEvent()
+          .notifyAllObservers(new ArrayList<>());
+          return;
+        }
+
+        final boolean isStartDateDefault =
+          startDateField.isDefaultText()
+          || startDateField.isEmptyText();
+
+        final boolean isEndDateDefault =
+          endDateField.isDefaultText()
+          || endDateField.isEmptyText();
+
+        final boolean isSearchDescriptionDefault =
+          searchField.isDefaultText()
+          || searchField.isEmptyText();
+        
+
+        // If every search field is at the default value, show all transactions
+        EventsBroker
+          .getInstance()
+          .getFilterEvent()
+          .notifyAllObservers(
+            BalanceModelManager
+              .getInstance()
+              .filterTransactionsByDate(
+                startDate,
+                endDate
+              )
+          );
+      }
+    );
+
+    EventsBroker.getInstance().getAddEvent().attachObserver(
+      transactions -> {
+        if (startDate == null || endDate == null) {
+          return;
+        }
+
+        EventsBroker
+          .getInstance()
+          .getFilterEvent()
+          .notifyAllObservers(
+            BalanceModelManager
+              .getInstance()
+              .filterTransactionsByDate(
+                startDate,
+                endDate
+              )
+          );
       }
     );
   }

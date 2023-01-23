@@ -77,7 +77,7 @@ public class Card extends RoundedPanel implements IComponent {
       .setColorMonadic(CommonColors.TEXT.getColor())
       .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f))
       .setOpacityMonadic(0.6f);
-    description.setBorder(new EmptyBorder(0, 15, 0, 0));
+    description.setBorder(new EmptyBorder(0, 20, 0, 0));
     description.setPreferredSize(new Dimension(1050, 40));
     
     sentenceConnector = new TunableText()

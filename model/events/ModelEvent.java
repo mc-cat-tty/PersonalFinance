@@ -9,7 +9,7 @@ import javax.sql.rowset.spi.SyncResolver;
  * Defines a generic event in the data model.
  * @see Observer design pattern
  */
-public class ModelEvent implements IEvent<Transaction> {
+public class ModelEvent implements IEvent<Collection<Transaction>> {
   private final List<IObserver> observers;
 
   public ModelEvent() {
@@ -36,10 +36,10 @@ public class ModelEvent implements IEvent<Transaction> {
     }
   }
 
-  public void notifyAllObservers(Transaction change) {
+  public void notifyAllObservers(Collection<Transaction> changes) {
     synchronized (observers) {
       for (final var o : observers) {
-        o.accept(change);
+        o.accept(changes);
       }
     }
   }
