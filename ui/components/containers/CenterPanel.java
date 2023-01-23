@@ -2,6 +2,7 @@ package ui.components.containers;
 
 import tunable.CommonColors;
 import tunable.CommonDimensions;
+import tunable.CommonPaddings;
 import ui.components.clickable.MinimalScrollBar;
 import ui.core.IComponent;
 
@@ -61,6 +62,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
   
   private void selectCards(Collection<Transaction> transactions) {
     final var children = verticalBox.getComponents();
+    int cardCount = 0;
 
     for (final var component : children) {
       if (!(component instanceof Card)) {
@@ -71,7 +73,16 @@ public class CenterPanel extends JScrollPane implements IComponent {
 
       if (transactions.stream().anyMatch(t -> t.equals(card.getTransaction()))) {
         card.setBackground(CommonColors.CARD_SELECTED.getColor());
+
+        viewport.setViewPosition(
+          new Point(
+            0,
+            (CommonDimensions.CARD.getHeight() + CommonPaddings.CARD_BOTTOM_PADDING.getPadding()) * cardCount - 20
+          )
+        );
       }
+
+      cardCount++;
     }
   }
 
@@ -93,6 +104,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
         "MOCK CARD: Lorem ipsum dolor sit amet, consectetur adipiscing elit."
       )
     );
+    
   }
 
   @Override public void registerCallbacks() {
