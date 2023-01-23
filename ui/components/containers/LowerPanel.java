@@ -84,42 +84,41 @@ public class LowerPanel extends RoundedPanel implements IComponent {
       "000.00",
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.9f),
       ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(30f),
       CommonDimensions.MONEY_TEXT_FIELD.getDimension(),
       30
-    ).setMaxLengthMonadic(CommonValidators.MONEY_AMOUNT.getMaxLength())
-    .setInputFilterMonadic(CommonValidators.MONEY_AMOUNT.getFilter())
-    .setInputValidatorMonadic(CommonValidators.MONEY_AMOUNT.getValidator());
+    ).withMaxLength(CommonValidators.MONEY_AMOUNT.getMaxLength())
+    .withInputFilter(CommonValidators.MONEY_AMOUNT.getFilter())
+    .withInputValidator(CommonValidators.MONEY_AMOUNT.getValidator());
 
     dateField = new RoundedTextField(
-      "",
+      CommonDateFormats.EU_DATE_FORMAT_LONG  // Proposing today as default transaction date
+        .getFormatter()
+        .format(new Date()),
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
-      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 1f),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.9f),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.9f),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(30f),
       CommonDimensions.DATE_TEXT_FIELD.getDimension(),
       30
-    ).setMaxLengthMonadic(CommonValidators.DATE.getMaxLength())
-    .setInputFilterMonadic(CommonValidators.DATE.getFilter())
-    .setInputValidatorMonadic(CommonValidators.DATE.getValidator());
-
-    // Proposing today as default transaction date
-    dateField.setText(
-      CommonDateFormats.EU_DATE_FORMAT_LONG
-        .getFormatter()
-        .format(new Date())
-    );
+    ).withMaxLength(CommonValidators.DATE.getMaxLength())
+    .withInputFilter(CommonValidators.DATE.getFilter())
+    .withInputValidator(CommonValidators.DATE.getValidator())
+    .withDefaultText(false);
 
     descriptionField = new RoundedTextField(
       "Description",
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.9f),
       ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(30f),
       CommonDimensions.DESCRIPTION_TEXT_FIELD.getDimension(),
       30
-    ).setMaxLengthMonadic(CommonValidators.DESCRIPTION.getMaxLength());
+    ).withMaxLength(CommonValidators.DESCRIPTION.getMaxLength());
 
     composeView();
     registerCallbacks();
@@ -156,9 +155,9 @@ public class LowerPanel extends RoundedPanel implements IComponent {
     add(amountField);
     add(
       new TunableText("€ on")
-        .setColorMonadic(CommonColors.TEXT.getColor())
-        .setOpacityMonadic(1f)
-        .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f))
+        .withColor(CommonColors.TEXT.getColor())
+        .withOpacity(1f)
+        .withFont(CommonFonts.TEXT_NORMAL.getFont().deriveFont(36f))
     );
     add(dateField);
     add(descriptionField);

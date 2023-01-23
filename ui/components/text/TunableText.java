@@ -18,20 +18,20 @@ public class TunableText extends JLabel implements IComponent {
     super(text);
   }
   
-  public TunableText setColorMonadic(Color color) {
+  public TunableText withColor(Color color) {
     textColor = color;
     setForeground(color);
     return this;
   }
 
-  public TunableText setOpacityMonadic(float alphaPercentage) {
+  public TunableText withOpacity(float alphaPercentage) {
     final var AlphaMaxVal = 255;
 
     if (alphaPercentage < 0.f || alphaPercentage > 1.f) {
       throw new IllegalArgumentException("AlphaPercentage not allowed");
     }
 
-    setColorMonadic(
+    withColor(
       new Color(
         textColor.getRed(),
         textColor.getGreen(),
@@ -42,7 +42,7 @@ public class TunableText extends JLabel implements IComponent {
     return this;
   }
 
-  public TunableText setFontMonadic(Font font) {
+  public TunableText withFont(Font font) {
     setFont(font);
     return this;
   }

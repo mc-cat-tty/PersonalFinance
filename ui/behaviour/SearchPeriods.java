@@ -4,46 +4,65 @@ import tunable.*;
 import ui.utils.*;
 
 import java.util.*;
+import java.util.function.UnaryOperator;
 import java.util.stream.*;
+
+import javax.xml.stream.util.EventReaderDelegate;
+
 import java.text.*;
 
 public enum SearchPeriods {
   DAY (
     new Date(),
-    new Date(),
+    d -> d,
+    d -> d,
     CommonDateFormats.EU_DATE_FORMAT_LONG.getFormatter()
   ),
   WEEK (
-    new FutureDateBuilder().setBaseDate(new Date()).addWeeks(-1).createFutureDate(),
     new Date(),
+    d -> new TimeTravelDateBuilder().setBaseDate(d).addWeeks(-1).addDays(1).build(),
+    d -> d,
     CommonDateFormats.EU_DATE_FORMAT_LONG.getFormatter()
   ),
   MONTH (
-    new FutureDateBuilder().setBaseDate(new Date()).addMonths(-1).createFutureDate(),
     new Date(),
+    d -> new TimeTravelDateBuilder().setBaseDate(d).toDayOfMonth(1).build(),
+    d -> new TimeTravelDateBuilder().setBaseDate(d).toDayOfMonth(1).addMonths(1).addDays(-1).build(),
     CommonDateFormats.MONTH_FORMAT_LONG.getFormatter()
   ),
   YEAR (
     new Date(),
-    new Date(),
+    d -> new TimeTravelDateBuilder().setBaseDate(d).toDayOfYear(1).build(),
+    d -> new TimeTravelDateBuilder().setBaseDate(d).toDayOfYear(1).addDays(364).build(),
     CommonDateFormats.YEAR_FORMAT_LONG.getFormatter()
   ),
   CUSTOM (
-    new FutureDateBuilder().setBaseDate(new Date()).addWeeks(-3).createFutureDate(),
     new Date(),
+    d -> new TimeTravelDateBuilder().setBaseDate(d).addWeeks(-3).build(),
+    d -> d,
     CommonDateFormats.EU_DATE_FORMAT_LONG.getFormatter()
   );
 
   private final String mockStartText;
   private final String mockEndText;
+  private final SimpleDateFormat formatter;
+  private final UnaryOperator<Date> toStartDate;
+  private final UnaryOperator<Date> toEndDate;
 
   private SearchPeriods(
-    Date mockStartDate,
-    Date mockEndDate,
+    Date baseDate,
+    UnaryOperator<Date> toStartDate,
+    UnaryOperator<Date> toEndDate,
     SimpleDateFormat formatter
   ) {
-    mockStartText = formatter.format(mockStartDate);
-    mockEndText = formatter.format(mockEndDate);
+    final var startDate = toStartDate.apply(baseDate);
+    final var endDate = toEndDate.apply(baseDate);
+
+    this.mockEndText = formatter.format(endDate);
+    this.mockStartText = formatter.format(startDate);
+    this.toStartDate = toStartDate;
+    this.toEndDate = toEndDate;
+    this.formatter = formatter;
   }
 
   public String getMockStartText() {
@@ -52,6 +71,18 @@ public enum SearchPeriods {
 
   public String getMockEndText() {
     return mockEndText;
+  }
+
+  public SimpleDateFormat getFormatter() {
+    return formatter;
+  }
+
+  public Date toEndDate(Date baseDate) {
+    return toEndDate.apply(baseDate);
+  }
+
+  public Date toStartDate(Date baseDate) {
+    return toStartDate.apply(baseDate);
   }
 
   public String toString() {

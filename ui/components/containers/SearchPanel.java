@@ -8,6 +8,7 @@ import ui.components.text.*;
 import ui.behaviour.*;
 
 import java.awt.*;
+import java.beans.Customizer;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 
@@ -48,6 +49,7 @@ public class SearchPanel extends JPanel implements IComponent {
       "Search description",
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.9f),
       ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
       CommonDimensions.SEARCH_TEXT_FIELD.getDimension(),
@@ -68,23 +70,27 @@ public class SearchPanel extends JPanel implements IComponent {
       "",
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
-      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.9f),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.9f),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
       CommonDimensions.DATE_START_TEXT_FIELD.getDimension(),
       25
-    ).setInputFilterMonadic(CommonValidators.DATE.getFilter());
+    ).withInputFilter(CommonValidators.DATE.getFilter())
+    .withDefaultText(false);
   
     endDateField = new RoundedTextField(
       "",
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
-      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.9f),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.9f),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f),
       CommonDimensions.DATE_END_TEXT_FIELD.getDimension(),
       25
-    ).setMaxLengthMonadic(CommonValidators.DATE.getMaxLength())
-    .setInputFilterMonadic(CommonValidators.DATE.getFilter())
-    .setInputValidatorMonadic(CommonValidators.DATE.getValidator());
+    ).withMaxLength(CommonValidators.DATE.getMaxLength())
+    .withInputFilter(CommonValidators.DATE.getFilter())
+    .withInputValidator(CommonValidators.DATE.getValidator())
+    .withDefaultText(false);
     
     searchButton = new RoundedButton(
       "Search",
@@ -120,17 +126,17 @@ public class SearchPanel extends JPanel implements IComponent {
 
     add(
       new TunableText("From")
-        .setColorMonadic(CommonColors.TEXT.getColor())
-        .setOpacityMonadic(1f)
-        .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f))
+        .withColor(CommonColors.TEXT.getColor())
+        .withOpacity(1f)
+        .withFont(CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f))
     );
     add(startDateField);
 
     add(
       new TunableText("To")
-        .setColorMonadic(CommonColors.TEXT.getColor())
-        .setOpacityMonadic(1f)
-        .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f))
+        .withColor(CommonColors.TEXT.getColor())
+        .withOpacity(1f)
+        .withFont(CommonFonts.TEXT_NORMAL.getFont().deriveFont(25f))
     );
     add(endDateField);
     add(searchButton);
@@ -143,48 +149,48 @@ public class SearchPanel extends JPanel implements IComponent {
       case CUSTOM:
       
       startDateField
-        .setInputValidatorMonadic(
+        .withInputValidator(
           text -> text.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}") || text.equals("")
         )
-        .setMaxLengthMonadic(10);
+        .withMaxLength(10);
 
       endDateField
-        .setInputValidatorMonadic(
+        .withInputValidator(
           text -> text.matches("[0-9]{2}/[0-9]{2}/[0-9]{4}") || text.equals("")
         )
-        .setMaxLengthMonadic(10);
+        .withMaxLength(10);
 
       break;
 
       case MONTH:
 
       startDateField
-        .setInputValidatorMonadic(
+        .withInputValidator(
           text -> text.matches("[0-9]{2}/[0-9]{4}") || text.equals("")
         )
-        .setMaxLengthMonadic(8);
+        .withMaxLength(8);
 
       endDateField
-        .setInputValidatorMonadic(
+        .withInputValidator(
           text -> text.matches("[0-9]{2}/[0-9]{4}") || text.equals("")
         )
-        .setMaxLengthMonadic(8);
+        .withMaxLength(8);
 
       break;
 
       case YEAR:
 
       startDateField
-        .setInputValidatorMonadic(
+        .withInputValidator(
           text -> text.matches("[0-9]{4}") || text.equals("")
         )
-        .setMaxLengthMonadic(4);
+        .withMaxLength(4);
 
       endDateField
-        .setInputValidatorMonadic(
+        .withInputValidator(
           text -> text.matches("[0-9]{4}") || text.equals("")
         )
-        .setMaxLengthMonadic(4);
+        .withMaxLength(4);
       break;
     }
 
@@ -198,41 +204,14 @@ public class SearchPanel extends JPanel implements IComponent {
       return;
     }
 
-    startDateField.setEditable(true);
-    endDateField.setEditable(false);
+    startDateField.setEditable(false);
+    endDateField.setEditable(true);
   }
 
   private SearchPeriods getSearchPeriod() {
     return SearchPeriods.valueOf(
       perdiodSelector.getSelectedItem().toString().toUpperCase()
     );
-  }
-
-  private Date parseStringDate(String dateStr, SearchPeriods searchPeriod) throws ParseException {
-    switch (searchPeriod) {
-      case DAY:
-      case WEEK:
-      case CUSTOM:
-        return CommonDateFormats
-          .EU_DATE_FORMAT_LONG
-          .getFormatter()
-          .parse(dateStr);
-      
-      case MONTH:
-        return CommonDateFormats
-          .MONTH_FORMAT_LONG
-          .getFormatter()
-          .parse(dateStr);
-      
-      case YEAR:
-        return CommonDateFormats
-          .YEAR_FORMAT_LONG
-          .getFormatter()
-          .parse(dateStr);
-      
-      default:
-        return null;
-    }
   }
   
   @Override public void registerCallbacks() {
@@ -245,25 +224,27 @@ public class SearchPanel extends JPanel implements IComponent {
     searchButton.addActionListener(
       event -> {
         try {
-          startDate = parseStringDate(startDateField.getText(), getSearchPeriod());
-          endDate = parseStringDate(endDateField.getText(), getSearchPeriod());
+          final var baseDate = getSearchPeriod().getFormatter().parse(endDateField.getText());
+          
+          endDate = getSearchPeriod() == SearchPeriods.CUSTOM ?
+            baseDate : getSearchPeriod().toEndDate(baseDate);
+
+          startDate = getSearchPeriod() == SearchPeriods.CUSTOM ?
+            getSearchPeriod().getFormatter().parse(startDateField.getText()) :
+            getSearchPeriod().toStartDate(baseDate);
         }
         catch (ParseException exception) {
           startDate = endDate = null;
+
           EventsBroker
-          .getInstance()
-          .getFilterEvent()
-          .notifyAllObservers(new ArrayList<>());
+            .getInstance()
+            .getFilterEvent()
+            .notifyAllObservers(new ArrayList<>());
+          
           return;
         }
 
-        final boolean isStartDateDefault =
-          startDateField.isDefaultText()
-          || startDateField.isEmptyText();
-
-        final boolean isEndDateDefault =
-          endDateField.isDefaultText()
-          || endDateField.isEmptyText();
+        startDateField.setText(getSearchPeriod().getFormatter().format(startDate));
 
         final boolean isSearchDescriptionDefault =
           searchField.isDefaultText()

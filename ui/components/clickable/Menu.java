@@ -13,7 +13,6 @@ public class Menu extends JMenu implements IComponent {
   
   public Menu(String text, Icon icon) {
     super(text);
-    System.out.println(icon);
     if (icon != null) {
       setIcon(icon);
     }

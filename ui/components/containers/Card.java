@@ -1,6 +1,7 @@
 package ui.components.containers;
 
 import ui.core.*;
+import ui.utils.ColorOpaqueBuilder;
 import tunable.*;
 import model.core.*;
 
@@ -65,28 +66,28 @@ public class Card extends RoundedPanel implements IComponent {
       
       
     amount = new TunableText()
-      .setColorMonadic(CommonColors.TEXT.getColor())
-      .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f));
+      .withColor(CommonColors.TEXT.getColor())
+      .withFont(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f));
     amount.setBorder(new EmptyBorder(0, 20, 0, 20));
 
     sign = new TunableText("+")
-      .setColorMonadic(CommonColors.TEXT.getColor())
-      .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(64f));
+      .withColor(CommonColors.TEXT.getColor())
+      .withFont(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(64f));
 
     description = new TunableText()
-      .setColorMonadic(CommonColors.TEXT.getColor())
-      .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f))
-      .setOpacityMonadic(0.6f);
+      .withColor(CommonColors.TEXT.getColor())
+      .withFont(CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f))
+      .withOpacity(0.6f);
     description.setBorder(new EmptyBorder(0, 20, 0, 0));
     description.setPreferredSize(new Dimension(1050, 40));
     
     sentenceConnector = new TunableText()
-      .setColorMonadic(CommonColors.TEXT.getColor())
-      .setFontMonadic(CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f));
+      .withColor(CommonColors.TEXT.getColor())
+      .withFont(CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f));
 
     date = new TunableText()
-      .setColorMonadic(CommonColors.TEXT.getColor())
-      .setFontMonadic(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f));
+      .withColor(CommonColors.TEXT.getColor())
+      .withFont(CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f));
     date.setBorder(new EmptyBorder(0, 15, 0, 15));
 
     amountEditor = new RoundedTextField(
@@ -94,34 +95,37 @@ public class Card extends RoundedPanel implements IComponent {
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
       CommonColors.TEXT.getColor(),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
       CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f),
       new Dimension(0, 0),
       30
-    ).setMaxLengthMonadic(CommonValidators.MONEY_AMOUNT_EDITOR.getMaxLength())
-    .setInputFilterMonadic(CommonValidators.MONEY_AMOUNT_EDITOR.getFilter())
-    .setInputValidatorMonadic(CommonValidators.MONEY_AMOUNT_EDITOR.getValidator());
+    ).withMaxLength(CommonValidators.MONEY_AMOUNT_EDITOR.getMaxLength())
+    .withInputFilter(CommonValidators.MONEY_AMOUNT_EDITOR.getFilter())
+    .withInputValidator(CommonValidators.MONEY_AMOUNT_EDITOR.getValidator());
       
     dateEditor = new RoundedTextField(
       "",
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
       CommonColors.TEXT.getColor(),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
       CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f),
       new Dimension(0, 0),
       30
-    ).setMaxLengthMonadic(CommonValidators.DATE.getMaxLength())
-    .setInputFilterMonadic(c -> CommonValidators.DATE.getFilter().test(c))
-    .setInputValidatorMonadic(CommonValidators.DATE.getValidator());
+    ).withMaxLength(CommonValidators.DATE.getMaxLength())
+    .withInputFilter(c -> CommonValidators.DATE.getFilter().test(c))
+    .withInputValidator(CommonValidators.DATE.getValidator());
 
     descriptionEditor = new RoundedTextField(
       "",
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
       CommonColors.TEXT.getColor(),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f),
       new Dimension(0, 0),
       30
-    ).setMaxLengthMonadic(CommonValidators.DESCRIPTION.getMaxLength());
+    ).withMaxLength(CommonValidators.DESCRIPTION.getMaxLength());
     descriptionEditor.setHorizontalAlignment(SwingConstants.LEFT);
 
     actionPanel = new CardActionPanel(
@@ -173,13 +177,13 @@ public class Card extends RoundedPanel implements IComponent {
   private void setAmount(float amount) {    
     if (transaction.getAmount() < 0) {
       sign
-        .setColorMonadic(CommonColors.MINUS.getColor())
+        .withColor(CommonColors.MINUS.getColor())
         .setText("-");
       sentenceConnector.setText("outcome on");
     }
     else {
       sign
-        .setColorMonadic(CommonColors.PLUS.getColor())
+        .withColor(CommonColors.PLUS.getColor())
         .setText("+");
       sentenceConnector.setText("income on");
     }

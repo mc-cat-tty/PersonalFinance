@@ -15,12 +15,15 @@ import ui.utils.ColorOpaqueBuilder;
 public class RoundedTextField extends JTextField implements IComponent {
   private int radius;
   private int maxLength;
+  private boolean defaultTextEnabled;
   private String defaultText;
   private String currentText;
   private Color backgroundColor;
   private Color invalidBackgroundColor;
   private Color currentBackgroundColor;
   private Color foregroundColor;
+  private Color currentForegroundColor;
+  private Color defaultForegroundColor;
   private IntPredicate inputFilter;
   private Predicate<String> inputValidator;
 
@@ -29,6 +32,7 @@ public class RoundedTextField extends JTextField implements IComponent {
     Color backgroundColor,
     Color invalidBackgroundColor,
     Color foregroundColor,
+    Color defaultForegroundColor,
     Font font,
     Dimension dimension,
     int radius
@@ -41,11 +45,14 @@ public class RoundedTextField extends JTextField implements IComponent {
     setInvalidBackgroundColor(invalidBackgroundColor);
     setCurrentBackgroundColor(backgroundColor);
     setForegroundColor(foregroundColor);
+    setDefaultForegroundColor(defaultForegroundColor);
+    setCurrentForegroundColor(defaultForegroundColor);
     setCaretColor(foregroundColor);
     setRadius(radius);
     setOpaque(false);
     setHorizontalAlignment(CENTER);
     setBorder(new EmptyBorder(0, 10, 0, 10));
+    withDefaultText(true);
 
     registerCallbacks();
   }
@@ -71,6 +78,14 @@ public class RoundedTextField extends JTextField implements IComponent {
     this.foregroundColor = foregroundColor;
   }
 
+  public void setDefaultForegroundColor(Color defaultForegroundColor) {
+    this.defaultForegroundColor = defaultForegroundColor;
+  }
+
+  public void setCurrentForegroundColor(Color currentForegroundColor) {
+    this.currentForegroundColor = currentForegroundColor;
+  }
+
   public void setCurrentBackgroundColor(Color currentBackgroundColor) {
     this.currentBackgroundColor = currentBackgroundColor;
   }
@@ -84,7 +99,7 @@ public class RoundedTextField extends JTextField implements IComponent {
    * Filter input character by character.
    * @param inputFilter is tested against one character, when it is written in the field.
    */
-  public RoundedTextField setInputFilterMonadic(IntPredicate inputFilter) {
+  public RoundedTextField withInputFilter(IntPredicate inputFilter) {
     this.inputFilter = inputFilter;
     return this;
   }
@@ -93,13 +108,18 @@ public class RoundedTextField extends JTextField implements IComponent {
    * Filter the entire input as a String. 
    * @param inputValidator is tested against the entered text, each time a character is added.
    */
-  public RoundedTextField setInputValidatorMonadic(Predicate<String> inputValidator) {
+  public RoundedTextField withInputValidator(Predicate<String> inputValidator) {
     this.inputValidator = inputValidator;
     return this;
   }
 
-  public RoundedTextField setMaxLengthMonadic(int maxLength) {
+  public RoundedTextField withMaxLength(int maxLength) {
     this.maxLength = maxLength;
+    return this;
+  }
+
+  public RoundedTextField withDefaultText(boolean enabled) {
+    this.defaultTextEnabled = enabled;
     return this;
   }
 
@@ -127,7 +147,7 @@ public class RoundedTextField extends JTextField implements IComponent {
 
   public void toDefault() {
     setText(defaultText);
-    foregroundColor = ColorOpaqueBuilder.build(foregroundColor, 0.5f);
+    currentForegroundColor = defaultForegroundColor;
   }
 
   @Override protected void paintComponent(Graphics g) {
@@ -155,10 +175,10 @@ public class RoundedTextField extends JTextField implements IComponent {
     );
     
     if (isEditable()) {
-      setForeground(foregroundColor);
+      setForeground(currentForegroundColor);
     }
     else {
-      setForeground(ColorOpaqueBuilder.build(foregroundColor, 0.2f));
+      setForeground(ColorOpaqueBuilder.build(currentForegroundColor, 0.2f));
     }
 
     super.paintComponent(g);
@@ -168,13 +188,13 @@ public class RoundedTextField extends JTextField implements IComponent {
   @Override public void registerCallbacks() {
     addFocusListener(new FocusListener() {
       public void focusGained(FocusEvent e) {
-        if (!isEditable()) {
+        if (!isEditable() || !defaultTextEnabled) {
           return;
         }
 
         if (isDefaultText()) {
           setText("");
-          foregroundColor = ColorOpaqueBuilder.build(foregroundColor, 1f);
+          currentForegroundColor = foregroundColor;
         }
       }
 
@@ -185,10 +205,10 @@ public class RoundedTextField extends JTextField implements IComponent {
         
         if (isEmptyText()) {
           setText(defaultText);
-          foregroundColor = ColorOpaqueBuilder.build(foregroundColor, 0.5f);
+          currentForegroundColor = defaultForegroundColor;
         }
         else {
-          foregroundColor = ColorOpaqueBuilder.build(foregroundColor, 1f);
+          currentForegroundColor = foregroundColor;
         }
       }
     });
