@@ -5,12 +5,12 @@ import java.util.function.*;
 public enum CommonValidators {
   MONEY_AMOUNT (
     c -> Character.isDigit(c) || c == '.',
-    text -> text.matches("[0-9]{1,4}?.[0-9]{2}?") || text.equals(""),
+    text -> text.matches("[0-9]{1,4}\\.[0-9]{2}") || text.equals(""),
     7
   ),
   MONEY_AMOUNT_EDITOR (
     c -> Character.isDigit(c) || c == '.' || c == '-' || c == '+',
-    text -> text.matches("[+-]?[0-9]{1,4}.[0-9]{2}") || text.equals(""),
+    text -> text.matches("[+-]?[0-9]{1,4}\\.[0-9]{2}") || text.equals(""),
     8
   ),
   DATE (
