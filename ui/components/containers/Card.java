@@ -59,8 +59,9 @@ public class Card extends RoundedPanel implements IComponent {
       new Point(0, 0),
       RADIUS,
       CommonColors.CARD.getColor()
-      );
-      this.transaction = new Transaction();
+    );
+
+    this.transaction = transaction;
       
       
     amount = new TunableText()
@@ -169,9 +170,7 @@ public class Card extends RoundedPanel implements IComponent {
     setDescription(transaction.getDescription());
   }
 
-  public void setAmount(float amount) {
-    this.transaction.setAmount(amount);
-    
+  private void setAmount(float amount) {    
     if (transaction.getAmount() < 0) {
       sign
         .setColorMonadic(CommonColors.MINUS.getColor())
@@ -193,9 +192,7 @@ public class Card extends RoundedPanel implements IComponent {
     );
   }
 
-  public void setDate(Date date) {
-    this.transaction.setDate(date);
-
+  private void setDate(Date date) {
     final var dateStr =
       CommonDateFormats
       .EU_DATE_FORMAT_LONG
@@ -206,9 +203,7 @@ public class Card extends RoundedPanel implements IComponent {
     dateEditor.setText(dateStr);
   }
 
-  public void setDescription(String description) {
-    this.transaction.setDescription(description);
-
+  private void setDescription(String description) {
     this.description.setText(
       transaction.getDescription()
     );
@@ -284,7 +279,18 @@ public class Card extends RoundedPanel implements IComponent {
     );
 
     deleteButton.addActionListener(
-      e -> setVisible(false)
+      e -> {
+        try {
+        BalanceModelManager
+          .getInstance()
+          .deleteTransaction(this.transaction);
+        }
+        catch (ModelEditFailedException exception) {
+          return;
+        }
+
+        setVisible(false);
+      }
     );
 
     confirmButton.addActionListener(
