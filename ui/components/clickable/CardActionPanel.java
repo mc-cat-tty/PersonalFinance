@@ -16,6 +16,7 @@ public class CardActionPanel extends RoundedPanel implements IComponent {
   private final AbstractButton deleteButton;
   private final AbstractButton confirmButton;
   private JPanel cards;
+  private JPanel editDeleteCard;
   private CardActions currentAction;
 
   public CardActionPanel(
@@ -31,11 +32,14 @@ public class CardActionPanel extends RoundedPanel implements IComponent {
       radius,
       CommonColors.CARD.getColor()
     );
+    
     this.editButton = editButton;
     this.deleteButton = deleteButton;
     this.confirmButton = confirmButton;
     this.currentAction = CardActions.EDIT_DELETE;
+
     composeView();
+    setBackground(CommonColors.CARD.getColor());
   }
 
   public CardActions getCurrentAction() {
@@ -59,18 +63,15 @@ public class CardActionPanel extends RoundedPanel implements IComponent {
     );
     
     cards = new JPanel(new CardLayout());
-    cards.setBackground(CommonColors.CARD.getColor());
     add(cards);
 
-    final var editDeleteCard = new JPanel();
+    editDeleteCard = new JPanel();
     editDeleteCard.setLayout(
       new BorderLayout(
         CommonPaddings.CARD_HORIZONTAL_PADDING.getPadding(),
         0
       )
     );
-
-    editDeleteCard.setBackground(CommonColors.CARD.getColor());
 
     editDeleteCard.add(
       editButton,
@@ -84,5 +85,11 @@ public class CardActionPanel extends RoundedPanel implements IComponent {
 
     cards.add(editDeleteCard, CardActions.EDIT_DELETE.name());
     cards.add(confirmButton, CardActions.CONFIRM.name());
+  }
+
+  @Override public void setBackground(Color backgroundColor) {
+    super.setBackground(backgroundColor);
+    if (cards != null) cards.setBackground(backgroundColor);
+    if (editDeleteCard != null) editDeleteCard.setBackground(backgroundColor);
   }
 }

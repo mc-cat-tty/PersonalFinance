@@ -5,6 +5,7 @@ import java.awt.*;
 public enum CommonColors {
   BACKGROUND ("#1F1F1F"),
   CARD ("#505050"),
+  CARD_SELECTED ("#3C73A8"),
   TEXTBOX ("#404040"),
   TEXTBOX_INVALID ("#592D2D"),
   BUTTON_PRESSED ("#353535"),

@@ -14,12 +14,14 @@ public class EventsBroker {
   private final ModelEvent deleteEvent;
   private final ModelEvent editEvent;
   private final ModelEvent filterEvent;
+  private final ModelEvent selectionEvent;
 
   private EventsBroker() {
     addEvent = new ModelEvent();
     deleteEvent = new ModelEvent();
     editEvent = new ModelEvent();
     filterEvent = new ModelEvent();
+    selectionEvent = new ModelEvent();
   }
 
   public static EventsBroker getInstance() {
@@ -44,5 +46,9 @@ public class EventsBroker {
 
   public ModelEvent getFilterEvent() {
     return filterEvent;
+  }
+
+  public ModelEvent getSelectionEvent() {
+    return selectionEvent;
   }
 }

@@ -198,6 +198,11 @@ public class SearchPanel extends JPanel implements IComponent {
     endDateField.setDefaultText(period.getMockEndText());
     perdiodSelector.setSelectedItem(period.toString());
     
+    try {
+      updateDates();
+    }
+    catch (ParseException e) { }
+    
     if (period == SearchPeriods.CUSTOM) {
       startDateField.setEditable(true);
       endDateField.setEditable(true);
@@ -213,6 +218,17 @@ public class SearchPanel extends JPanel implements IComponent {
       perdiodSelector.getSelectedItem().toString().toUpperCase()
     );
   }
+
+  private void updateDates() throws ParseException {
+    final var baseDate = getSearchPeriod().getFormatter().parse(endDateField.getText());
+          
+    endDate = getSearchPeriod() == SearchPeriods.CUSTOM ?
+      baseDate : getSearchPeriod().toEndDate(baseDate);
+
+    startDate = getSearchPeriod() == SearchPeriods.CUSTOM ?
+      getSearchPeriod().getFormatter().parse(startDateField.getText()) :
+      getSearchPeriod().toStartDate(baseDate);
+  }
   
   @Override public void registerCallbacks() {
     perdiodSelector.addActionListener(
@@ -224,14 +240,7 @@ public class SearchPanel extends JPanel implements IComponent {
     searchButton.addActionListener(
       event -> {
         try {
-          final var baseDate = getSearchPeriod().getFormatter().parse(endDateField.getText());
-          
-          endDate = getSearchPeriod() == SearchPeriods.CUSTOM ?
-            baseDate : getSearchPeriod().toEndDate(baseDate);
-
-          startDate = getSearchPeriod() == SearchPeriods.CUSTOM ?
-            getSearchPeriod().getFormatter().parse(startDateField.getText()) :
-            getSearchPeriod().toStartDate(baseDate);
+          updateDates();
         }
         catch (ParseException exception) {
           startDate = endDate = null;
@@ -250,8 +259,6 @@ public class SearchPanel extends JPanel implements IComponent {
           searchField.isDefaultText()
           || searchField.isEmptyText();
         
-
-        // If every search field is at the default value, show all transactions
         EventsBroker
           .getInstance()
           .getFilterEvent()
@@ -263,6 +270,17 @@ public class SearchPanel extends JPanel implements IComponent {
                 endDate
               )
           );
+
+        if (!isSearchDescriptionDefault) {
+          EventsBroker
+            .getInstance()
+            .getSelectionEvent()
+            .notifyAllObservers(
+              BalanceModelManager
+                .getInstance()
+                .filterTransactionsByDescription(searchField.getText())
+            );
+        }
       }
     );
 

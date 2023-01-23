@@ -52,6 +52,9 @@ public class Card extends RoundedPanel implements IComponent {
   private JButton confirmButton;
   private CardActionPanel actionPanel;
 
+  private Box horizontalBox;
+  private JPanel middlePanel;
+  private JPanel middleUpperPanel;
 
   public Card(Transaction transaction) {
     super(
@@ -146,23 +149,28 @@ public class Card extends RoundedPanel implements IComponent {
       put(VIEW_KEY, amount);
       put(EDIT_KEY, amountEditor);
     }});
-    amountPanel.setBackground(CommonColors.CARD.getColor());
     amountPanel.setVisibleComponent(VIEW_KEY);
 
     datePanel = new LayeredPanel(new HashMap<>(){{
       put(VIEW_KEY, date);
       put(EDIT_KEY, dateEditor);
     }});
-    datePanel.setBackground(CommonColors.CARD.getColor());
     datePanel.setVisibleComponent(VIEW_KEY);
 
     descriptionPanel = new LayeredPanel(new HashMap<>(){{
       put(VIEW_KEY, description);
       put(EDIT_KEY, descriptionEditor);
     }});
-    descriptionPanel.setBackground(CommonColors.CARD.getColor());
     descriptionPanel.setVisibleComponent(VIEW_KEY);
 
+    middlePanel = new JPanel(new BorderLayout());
+    middlePanel.setBorder(
+      new EmptyBorder(5, 5, 5, 5)
+    );
+
+    middleUpperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+
+    setBackground(CommonColors.CARD.getColor());
     composeView();
     registerCallbacks();
     setTransaction(transaction);
@@ -221,6 +229,22 @@ public class Card extends RoundedPanel implements IComponent {
     return transaction;
   }
 
+  @Override public void setBackground(Color backgroundColor) {
+    super.setBackground(backgroundColor);
+    if (amountPanel != null) amountPanel.setBackground(backgroundColor); 
+    if (datePanel != null) datePanel.setBackground(backgroundColor); 
+    if (descriptionPanel != null) descriptionPanel.setBackground(backgroundColor);
+    if (amount != null) amount.setBackground(backgroundColor);
+    if (sentenceConnector != null) sentenceConnector.setBackground(backgroundColor);
+    if (date != null) date.setBackground(backgroundColor);
+    if (description != null) description.setBackground(backgroundColor);
+    if (actionPanel != null) actionPanel.setBackground(backgroundColor);
+    if (middlePanel != null) middlePanel.setBackground(backgroundColor);
+    if (middleUpperPanel != null) middleUpperPanel.setBackground(backgroundColor);
+    if (editButton != null) editButton.setBackground(backgroundColor);
+    if (deleteButton != null) deleteButton.setBackground(backgroundColor);
+  }
+
   @Override public void composeView() {
      setBorder(
       new EmptyBorder(
@@ -235,7 +259,7 @@ public class Card extends RoundedPanel implements IComponent {
       new BorderLayout()
     );
 
-    final var horizontalBox = Box.createHorizontalBox();
+    horizontalBox = Box.createHorizontalBox();
     add(horizontalBox, BorderLayout.WEST);
 
 
@@ -248,16 +272,8 @@ public class Card extends RoundedPanel implements IComponent {
     sign.setPreferredSize(new Dimension(50, 50));
     horizontalBox.add(sign);
 
-
-    final var middlePanel = new JPanel(new BorderLayout());
-    middlePanel.setBorder(
-      new EmptyBorder(5, 5, 5, 5)
-    );
-    middlePanel.setBackground(CommonColors.CARD.getColor());
     horizontalBox.add(middlePanel);
 
-    final var middleUpperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
-    middleUpperPanel.setBackground(CommonColors.CARD.getColor());
     middlePanel.add(middleUpperPanel, BorderLayout.NORTH);
 
 

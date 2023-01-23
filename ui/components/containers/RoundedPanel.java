@@ -12,7 +12,6 @@ public class RoundedPanel extends JPanel {
   private Dimension dimension;
   private Point shift;
   private Point location;
-  private Color backgroundColor;
   
   public RoundedPanel(
     Point location,
@@ -27,7 +26,7 @@ public class RoundedPanel extends JPanel {
     this.dimension = dimension;
     this.shift = shift;
     this.location = location;
-    this.backgroundColor = backgroundColor;
+    setBackground(backgroundColor);
     setBorder(new EmptyBorder(0, 0, 0, 0));
 
     setOpaque(false);
@@ -61,7 +60,7 @@ public class RoundedPanel extends JPanel {
       RenderingHints.KEY_ANTIALIASING,
       RenderingHints.VALUE_ANTIALIAS_ON
     );
-    g2d.setColor(backgroundColor);
+    g2d.setColor(getBackground());
 
     g2d.fillRoundRect(
       (int) location.getX()

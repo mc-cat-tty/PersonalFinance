@@ -67,4 +67,27 @@ public class Transaction implements Comparable<Transaction> {
 
     return other.idx - this.idx;
   }
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj)
+      return true;
+
+    if (obj == null)
+      return false;
+    
+    if (getClass() != obj.getClass())
+      return false;
+    
+
+    Transaction other = (Transaction) obj;
+
+    if (this.idx == other.idx) {
+      return true;
+    }
+
+    return false;
+  }
+
+  
 }
