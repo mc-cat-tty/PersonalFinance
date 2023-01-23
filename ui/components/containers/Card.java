@@ -4,6 +4,7 @@ import ui.core.*;
 import ui.utils.ColorOpaqueBuilder;
 import tunable.*;
 import model.core.*;
+import model.events.EventsBroker;
 
 import java.awt.*;
 
@@ -295,13 +296,22 @@ public class Card extends RoundedPanel implements IComponent {
     deleteButton.addActionListener(
       e -> {
         try {
-        BalanceModelManager
-          .getInstance()
-          .deleteTransaction(this.transaction);
+          BalanceModelManager
+            .getInstance()
+            .deleteTransaction(this.transaction);
         }
         catch (ModelEditFailedException exception) {
           return;
         }
+
+        EventsBroker
+          .getInstance()
+          .getDeleteEvent()
+          .notifyAllObservers(
+            new ArrayList<>() {{
+              add(getTransaction());
+            }}
+          );
 
         setVisible(false);
       }

@@ -199,6 +199,20 @@ public class SearchPanel extends JPanel implements IComponent {
       updateDates();
     }
     catch (ParseException e) { }
+
+    EventsBroker
+      .getInstance()
+      .getFilterDateEvent()
+      .notifyAllObservers(startDate, endDate);
+    
+    EventsBroker
+      .getInstance()
+      .getFilterEvent()
+      .notifyAllObservers(
+        BalanceModelManager
+          .getInstance()
+          .filterTransactionsByDate(startDate, endDate)
+      );
     
     if (period == SearchPeriods.CUSTOM) {
       startDateField.setEditable(true);

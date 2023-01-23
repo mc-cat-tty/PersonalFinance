@@ -11,6 +11,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import model.core.Transaction;
+import model.events.Event;
 import model.events.EventsBroker;
 
 /**
@@ -23,6 +24,7 @@ public class UpperPanel extends RoundedPanel implements IComponent {
   private final TunableText amount;
   private final TunableText startDate;
   private final TunableText endDate;
+  private float balance;
 
   public UpperPanel() {
     super(
@@ -149,7 +151,7 @@ public class UpperPanel extends RoundedPanel implements IComponent {
       .getFilterEvent()
       .attachObserver(
         transactions -> {
-          float balance = 0;
+          balance = 0;
 
           for (final Transaction t : transactions) {
             balance += t.getAmount();
@@ -160,10 +162,23 @@ public class UpperPanel extends RoundedPanel implements IComponent {
       );
 
     EventsBroker
-        .getInstance()
-        .getFilterDateEvent()
-        .attachObserver(
-          (startDate, endDate) -> {setStartDate(startDate); setEndDate(endDate);}
-        );
+      .getInstance()
+      .getFilterDateEvent()
+      .attachObserver(
+        (startDate, endDate) -> {setStartDate(startDate); setEndDate(endDate);}
+      );
+    
+    EventsBroker
+      .getInstance()
+      .getDeleteEvent()
+      .attachObserver(
+        transactions -> {
+          for (final var t : transactions) {
+            balance -= t.getAmount();
+          }
+
+          setAmount(balance);
+        }
+      );
   }
 }
