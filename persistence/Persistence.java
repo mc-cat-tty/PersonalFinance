@@ -28,7 +28,7 @@ public class Persistence {
     return true;
   }
 
-  public boolean load() {
+  @SuppressWarnings("unchecked") public boolean load() {
     try (
       final var inStream = new FileInputStream(file);
       final var objInStream = new ObjectInputStream(inStream);

@@ -10,7 +10,6 @@ import java.util.concurrent.CancellationException;
 import java.io.*;
 import javax.swing.*;
 
-import model.core.BalanceModel;
 import model.core.BalanceModelManager;
 import model.events.EventsBroker;
 

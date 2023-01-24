@@ -5,7 +5,6 @@ import java.io.*;
 import java.util.concurrent.CancellationException;
 
 public class LoadFileDialog extends FileDialog {
-  private final java.util.List<String> extensions;
 
   public LoadFileDialog(
     Frame parent,
@@ -14,7 +13,6 @@ public class LoadFileDialog extends FileDialog {
     java.util.List<String> extensions
   ) {
     super(parent, name, FileDialog.LOAD);
-    this.extensions = extensions;
 
     setDirectory(currentPath);
     setFilenameFilter((file, filename) -> extensions.stream().anyMatch(ext -> filename.endsWith(ext)));

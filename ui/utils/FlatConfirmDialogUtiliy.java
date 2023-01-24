@@ -60,10 +60,10 @@ public class FlatConfirmDialogUtiliy {
 
     final var selectedVal = ((Integer) selectedObj).intValue();
 
-    return switch(selectedVal) {
-      case 0 -> Choices.OK_CHOICE;
-      case 1 -> Choices.CANCEL_CHOICE;
-      default -> Choices.CLOSED_CHOICE;
-    };
+    switch(selectedVal) {
+      case 0: return Choices.OK_CHOICE;
+      case 1: return Choices.CANCEL_CHOICE;
+      default: return Choices.CLOSED_CHOICE;
+    }
   }
 }

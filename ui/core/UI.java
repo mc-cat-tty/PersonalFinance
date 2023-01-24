@@ -7,18 +7,10 @@ import tunable.*;
 
 import java.io.*;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
-import java.util.logging.LogManager;
-
-import javax.print.attribute.standard.PresentationDirection;
-import javax.swing.JDialog;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
 
 import model.core.BalanceModelManager;
 import model.events.EventsBroker;
 import persistence.Persistence;
-import persistence.PersistenceBuilder;
 
 /**
  * Parent class for the GUI. Manages views, model and control logic.

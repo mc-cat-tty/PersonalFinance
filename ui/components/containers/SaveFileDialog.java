@@ -2,7 +2,6 @@ package ui.components.containers;
 
 import java.awt.*;
 import java.io.*;
-import java.util.*;
 import java.util.concurrent.CancellationException;
 
 public class SaveFileDialog extends FileDialog {
