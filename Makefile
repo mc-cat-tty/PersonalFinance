@@ -1,5 +1,6 @@
-BINDIR = ./bin
+EXEC = PersonalFinance.jar
 ENTRY = Main
+BINDIR = ./bin
 
 .PHONY: init build run jar
 init:
@@ -11,3 +12,6 @@ build:
 
 run:
 	java -cp $(BINDIR) Main
+
+jar:
+	jar cmf META-INF/MANIFEST.MF $(EXEC) -C bin/ .
