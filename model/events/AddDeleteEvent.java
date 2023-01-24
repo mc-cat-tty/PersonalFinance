@@ -4,7 +4,7 @@ import model.core.*;
 import java.util.*;
 
 
-public class ModelEvent extends Event<IModelObserver> {
+public class AddDeleteEvent extends Event<IAddDeleteObserver> {
   public void notifyAllObservers(Collection<Transaction> changes) {
     synchronized (this.observers) {
       for (final var o : observers) {

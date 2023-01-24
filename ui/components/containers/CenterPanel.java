@@ -75,7 +75,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
         viewport.setViewPosition(
           new Point(
             0,
-            (CommonDimensions.CARD.getHeight() + CommonPaddings.CARD_BOTTOM_PADDING.getPadding()) * cardCount - 20
+            (CommonDimensions.CARD.getHeight() + CommonPaddings.CARD_BOTTOM_PADDING.getPadding()) - 15
           )
         );
       }
@@ -94,15 +94,6 @@ public class CenterPanel extends JScrollPane implements IComponent {
     setVerticalScrollBar(scrollBar);
     setVerticalScrollBarPolicy(VERTICAL_SCROLLBAR_AS_NEEDED);
     scrollBar.setUnitIncrement(30);
-
-    addTransactionCard(
-      new Transaction(
-        +123.45f,
-        new Date(),
-        "MOCK CARD: Lorem ipsum dolor sit amet, consectetur adipiscing elit."
-      )
-    );
-    
   }
 
   @Override public void registerCallbacks() {
@@ -113,11 +104,11 @@ public class CenterPanel extends JScrollPane implements IComponent {
         filteredTransactions -> reloadModel(filteredTransactions)
       );
     
-      EventsBroker
-        .getInstance()
-        .getSelectionEvent()
-        .attachObserver(
-          selectedTransactions -> selectCard(selectedTransactions)
-        );
+    EventsBroker
+      .getInstance()
+      .getSelectionEvent()
+      .attachObserver(
+        selectedTransactions -> selectCard(selectedTransactions)
+      );
   }
 }

@@ -2,7 +2,7 @@ package model.core;
 
 import java.util.*;
 
-public class Transaction implements Comparable<Transaction> {
+public class Transaction implements Comparable<Transaction>, Cloneable {
   private static int GLOBAL_IDX = 0;  /** Global transaction index. Used to compare insert orders and equalty */
   private int idx;
   private float amount;
@@ -54,7 +54,7 @@ public class Transaction implements Comparable<Transaction> {
       idx,
       amount,
       date,
-      description.substring(0, 30)
+      description.length() > 30 ? description.subSequence(0, 30) : description
     );
   }
 
@@ -68,8 +68,7 @@ public class Transaction implements Comparable<Transaction> {
     return other.idx - this.idx;
   }
 
-  @Override
-  public boolean equals(Object obj) {
+  @Override public boolean equals(Object obj) {
     if (this == obj)
       return true;
 
@@ -89,5 +88,12 @@ public class Transaction implements Comparable<Transaction> {
     return false;
   }
 
-  
+  @Override public Object clone() {
+    final var clone = new Transaction();
+    clone.idx = this.idx;
+    clone.setAmount(amount);
+    clone.setDate(date);
+    clone.setDescription(description);
+    return clone;
+  }
 }

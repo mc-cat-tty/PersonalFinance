@@ -17,7 +17,7 @@ public class BalanceModel {
     return transactions;
   }
 
-  public void addTransaction(Transaction transaction) throws ModelEditFailedException{
+  public void addTransaction(Transaction transaction) throws ModelEditFailedException {
     synchronized (transactions) {
       if (!transactions.add(transaction)) {
         throw new ModelEditFailedException("Failed add of " + transaction);
@@ -33,7 +33,7 @@ public class BalanceModel {
     }
   }
 
-  public void editTransaction(
+  public Transaction editTransaction(
     Transaction transaction,
     float newAmount,
     Date newDate,
@@ -47,13 +47,15 @@ public class BalanceModel {
         throw new ModelEditFailedException("Not found transaction " + transaction);
       }
   
-      final var newTransaction = searchResult.get();
+      final var newTransaction = (Transaction) searchResult.get().clone();
       newTransaction.setAmount(newAmount);
       newTransaction.setDate(newDate);
       newTransaction.setDescription(newDescription);
 
       deleteTransaction(transaction);
       addTransaction(newTransaction);
+      
+      return newTransaction;
     }
   }
 

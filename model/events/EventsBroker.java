@@ -6,18 +6,18 @@ package model.events;
  */
 public class EventsBroker {
   private static EventsBroker instance;
-  private final ModelEvent addEvent;
-  private final ModelEvent deleteEvent;
-  private final ModelEvent editEvent;
-  private final ModelEvent filterEvent;
+  private final AddDeleteEvent addEvent;
+  private final AddDeleteEvent deleteEvent;
+  private final AddDeleteEvent editEvent;
+  private final AddDeleteEvent filterEvent;
   private final SelectEvent selectionEvent;
   private final FilterDateEvent filterDateEvent;
 
   private EventsBroker() {
-    addEvent = new ModelEvent();
-    deleteEvent = new ModelEvent();
-    editEvent = new ModelEvent();
-    filterEvent = new ModelEvent();
+    addEvent = new AddDeleteEvent();
+    deleteEvent = new AddDeleteEvent();
+    editEvent = new AddDeleteEvent();
+    filterEvent = new AddDeleteEvent();
     selectionEvent = new SelectEvent();
     filterDateEvent = new FilterDateEvent();
   }
@@ -30,19 +30,19 @@ public class EventsBroker {
     return instance;
   }
 
-  public ModelEvent getAddEvent() {
+  public AddDeleteEvent getAddEvent() {
     return addEvent;
   }
 
-  public ModelEvent getDeleteEvent() {
+  public AddDeleteEvent getDeleteEvent() {
     return deleteEvent;
   }
 
-  public ModelEvent getEditEvent() {
+  public AddDeleteEvent getEditEvent() {
     return editEvent;
   }
 
-  public ModelEvent getFilterEvent() {
+  public AddDeleteEvent getFilterEvent() {
     return filterEvent;
   }
 

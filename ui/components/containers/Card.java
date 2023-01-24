@@ -7,6 +7,8 @@ import model.core.*;
 import model.events.EventsBroker;
 
 import java.awt.*;
+import java.lang.reflect.Executable;
+import java.text.ParseException;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -92,8 +94,8 @@ public class Card extends RoundedPanel implements IComponent {
       "",
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
-      CommonColors.TEXT.getColor(),
-      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.7f),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.7f),
       CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f),
       new Dimension(0, 0),
       30
@@ -105,8 +107,8 @@ public class Card extends RoundedPanel implements IComponent {
       "",
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
-      CommonColors.TEXT.getColor(),
-      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.7f),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.7f),
       CommonFonts.TEXT_MEDIUM_WEIGHT.getFont().deriveFont(33f),
       new Dimension(0, 0),
       30
@@ -118,8 +120,8 @@ public class Card extends RoundedPanel implements IComponent {
       "",
       CommonColors.TEXTBOX.getColor(),
       CommonColors.TEXTBOX_INVALID.getColor(),
-      CommonColors.TEXT.getColor(),
-      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.5f),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.7f),
+      ColorOpaqueBuilder.build(CommonColors.TEXT.getColor(), 0.7f),
       CommonFonts.TEXT_NORMAL.getFont().deriveFont(33f),
       new Dimension(0, 0),
       30
@@ -160,7 +162,7 @@ public class Card extends RoundedPanel implements IComponent {
 
     middlePanel = new JPanel(new BorderLayout());
     middlePanel.setBorder(
-      new EmptyBorder(5, 5, 5, 5)
+      new EmptyBorder(5, 5, 10, 5)
     );
 
     middleUpperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
@@ -178,7 +180,7 @@ public class Card extends RoundedPanel implements IComponent {
   }
 
   private void setAmount(float amount) {    
-    if (transaction.getAmount() < 0) {
+    if (amount < 0) {
       sign
         .withColor(CommonColors.MINUS.getColor())
         .setText("-");
@@ -212,12 +214,10 @@ public class Card extends RoundedPanel implements IComponent {
 
   private void setDescription(String description) {
     this.description.setText(
-      transaction.getDescription()
+      description
     );
 
-    descriptionEditor.setText(
-      transaction.getDescription()
-    );
+    descriptionEditor.setText(description);
   }
 
   public Transaction getTransaction() {
@@ -319,10 +319,44 @@ public class Card extends RoundedPanel implements IComponent {
 
     confirmButton.addActionListener(
       e -> {
-        amountPanel.setVisibleComponent(VIEW_KEY);
-        datePanel.setVisibleComponent(VIEW_KEY);
-        descriptionPanel.setVisibleComponent(VIEW_KEY);
-        actionPanel.setCurrentAction(CardActions.EDIT_DELETE);
+        if (!amountEditor.isValidText() || !dateEditor.isValidText() || !descriptionEditor.isValidText()) {
+          return;
+        }
+
+        float amount = Float.parseFloat(amountEditor.getText());
+        String description = descriptionEditor.getText();
+        Date date;
+
+        try {
+          date = CommonDateFormats.EU_DATE_FORMAT_LONG.getFormatter().parse(dateEditor.getText());
+        }
+        catch (ParseException exception) {
+          return;
+        }
+
+
+        final Transaction editedTransaction;
+
+        try {
+          editedTransaction = BalanceModelManager
+            .getInstance()
+            .editTransaction(getTransaction(), amount, date, description);
+        }
+        catch (ModelEditFailedException exception) {
+          exception.printStackTrace();
+          return;
+        }
+        
+        setVisible(false);
+
+        EventsBroker
+          .getInstance()
+          .getAddEvent()
+          .notifyAllObservers(
+            new ArrayList<>() {{
+              add(editedTransaction);
+            }}
+          );
       }
     );
   }
