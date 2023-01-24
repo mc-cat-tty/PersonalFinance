@@ -52,21 +52,21 @@ public class Window extends JFrame implements IComponent {
     
     loadFileDialog = new LoadFileDialog(
       this,
-      "Load .finance file",
+      "Load " + CommonExtensions.MAIN_EXT.getExt() + " file",
       HOME_DIRECTORY,
       new ArrayList<>() {{
-        add(".finance");
-        add(".finance.bak");
+        add(CommonExtensions.MAIN_EXT.getExt());
+        add(CommonExtensions.BACKUP_EXT.getExt());
       }}
     );
         
     saveFileDialog = new SaveFileDialog(
       this,
-      "Save .finance file",
+      "Save " + CommonExtensions.MAIN_EXT.getExt() + " file",
       HOME_DIRECTORY,
       new ArrayList<>() {{
-        add(".finance");
-        add(".finance.bak");
+        add(CommonExtensions.MAIN_EXT.getExt());
+        add(CommonExtensions.BACKUP_EXT.getExt());
       }}
     );
     

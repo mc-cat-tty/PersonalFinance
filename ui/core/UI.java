@@ -1,12 +1,19 @@
 package ui.core;
 
-import ui.components.containers.Window;
+import ui.components.containers.*;
+import ui.utils.FlatConfirmDialogUtiliy;
+import ui.utils.FlatConfirmDialogUtiliy.Choices;
+import tunable.*;
 
 import java.io.*;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.logging.LogManager;
 
 import javax.print.attribute.standard.PresentationDirection;
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 import model.core.BalanceModelManager;
 import model.events.EventsBroker;
@@ -18,30 +25,28 @@ import persistence.PersistenceBuilder;
  * @author Francesco Mecatti
  */
 public class UI {
-  private Persistence autosave;
+  private final Persistence autosave;
+  private final Window window;
+  private final FlatConfirmDialogUtiliy restoreDialogBuilder;
 
   public UI(String windowName) {
-    new Window(windowName);
+    window = new Window(windowName);
 
-    this.autosave = new PersistenceBuilder()
-      .withFile(
-        new File(
-          System.getProperty("user.dir"),
-          "autosaved.finance.bak"
-        )
-      )
-      .withModel(BalanceModelManager.getInstance())
-      .create();
+    restoreDialogBuilder = new FlatConfirmDialogUtiliy(
+      window,
+      "Restore Autosave",
+      "An automatic backup file has been found.\nDo you want to restore it?"
+    );
 
-    if (!autosave.load()) {
-      System.out.println("Failed to load backup file");
-    }
-    else {
-      EventsBroker
-        .getInstance()
-        .getAddEvent()
-        .notifyAllObservers(null);
-    }
+    final var autosaveFile = new File(
+      System.getProperty("java.io.tmpdir"),
+      "autosaved" + CommonExtensions.BACKUP_EXT.getExt()
+    );
+    
+    this.autosave = new Persistence(BalanceModelManager.getInstance(), autosaveFile);
+
+    restoreAutosave(autosaveFile);
+
 
     new Timer("Autosave", true).schedule(
       new TimerTask() {
@@ -52,5 +57,28 @@ public class UI {
       0,  // no dalay for first execution
       1000  // 1 second period time
     );
+  }
+
+  private void restoreAutosave(File autosaveFile) {  
+    if (!autosaveFile.exists()) {
+      return;
+    }
+    
+    restoreDialogBuilder.getDialog().setVisible(true);
+
+    // if user doesn't want to restore backup
+    if (restoreDialogBuilder.getChoice() != Choices.OK_CHOICE) {
+      return;
+    }
+
+    if (!autosave.load()) {
+      System.err.println("Failed to load backup file");
+    }
+    else {  // notify add change to all listeners
+      EventsBroker
+        .getInstance()
+        .getAddEvent()
+        .notifyAllObservers(null);
+    }
   }
 }
