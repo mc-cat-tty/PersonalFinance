@@ -7,7 +7,6 @@ import model.core.*;
 import model.events.EventsBroker;
 
 import java.awt.*;
-import java.lang.reflect.Executable;
 import java.text.ParseException;
 
 import javax.swing.*;

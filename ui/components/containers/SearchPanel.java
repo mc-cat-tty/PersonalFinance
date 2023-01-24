@@ -213,7 +213,8 @@ public class SearchPanel extends JPanel implements IComponent {
           .getInstance()
           .filterTransactionsByDate(startDate, endDate)
       );
-    
+
+      
     if (period == SearchPeriods.CUSTOM) {
       startDateField.setEditable(true);
       endDateField.setEditable(true);

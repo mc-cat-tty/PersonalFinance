@@ -11,7 +11,6 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import model.core.Transaction;
-import model.events.Event;
 import model.events.EventsBroker;
 
 /**
@@ -89,13 +88,13 @@ public class UpperPanel extends RoundedPanel implements IComponent {
 
   public void setStartDate(Date startDate) {
     this.startDate.setText(
-      CommonDateFormats.US_DATE_FORMAT_SHORT.getFormatter().format(startDate)
+      CommonDateFormats.EU_DATE_FORMAT_SHORT.getFormatter().format(startDate)
     );
   }
 
   public void setEndDate(Date endDate) {
     this.endDate.setText(
-      CommonDateFormats.US_DATE_FORMAT_SHORT.getFormatter().format(endDate)
+      CommonDateFormats.EU_DATE_FORMAT_SHORT.getFormatter().format(endDate)
     );
   }
 

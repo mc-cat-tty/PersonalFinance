@@ -75,7 +75,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
         viewport.setViewPosition(
           new Point(
             0,
-            (CommonDimensions.CARD.getHeight() + CommonPaddings.CARD_BOTTOM_PADDING.getPadding()) - 15
+            (CommonDimensions.CARD.getHeight() + CommonPaddings.CARD_BOTTOM_PADDING.getPadding()) * cardCount - 15
           )
         );
       }
