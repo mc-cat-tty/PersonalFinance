@@ -23,8 +23,8 @@ import java.util.*;
  */
 public class Card extends RoundedPanel implements IComponent {
   private static final int RADIUS = 50;
-  private static final String VIEW_KEY = "VIEW";
-  private static final String EDIT_KEY = "EDIT";
+  public static final String VIEW_KEY = "VIEW";
+  public static final String EDIT_KEY = "EDIT";
 
   private Transaction transaction;
   private TunableText sign;
@@ -223,6 +223,25 @@ public class Card extends RoundedPanel implements IComponent {
     return transaction;
   }
 
+  public JButton getEditButton() {
+    return editButton;
+  }
+
+  public JButton getDeleteButton() {
+    return deleteButton;
+  }
+
+  public JButton getConfirmButton() {
+    return confirmButton;
+  }
+
+  public void setView(String viewKey) {
+    amountPanel.setVisibleComponent(viewKey);
+    datePanel.setVisibleComponent(viewKey);
+    descriptionPanel.setVisibleComponent(viewKey);
+    actionPanel.setCurrentAction(viewKey.equals(EDIT_KEY) ? CardActions.CONFIRM : CardActions.EDIT_DELETE);
+  }
+  
   @Override public void setBackground(Color backgroundColor) {
     super.setBackground(backgroundColor);
     if (amountPanel != null) amountPanel.setBackground(backgroundColor); 
@@ -285,10 +304,7 @@ public class Card extends RoundedPanel implements IComponent {
   @Override public void registerCallbacks() {
     editButton.addActionListener(
       e -> {
-        amountPanel.setVisibleComponent(EDIT_KEY);
-        datePanel.setVisibleComponent(EDIT_KEY);
-        descriptionPanel.setVisibleComponent(EDIT_KEY);
-        actionPanel.setCurrentAction(CardActions.CONFIRM);
+        setView(EDIT_KEY);
       }
     );
 
@@ -345,8 +361,8 @@ public class Card extends RoundedPanel implements IComponent {
           exception.printStackTrace();
           return;
         }
-        
-        setVisible(false);
+
+        setView(VIEW_KEY);
 
         EventsBroker
           .getInstance()

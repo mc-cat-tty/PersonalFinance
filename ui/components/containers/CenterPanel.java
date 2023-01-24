@@ -38,8 +38,18 @@ public class CenterPanel extends JScrollPane implements IComponent {
   }
 
   private void addTransactionCard(Transaction transaction) {
-    verticalBox.add(
-      new Card(transaction)
+    final var card = new Card(transaction);
+
+    verticalBox.add(card);
+
+    card.getEditButton().addActionListener(
+      event -> {
+        for (final var o : verticalBox.getComponents()) {
+          if (o instanceof Card &&  (Card) o != event.getSource()) {
+            ((Card) o).setView(Card.VIEW_KEY);
+          }
+        }
+      }
     );
   }
 
