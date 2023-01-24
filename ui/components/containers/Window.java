@@ -110,7 +110,7 @@ public class Window extends JFrame implements IComponent {
         }},
         CommonColors.TOPBAR.getColor(),
         CommonColors.TEXT.getColor(),
-        CommonFonts.TEXT_NORMAL.getFont().deriveFont(18f)
+        CommonFonts.TEXT_NORMAL.getFont().deriveFont(22f)
       )
     );
 
@@ -133,7 +133,8 @@ public class Window extends JFrame implements IComponent {
           .withFile(file)
           .withModel(
             BalanceModelManager.getInstance()
-          ).load();
+          ).create()
+          .load();
         
         if (!ok) {
           JOptionPane.showMessageDialog(this, "Failed operation");
@@ -162,7 +163,8 @@ public class Window extends JFrame implements IComponent {
           .withFile(file)
           .withModel(
             BalanceModelManager.getInstance()
-          ).save();
+          ).create()
+          .save();
 
         if (!ok) {
           JOptionPane.showMessageDialog(this, "Failed operation");
