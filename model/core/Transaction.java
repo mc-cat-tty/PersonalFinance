@@ -1,8 +1,9 @@
 package model.core;
 
+import java.io.Serializable;
 import java.util.*;
 
-public class Transaction implements Comparable<Transaction>, Cloneable {
+public class Transaction implements Comparable<Transaction>, Cloneable, Serializable {
   private static int GLOBAL_IDX = 0;  /** Global transaction index. Used to compare insert orders and equalty */
   private int idx;
   private float amount;

@@ -1,5 +1,6 @@
 package model.core;
 
+import java.io.Serializable;
 import java.util.*;
 
 
@@ -14,7 +15,16 @@ public class BalanceModel {
   }
 
   public Collection<Transaction> getTransactions() {
-    return transactions;
+    synchronized (transactions) {
+      return transactions;
+    }
+  }
+
+  public void setTransactions(Collection<Transaction> transactions) {
+    synchronized (transactions) {
+      this.transactions.clear();
+      this.transactions.addAll(transactions);
+    }
   }
 
   public void addTransaction(Transaction transaction) throws ModelEditFailedException {
