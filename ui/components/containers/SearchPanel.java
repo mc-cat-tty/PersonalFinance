@@ -264,7 +264,7 @@ public class SearchPanel extends JPanel implements IComponent {
           
           return;
         }
-
+        
         startDateField.setText(getSearchPeriod().getFormatter().format(startDate));
 
         final boolean isSearchDescriptionDefault =

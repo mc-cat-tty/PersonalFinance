@@ -42,6 +42,7 @@ public class CenterPanel extends JScrollPane implements IComponent {
 
     verticalBox.add(card);
 
+    // Make card editable in mutual exclusion
     card.getEditButton().addActionListener(
       event -> {
         for (final var o : verticalBox.getComponents()) {
