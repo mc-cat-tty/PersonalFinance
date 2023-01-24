@@ -27,6 +27,9 @@ public class FlatConfirmDialogUtiliy {
     UIManager.put("Button.font", CommonFonts.TEXT_NORMAL.getFont().deriveFont(22f));
     UIManager.put("Button.background", CommonColors.BUTTON_SECONDARY.getColor());
     UIManager.put("Button.foreground", CommonColors.TEXT.getColor());
+    UIManager.put("Button.focus", CommonColors.BUTTON_SECONDARY.getColor());
+    UIManager.put("Button.select", CommonColors.BUTTON_SECONDARY.getColor().darker());
+    
     
     optionPane = new JOptionPane(
       message,
