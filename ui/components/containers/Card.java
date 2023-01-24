@@ -162,7 +162,7 @@ public class Card extends RoundedPanel implements IComponent {
 
     middlePanel = new JPanel(new BorderLayout());
     middlePanel.setBorder(
-      new EmptyBorder(5, 5, 10, 5)
+      new EmptyBorder(2, 5, 8, 5)
     );
 
     middleUpperPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));

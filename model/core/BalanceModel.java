@@ -81,7 +81,7 @@ public class BalanceModel {
     synchronized (transactions) {
       return transactions
         .stream()
-        .filter(t -> t.getDescription().contains(description))
+        .filter(t -> t.getDescription().toLowerCase().contains(description.toLowerCase()))
         .collect(TreeSet::new, TreeSet::add, (x, y) -> x.addAll(y));
     }
   }
