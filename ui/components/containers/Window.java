@@ -39,6 +39,7 @@ public class Window extends JFrame implements IComponent {
   private final SaveFileDialog saveCsvDialog;
   private final SaveFileDialog saveOdsDialog;
   private final LoadFileDialog loadFileDialog;
+  private IRecordFormatter recordFormatter;
 
   public Window(String name) {
     super(name);
@@ -223,6 +224,7 @@ public class Window extends JFrame implements IComponent {
         }
 
         boolean ok = true;
+        recordFormatter = new TxtLineFormatter();
 
         try (
           final var fileWriter = new FileWriter(file);
@@ -230,7 +232,7 @@ public class Window extends JFrame implements IComponent {
           ok = new export.Formatter(
             BalanceModelManager.getInstance(),
             fileWriter,
-            new TxtLineFormatter()
+            recordFormatter
           ).format();
         }
         catch (IOException exception) {
@@ -256,6 +258,7 @@ public class Window extends JFrame implements IComponent {
         }
 
         boolean ok = true;
+        recordFormatter = new CsvLineFormatter();
 
         try (
           final var fileWriter = new FileWriter(file);
@@ -263,7 +266,7 @@ public class Window extends JFrame implements IComponent {
           ok = new export.Formatter(
             BalanceModelManager.getInstance(),
             fileWriter,
-            new CsvLineFormatter()
+            recordFormatter
           ).format();
         }
         catch (IOException exception) {
