@@ -20,6 +20,10 @@ public enum CommonIcons {
   private CommonIcons(String iconPath) {
     final var iconStream = getClass().getClassLoader().getResourceAsStream(iconPath);
 
+    if (iconStream == null) {
+      throw new IllegalArgumentException(iconPath + " is not valid");
+    }
+    
     try {
       this.icon = new ImageIcon(ImageIO.read(iconStream));
     }
