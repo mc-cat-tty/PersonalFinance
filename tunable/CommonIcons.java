@@ -7,13 +7,13 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public enum CommonIcons {
-  FOLDER ("assets" + File.separator + "folder.png"),
-  EXPORT ("assets" + File.separator + "export.png"),
-  PRINT ("assets" + File.separator + "print.png"),
-  EDIT ("assets" + File.separator + "edit.png"),
-  DELETE ("assets" + File.separator + "delete.png"),
-  DROPDOWN ("assets" + File.separator + "dropdown.png"),
-  DROPUP ("assets" + File.separator + "dropup.png");
+  FOLDER ("assets/folder.png"),
+  EXPORT ("assets/export.png"),
+  PRINT ("assets/print.png"),
+  EDIT ("assets/edit.png"),
+  DELETE ("assets/delete.png"),
+  DROPDOWN ("assets/dropdown.png"),
+  DROPUP ("assets/dropup.png");
 
   private final ImageIcon icon;
 

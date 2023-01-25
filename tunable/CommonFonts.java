@@ -5,8 +5,8 @@ import java.io.File;
 import java.io.IOException;
 
 public enum CommonFonts {
-  TEXT_NORMAL ("assets" + File.separator + "InterRegular.ttf"),
-  TEXT_MEDIUM_WEIGHT ("assets" + File.separator + "InterSemibold.ttf");
+  TEXT_NORMAL ("assets/InterRegular.ttf"),
+  TEXT_MEDIUM_WEIGHT ("assets/InterSemibold.ttf");
 
   private Font font;
 
