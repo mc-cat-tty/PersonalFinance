@@ -1,0 +1,25 @@
+name: Build and Release Project
+on:
+  push:
+    tags:
+      - 'v*'
+jobs:
+  build:
+    permissions:
+      contents: write
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout Repo
+      uses: actions/checkout@v2
+    - name: Set up Java
+      uses: actions/setup-java@v2
+      with:
+        java-version: '11'
+    - name: Build Project
+      run: make build
+    - name: Package Project into jar
+      run: make jar
+    - name: Create Release
+      uses: ncipollo/release-action@v1
+      with:
+        artifacts: "PersonalFinance.jar"
