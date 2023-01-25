@@ -4,12 +4,17 @@ import tunable.*;
 import ui.components.clickable.*;
 import ui.core.*;
 import persistence.*;
+import export.*;
 
 import java.util.*;
 import java.util.concurrent.CancellationException;
-import java.io.*;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+
 import javax.swing.*;
 
+import export.CsvLineFormatter;
 import model.core.BalanceModelManager;
 import model.events.EventsBroker;
 
@@ -24,6 +29,8 @@ public class Window extends JFrame implements IComponent {
   private final MenuItem pdfItem;
   private final MenuItem printerItem;
   private final SaveFileDialog saveFileDialog;
+  private final SaveFileDialog saveTxtDialog;
+  private final SaveFileDialog saveCsvDialog;
   private final LoadFileDialog loadFileDialog;
 
   public Window(String name) {
@@ -66,6 +73,24 @@ public class Window extends JFrame implements IComponent {
       new ArrayList<>() {{
         add(CommonExtensions.MAIN_EXT.getExt());
         add(CommonExtensions.BACKUP_EXT.getExt());
+      }}
+    );
+
+    saveTxtDialog = new SaveFileDialog(
+      this,
+      "Save TXT file",
+      HOME_DIRECTORY,
+      new ArrayList<>() {{
+        add(CommonExtensions.TXT_EXT.getExt());
+      }}
+    );
+
+    saveCsvDialog = new SaveFileDialog(
+      this,
+      "Save CSV file",
+      HOME_DIRECTORY,
+      new ArrayList<>() {{
+        add(CommonExtensions.CSV_EXT.getExt());
       }}
     );
     
@@ -167,6 +192,72 @@ public class Window extends JFrame implements IComponent {
 
         if (!ok) {
           JOptionPane.showMessageDialog(this, "Failed operation");
+          return;
+        }
+      }
+    );
+
+    txtItem.addActionListener(
+      event -> {
+        File file;
+
+        try {
+          file = saveTxtDialog.open();
+        }
+        catch (CancellationException exception) {
+          return;
+        }
+
+        boolean ok = true;
+
+        try (
+          final var fileWriter = new FileWriter(file);
+        ) {
+          ok = new export.Formatter(
+            BalanceModelManager.getInstance(),
+            fileWriter,
+            new TxtLineFormatter()
+          ).format();
+        }
+        catch (IOException exception) {
+          ok = false;
+        }
+
+        if (!ok) {
+          JOptionPane.showMessageDialog(this, "Failed while writing file.");
+          return;
+        }
+      }
+    );
+
+    csvItem.addActionListener(
+      event -> {
+        File file;
+
+        try {
+          file = saveCsvDialog.open();
+        }
+        catch (CancellationException exception) {
+          return;
+        }
+
+        boolean ok = true;
+
+        try (
+          final var fileWriter = new FileWriter(file);
+        ) {
+          ok = new export.Formatter(
+            BalanceModelManager.getInstance(),
+            fileWriter,
+            new CsvLineFormatter()
+          ).format();
+        }
+        catch (IOException exception) {
+          ok = false;
+        }
+
+        if (!ok) {
+          JOptionPane.showMessageDialog(this, "Failed while writing file.");
           return;
         }
       }

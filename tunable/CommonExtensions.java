@@ -2,7 +2,9 @@ package tunable;
 
 public enum CommonExtensions {
   MAIN_EXT (".finance"),
-  BACKUP_EXT (".finance.bak");
+  BACKUP_EXT (".finance.bak"),
+  TXT_EXT (".txt"),
+  CSV_EXT (".csv");
 
   private final String ext;
 

@@ -6,7 +6,7 @@ import java.util.*;
 /**
  * Balance model keeps a transaction set ordered by date (in case of equal date, the creation order is used).
  */
-public class BalanceModel {
+public class BalanceModel implements IReadableModel, IWritableModel {
   private final SortedSet<Transaction> transactions;
 
   protected BalanceModel() {

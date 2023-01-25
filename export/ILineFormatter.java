@@ -1,5 +1,7 @@
 package export;
 
-public class ILineFormatter {
-  
+import model.core.*;
+
+public interface ILineFormatter {
+  public String transform(Transaction transaction);
 }
