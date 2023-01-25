@@ -4,15 +4,21 @@ import tunable.*;
 import ui.components.clickable.*;
 import ui.core.*;
 import persistence.*;
+import print.PrintableBalance;
 import export.*;
+import print.*;
 
 import java.util.*;
 import java.util.concurrent.CancellationException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.text.ParseException;
 
+import javax.print.PrintException;
+import javax.print.attribute.standard.PrinterInfo;
 import javax.swing.*;
+import java.awt.print.*;
 
 import export.CsvLineFormatter;
 import model.core.BalanceModelManager;
@@ -26,7 +32,6 @@ public class Window extends JFrame implements IComponent {
   private final MenuItem txtItem;
   private final MenuItem csvItem;
   private final MenuItem openDocumentItem;
-  private final MenuItem pdfItem;
   private final MenuItem printerItem;
   private final SaveFileDialog saveFileDialog;
   private final SaveFileDialog saveTxtDialog;
@@ -53,7 +58,6 @@ public class Window extends JFrame implements IComponent {
     txtItem = new MenuItem("TXT");
     csvItem = new MenuItem("CSV");
     openDocumentItem = new MenuItem("OpenDocument");
-    pdfItem = new MenuItem("PDF");
     printerItem = new MenuItem("Printer");
     
     loadFileDialog = new LoadFileDialog(
@@ -127,7 +131,6 @@ public class Window extends JFrame implements IComponent {
           add(
             new Menu("Print", CommonIcons.PRINT.getIcon())
               .addItems(new ArrayList<>() {{
-                add(pdfItem);
                 add(printerItem);
               }})
           );
@@ -259,6 +262,26 @@ public class Window extends JFrame implements IComponent {
         if (!ok) {
           JOptionPane.showMessageDialog(this, "Failed while writing file.");
           return;
+        }
+      }
+    );
+
+    printerItem.addActionListener(
+      event -> {
+        final var job = PrinterJob.getPrinterJob();
+        job.setPrintable(new PrintableBalance());
+        
+        final var ok = job.printDialog();
+        
+        if (!ok) {
+          return;
+        }
+
+        try {
+          job.print();
+        }
+        catch (PrinterException exception) {
+          JOptionPane.showMessageDialog(this, "Print failed.");
         }
       }
     );

@@ -21,6 +21,7 @@ public class FlatConfirmDialogUtiliy {
     UIManager.put("OptionPane.messageFont", CommonFonts.TEXT_NORMAL.getFont().deriveFont(22f));
     UIManager.put("OptionPane.messageForeground", CommonColors.TEXT.getColor());
     UIManager.put("OptionPane.background", CommonColors.BACKGROUND.getColor());
+    UIManager.put("OptionPane.foreground", CommonColors.BACKGROUND.getColor());
     UIManager.put("Panel.background", CommonColors.BACKGROUND.getColor());
 
     UIManager.put("Button.border", new RoundedCornerBorder(20, 0));
