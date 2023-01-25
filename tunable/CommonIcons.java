@@ -1,6 +1,9 @@
 package tunable;
 
 import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
 
 public enum CommonIcons {
@@ -15,13 +18,13 @@ public enum CommonIcons {
   private final ImageIcon icon;
 
   private CommonIcons(String iconPath) {
-    final var url = getClass().getClassLoader().getResource(iconPath);
+    final var iconStream = getClass().getClassLoader().getResourceAsStream(iconPath);
 
-    if (url == null) {
-      throw new IllegalArgumentException(iconPath + " is not valid");
+    try {
+      this.icon = new ImageIcon(ImageIO.read(iconStream));
     }
-    else {
-      this.icon = new ImageIcon(url);
+    catch (IOException e) {
+      throw new IllegalArgumentException(iconPath + " is not valid");
     }
   }
 
