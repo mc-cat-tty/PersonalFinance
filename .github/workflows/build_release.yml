@@ -16,6 +16,8 @@ jobs:
       with:
         distribution: 'adopt'
         java-version: '11'
+    - name: Init Project
+      run: make init
     - name: Build Project
       run: make build
     - name: Package Project into jar
