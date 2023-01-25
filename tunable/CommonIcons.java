@@ -4,13 +4,13 @@ import java.io.File;
 import javax.swing.*;
 
 public enum CommonIcons {
-  FOLDER (File.separator + "assets" + File.separator + "folder.png"),
-  EXPORT (File.separator + "assets" + File.separator + "export.png"),
-  PRINT (File.separator + "assets" + File.separator + "print.png"),
-  EDIT (File.separator + "assets" + File.separator + "edit.png"),
-  DELETE (File.separator + "assets" + File.separator + "delete.png"),
-  DROPDOWN (File.separator + "assets" + File.separator + "dropdown.png"),
-  DROPUP (File.separator + "assets" + File.separator + "dropup.png");
+  FOLDER (".." + File.separator + "assets" + File.separator + "folder.png"),
+  EXPORT (".." + File.separator + "assets" + File.separator + "export.png"),
+  PRINT (".." + File.separator + "assets" + File.separator + "print.png"),
+  EDIT (".." + File.separator + "assets" + File.separator + "edit.png"),
+  DELETE (".." + File.separator + "assets" + File.separator + "delete.png"),
+  DROPDOWN (".." + File.separator + "assets" + File.separator + "dropdown.png"),
+  DROPUP (".." + File.separator + "assets" + File.separator + "dropup.png");
 
   private final ImageIcon icon;
 
