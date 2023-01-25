@@ -12,19 +12,21 @@
  2. Run **PersonalFinance.jar** through the gui (usually by double clicking it) or through the cli (`java -jar PersonalFinance.jar`)
 
 ### 4Devs
-Run this before building the project for the first time:
 ```bash
-make init
+mkdir build && cd build
+cmake .. && make
 ```
 
-Build and run:
+On Windows you might need to use `-G "MinGW Makefiles" option to set the generator.
+
+Run target (inside _build_ directory):
 ```bash
-make build && make run
+make run
 ```
 
-Try jar executable:
+Generate doc (inside _build_ directory):
 ```bash
-make build && make jar && java -jar PersonalFinance.jar
+make gendoc
 ```
 
 ## Assets

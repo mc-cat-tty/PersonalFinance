@@ -1,4 +1,4 @@
-project(PersonalFinance)
+project(PersonalFinance NONE)
 cmake_minimum_required(VERSION 3.21.0)
 
 find_package(Java 11 REQUIRED)
