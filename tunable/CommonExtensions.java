@@ -4,7 +4,8 @@ public enum CommonExtensions {
   MAIN_EXT (".finance"),
   BACKUP_EXT (".finance.bak"),
   TXT_EXT (".txt"),
-  CSV_EXT (".csv");
+  CSV_EXT (".csv"),
+  ODS_EXT (".ods");
 
   private final String ext;
 

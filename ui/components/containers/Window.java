@@ -6,23 +6,21 @@ import ui.core.*;
 import persistence.*;
 import print.PrintableBalance;
 import export.*;
-import print.*;
+import model.core.*;
+import model.events.EventsBroker;
 
 import java.util.*;
 import java.util.concurrent.CancellationException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.ParseException;
 
-import javax.print.PrintException;
-import javax.print.attribute.standard.PrinterInfo;
 import javax.swing.*;
+import javax.swing.table.TableModel;
+
 import java.awt.print.*;
 
-import export.CsvLineFormatter;
-import model.core.BalanceModelManager;
-import model.events.EventsBroker;
+import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
 public class Window extends JFrame implements IComponent {
   private static final float DEFAULT_FONT_SIZE = 36;
@@ -36,6 +34,7 @@ public class Window extends JFrame implements IComponent {
   private final SaveFileDialog saveFileDialog;
   private final SaveFileDialog saveTxtDialog;
   private final SaveFileDialog saveCsvDialog;
+  private final SaveFileDialog saveOdsDialog;
   private final LoadFileDialog loadFileDialog;
 
   public Window(String name) {
@@ -95,6 +94,15 @@ public class Window extends JFrame implements IComponent {
       HOME_DIRECTORY,
       new ArrayList<>() {{
         add(CommonExtensions.CSV_EXT.getExt());
+      }}
+    );
+
+    saveOdsDialog = new SaveFileDialog(
+      this,
+      "Save ODS file",
+      HOME_DIRECTORY,
+      new ArrayList<>() {{
+        add(CommonExtensions.ODS_EXT.getExt());
       }}
     );
     
@@ -282,6 +290,62 @@ public class Window extends JFrame implements IComponent {
         }
         catch (PrinterException exception) {
           JOptionPane.showMessageDialog(this, "Print failed.");
+        }
+      }
+    );
+
+    openDocumentItem.addActionListener(
+      event -> {
+        File file;
+
+        try {
+          file = saveOdsDialog.open();
+        }
+        catch (CancellationException exception) {
+          return;
+        }
+
+        final var transactions = BalanceModelManager.getInstance().getTransactions();
+        final var model = new TableModel() {
+          public int getRowCount() { return transactions.size(); }
+          
+          public int getColumnCount() { return 3; }
+
+          public String getColumnName(int c) {switch (c) {
+            case 0: return "Amount";
+            case 1: return "Date";
+            case 2: return "Description";
+            default: return "";
+          }}
+          
+          public Class<?> getColumnClass(int c) {switch (c) {
+            case 0: return Float.class;
+            case 1: return Date.class;
+            case 2: return String.class;
+            default: return Object.class;
+          }}
+
+          public boolean isCellEditable(int r, int c) { return false; }
+          
+          public java.lang.Object getValueAt(int r, int c) {
+            final var currentTrans = (Transaction) transactions.toArray()[r];
+            switch (c) {
+              case 0: return currentTrans.getAmount();
+              case 1: return currentTrans.getDate();
+              case 2: return currentTrans.getDescription();
+              default: return "";
+          }}
+          
+          public void setValueAt(Object arg0, int arg1, int arg2) { }
+          public void addTableModelListener(javax.swing.event.TableModelListener arg0) { }
+          public void removeTableModelListener(javax.swing.event.TableModelListener arg0) { }
+        };
+
+        try {
+          SpreadSheet.createEmpty(model).saveAs(file);
+        }
+        catch (IOException exception) {
+          JOptionPane.showMessageDialog(this, "Operation failed.");
         }
       }
     );

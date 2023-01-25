@@ -6,12 +6,13 @@ BINDIR = ./bin
 init:
 	mkdir -p $(BINDIR)
 	cp -r assets $(BINDIR)/assets
+	cp jOpenDocument.jar $(BINDIR)
 
 build:
-	javac -d $(BINDIR) $(ENTRY).java
+	javac -cp ".:jOpenDocument.jar" -d $(BINDIR) $(ENTRY).java
 
 run:
-	java -cp $(BINDIR) Main
+	java -cp "$(BINDIR):jOpenDocument.jar" Main
 
 jar:
 	jar cmf META-INF/MANIFEST.MF $(EXEC) -C bin/ .
