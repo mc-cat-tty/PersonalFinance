@@ -26,6 +26,11 @@ public class BalanceModel implements IReadableModel, IWritableModel {
     }
   }
 
+  /**
+   * Add a transaction to the set
+   * @param transaction input transaction
+   * @throws ModelEditFailedException if add operation doesn't go well
+   */
   public void addTransaction(Transaction transaction) throws ModelEditFailedException {
     synchronized (transactions) {
       if (!transactions.add(transaction)) {
@@ -34,6 +39,11 @@ public class BalanceModel implements IReadableModel, IWritableModel {
     }
   }
 
+  /**
+   * Removes a transaction from the set
+   * @param transaction input transaction
+   * @throws ModelEditFailedException if add operation doesn't go well
+   */
   public void deleteTransaction(Transaction transaction) throws ModelEditFailedException {
     synchronized (transactions) {
       if (!transactions.remove(transaction)) {
@@ -42,6 +52,15 @@ public class BalanceModel implements IReadableModel, IWritableModel {
     }
   }
 
+  /**
+   * Edit a transaction all fields at once.
+   * @param transaction transaction to be edited
+   * @param newAmount new amount value
+   * @param newDate new date
+   * @param newDescription new description
+   * @return the edited transaction. The internal index is not edited.
+   * @throws ModelEditFailedException
+   */
   public Transaction editTransaction(
     Transaction transaction,
     float newAmount,
@@ -68,6 +87,11 @@ public class BalanceModel implements IReadableModel, IWritableModel {
     }
   }
 
+  /**
+   * Search a transaction in the set. Linear cost.
+   * @param transaction input transaction
+   * @return
+   */
   public Optional<Transaction> searchTransaction(Transaction transaction) {
     synchronized (transactions) {
       return transactions
@@ -77,6 +101,12 @@ public class BalanceModel implements IReadableModel, IWritableModel {
     }
   }
 
+  /**
+   * Apply a reduction function to the set and return the result of the reduction.
+   * @param startDate start filter date
+   * @param endDate end filter date
+   * @return a transaction subset
+   */
   public Collection<Transaction> filterTransactionsByDate(Date startDate, Date endDate) {
     synchronized (transactions) {
       return transactions
@@ -86,6 +116,11 @@ public class BalanceModel implements IReadableModel, IWritableModel {
     }
   }
 
+  /**
+   * Apply a reduction function to the set and return the result.
+   * @param description input description.
+   * @return a transaction subset
+   */
   public Collection<Transaction> filterTransactionsByDescription(String description) {
     synchronized (transactions) {
       return transactions
@@ -95,6 +130,10 @@ public class BalanceModel implements IReadableModel, IWritableModel {
     }
   }
 
+  /**
+   * Combines filterTransactionsByDate and filterTransactionsByDescription
+   * Logical and between conditions.
+   */
   public Collection<Transaction> filterTransactions(String description, Date startDate, Date endDate) {
     synchronized (transactions) {
       return transactions

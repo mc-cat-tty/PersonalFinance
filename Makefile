@@ -2,7 +2,7 @@ EXEC = PersonalFinance.jar
 ENTRY = Main
 BINDIR = ./bin
 
-.PHONY: init build run jar
+.PHONY: init build run jar gendoc
 init:
 	mkdir -p $(BINDIR)
 	cp -r assets $(BINDIR)/assets
@@ -16,3 +16,6 @@ run:
 
 jar:
 	jar cmf META-INF/MANIFEST.MF $(EXEC) -C bin/ .
+
+gendoc:
+	doxygen

@@ -2,7 +2,7 @@ package model.core;
 
 /**
  * Turns BalanceModel into a singleton.
- * @see \Singleton design pattern
+ * Singleton design pattern
  */
 public class BalanceModelManager extends BalanceModel {
   private static BalanceModel instance;

@@ -11,3 +11,4 @@
  - Material Colors: [https://mui.com/material-ui/customization/color/](https://mui.com/material-ui/customization/color/)
 
 ## Documentation
+[docs/html/index.html](docs/html/index.html)

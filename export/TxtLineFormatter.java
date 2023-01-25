@@ -3,9 +3,17 @@ package export;
 import model.core.*;
 import tunable.*;
 
-public class TxtLineFormatter implements ILineFormatter {
+/**
+ * Concrete formatter for TXT files.
+ */
+public class TxtLineFormatter implements IRecordFormatter {
   private static final char SEPARATOR = '\t';
   
+  /**
+   * Takes a transaction and separates fields with a tab.
+   * @param transaction input transaction
+   * @return a string of tab separated values
+   */
   public String transform(Transaction transaction) {
     return Float.toString(transaction.getAmount())
       + SEPARATOR
