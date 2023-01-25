@@ -7,6 +7,10 @@ import model.core.BalanceModelManager;
 import tunable.CommonDateFormats;
 import tunable.CommonFonts;
 
+/**
+ * Printable compliant formatter for a list of transactions.
+ * Creates a grid with the algebric sum at the end.
+ */
 public class PrintableBalance implements Printable {
   private final static int PADDING = 5;
   private int slice;

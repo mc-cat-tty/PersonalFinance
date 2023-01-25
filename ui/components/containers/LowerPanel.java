@@ -19,7 +19,7 @@ import model.core.Transaction;
 import model.events.EventsBroker;
 
 /**
- * Lower panel allowing interaction.
+ * Lower panel allowing interaction: creation of new transactions.
  */
 public class LowerPanel extends RoundedPanel implements IComponent {
   private static final int RADIUS = 80;

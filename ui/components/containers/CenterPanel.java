@@ -15,6 +15,9 @@ import javax.swing.border.EmptyBorder;
 import model.core.*;
 import model.events.EventsBroker;
 
+/**
+ * Displays a list of cards. It manages the viewport and the search bar. 
+ */
 public class CenterPanel extends JScrollPane implements IComponent {
   private final JScrollBar scrollBar;
   private final JPanel viewportPanel;

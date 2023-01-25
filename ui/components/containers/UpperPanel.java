@@ -14,7 +14,7 @@ import model.core.Transaction;
 import model.events.EventsBroker;
 
 /**
- * Upper panel showing balance.
+ * Upper panel showing balance and current filter.
  */
 public class UpperPanel extends RoundedPanel implements IComponent {
   private final static int RADIUS = 80;

@@ -3,8 +3,8 @@ package model.events;
 import java.util.*;
 
 /**
- * Defines a generic event.
- * @see \Observer design pattern
+ * Defines a generic event that can be observed.
+ * Observer design pattern
  */
 public abstract class Event<IObserver> {
   protected final List<IObserver> observers;

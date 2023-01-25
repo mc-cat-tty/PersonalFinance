@@ -38,10 +38,16 @@ public enum CommonValidators {
     this.maxLength = maxLength;
   }
 
+  /**
+   * @return a filter to decide whether or not a characted has to be rejected.
+   */
   public IntPredicate getFilter() {
      return filter;
   }
 
+  /**
+   * @return a validator to check if a text matches is pattern.
+   */
   public Predicate<String> getValidator() {
     return validator;
   }

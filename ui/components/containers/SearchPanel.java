@@ -19,7 +19,9 @@ import model.events.EventsBroker;
 
 import java.util.*;
 
-
+/**
+ * Search bar: description search + date filter
+ */
 public class SearchPanel extends JPanel implements IComponent {
   private final RoundedTextField searchField;
   private final RoundedComboBox perdiodSelector;

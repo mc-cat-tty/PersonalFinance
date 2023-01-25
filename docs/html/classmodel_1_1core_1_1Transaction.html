@@ -106,7 +106,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a0a85b7910ff513db7ec2d5d0475b8bd9"><td class="memItemLeft" align="right" valign="top">Object&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classmodel_1_1core_1_1Transaction.html#a0a85b7910ff513db7ec2d5d0475b8bd9">clone</a> ()</td></tr>
 <tr class="separator:a0a85b7910ff513db7ec2d5d0475b8bd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >Representation of incoming or outcoming transaction. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="acabcdd9823079a5b9386f96ce391ed52" name="acabcdd9823079a5b9386f96ce391ed52"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acabcdd9823079a5b9386f96ce391ed52">&#9670;&nbsp;</a></span>Transaction() <span class="overload">[1/2]</span></h2>
 
@@ -171,6 +173,14 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p >Constructor. </p><dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">amount</td><td>incoming/outcoming money amount </td></tr>
+    <tr><td class="paramname">date</td><td>transaction date </td></tr>
+    <tr><td class="paramname">description</td><td>short description </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -223,6 +233,7 @@ Public Member Functions</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+<p >Transactions a &gt; b if a's date comes after b's. If the two dates are equal, the unique idx is used. </p>
 
 </div>
 </div>

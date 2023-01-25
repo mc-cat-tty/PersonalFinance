@@ -9,6 +9,9 @@ import java.util.stream.*;
 
 import java.text.*;
 
+/**
+ * Filter periods are defined here along with useful transformations.
+ */
 public enum SearchPeriods {
   DAY (
     new Date(),
@@ -47,6 +50,12 @@ public enum SearchPeriods {
   private final UnaryOperator<Date> toStartDate;
   private final UnaryOperator<Date> toEndDate;
 
+  /**
+   * @param baseDate base date. Must pass through a transformation, useless as it is.s
+   * @param toStartDate transformation to compute filter's start date from baseDate 
+   * @param toEndDate tranformation to compute filter's end date from baseDate
+   * @param formatter SimpleDataFormat instance for formatting and parsing
+   */
   private SearchPeriods(
     Date baseDate,
     UnaryOperator<Date> toStartDate,

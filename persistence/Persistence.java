@@ -4,6 +4,10 @@ import model.core.*;
 import java.io.*;
 import java.util.*;
 
+
+/**
+ * Utility class for saving and loading the model to/from a file.
+ */
 public class Persistence {
   private BalanceModel model;
   private File file;

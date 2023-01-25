@@ -2,7 +2,7 @@ package model.events;
 
 /**
  * Dispatches events to the subscribed observers.
- * @see \Singleton, Observer design patterns
+ * Singleton, Observer design patterns.
  */
 public class EventsBroker {
   private static EventsBroker instance;
@@ -22,6 +22,9 @@ public class EventsBroker {
     filterDateEvent = new FilterDateEvent();
   }
 
+  /**
+   * @return the unique instance of this object.
+   */
   public static EventsBroker getInstance() {
     if (instance == null) {
       instance = new EventsBroker();

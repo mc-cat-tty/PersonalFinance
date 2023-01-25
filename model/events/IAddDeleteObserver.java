@@ -7,6 +7,6 @@ import java.util.function.*;
 
 
 /**
- * A interface to specialize Consumer<T> for ModelEvents.
+ * Expected behavior of AddDelete event's observer. Functional iterface.
  */
 public interface IAddDeleteObserver extends Consumer<Collection<Transaction>> { }

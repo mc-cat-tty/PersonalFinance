@@ -3,6 +3,10 @@ package model.core;
 import java.io.Serializable;
 import java.util.*;
 
+
+/**
+ * Representation of incoming or outcoming transaction.
+ */
 public class Transaction implements Comparable<Transaction>, Cloneable, Serializable {
   private static int GLOBAL_IDX = 0;  /** Global transaction index. Used to compare insert orders and equalty */
   private int idx;
@@ -14,6 +18,12 @@ public class Transaction implements Comparable<Transaction>, Cloneable, Serializ
     this(0f, new Date(), "Mock description");
   }
 
+  /**
+   * Constructor.
+   * @param amount incoming/outcoming money amount
+   * @param date transaction date
+   * @param description short description
+   */
   public Transaction(
     float amount,
     Date date,
@@ -59,6 +69,10 @@ public class Transaction implements Comparable<Transaction>, Cloneable, Serializ
     );
   }
 
+  /**
+   * Transactions a > b if a's date comes after b's.
+   * If the two dates are equal, the unique idx is used.
+   */
   @Override public int compareTo(Transaction other) {
     final var dateComparison = other.date.compareTo(this.date);
 

@@ -19,7 +19,7 @@ import ui.behaviour.*;
 import java.util.*;
 
 /**
- * Element of a scrollable list.
+ * Element of a scrollable list. Transaction view.
  */
 public class Card extends RoundedPanel implements IComponent {
   private static final int RADIUS = 50;

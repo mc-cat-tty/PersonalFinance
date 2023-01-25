@@ -22,6 +22,9 @@ import java.awt.print.*;
 
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
 
+/**
+ * Window manages the content area and the menu bar.
+ */
 public class Window extends JFrame implements IComponent {
   private static final float DEFAULT_FONT_SIZE = 36;
   private static final String HOME_DIRECTORY = System.getProperty("user.home");
