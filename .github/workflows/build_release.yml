@@ -6,6 +6,8 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
     - name: Checkout Repo
       uses: actions/checkout@v2
@@ -15,14 +17,14 @@ jobs:
         distribution: 'adopt'
         java-version: '11'
     - name: Init Project
-      run: mkdir build && cd build
+      run: |
+        mkdir build
+        cd build
     - name: Build Project
-      run: cmake -S .. && make
-  
-  package:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
+      run: |
+        cmake -S ..
+        make
+
     - name: Create and move to fatJar dir
       run: mkdir fatJar && cd fatJar
     - name: Extract app
@@ -34,12 +36,6 @@ jobs:
     - name: Move to root dir
       run: mv PersonalFinanceFat.jar ../../
 
-  release:
-    needs: package
-    runs-on: ubuntu-latest
-    permissions:
-      contents: write
-    steps:
     - name: Create Release
       uses: ncipollo/release-action@v1
       with:
