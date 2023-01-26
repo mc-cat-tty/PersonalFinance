@@ -16,7 +16,7 @@ add_jar(
   RESOURCES NAMESPACE assets ${assetsList}
   INCLUDE_JARS jOpenDocument.jar
   ENTRY_POINT Main
-  OUTPUTDIR ..
+  OUTPUT_DIR ${PROJECT_SOURCE_DIR}
 )
 
 add_custom_target(

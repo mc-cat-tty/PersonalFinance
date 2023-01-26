@@ -17,12 +17,28 @@ jobs:
         distribution: 'adopt'
         java-version: '11'
     - name: Init Project
-      run: make init
+      run: make build && cd build
     - name: Build Project
-      run: make build
-    - name: Package Project into jar
-      run: make jar
+      run: cmake .. && make
+  
+  package:
+    needs: build
+    steps:
+    - name: Create and move to fatJar dir
+      run: mkdir fatJar && cd fatJar
+    - name: Extract app
+      run: jar xf ../../PersonalFinance.jar
+    - name: Extract jOpenDocument
+      run: jar xf ../../jOpenDocument.jar
+    - name: Repackage jar
+      run: jar cef Main PersonalFinanceFat.jar
+    - name: Move to root dir
+      run: mv PersonalFinanceFat.jar ../../
+
+  release:
+    needs: build
+    steps:
     - name: Create Release
       uses: ncipollo/release-action@v1
       with:
-        artifacts: "PersonalFinance.jar"
+        artifacts: "PersonalFinanceFat.jar"
