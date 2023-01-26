@@ -82,9 +82,11 @@ Usage</h1>
 </ol>
 <h2><a class="anchor" id="autotoc_md5"></a>
 4Devs</h2>
-<p >Run this before building the project for the first time: </p><div class="fragment"><div class="line">make init</div>
-</div><!-- fragment --><p >Build and run: </p><div class="fragment"><div class="line">make build &amp;&amp; make run</div>
-</div><!-- fragment --><p >Try jar executable: </p><div class="fragment"><div class="line">make build &amp;&amp; make jar &amp;&amp; java -jar PersonalFinance.jar</div>
+<div class="fragment"><div class="line">mkdir build &amp;&amp; cd build</div>
+<div class="line">cmake .. &amp;&amp; make</div>
+</div><!-- fragment --><p >On Windows you might need to use `-G "MinGW Makefiles" option to set the generator.</p>
+<p >Run target (inside <em>build</em> directory): </p><div class="fragment"><div class="line">make run</div>
+</div><!-- fragment --><p >Generate doc (inside <em>build</em> directory): </p><div class="fragment"><div class="line">make gendoc</div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md6"></a>
 Assets</h1>
 <ul>

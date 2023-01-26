@@ -16,11 +16,13 @@ add_jar(
   RESOURCES NAMESPACE assets ${assetsList}
   INCLUDE_JARS jOpenDocument.jar
   ENTRY_POINT Main
+  OUTPUTDIR ..
 )
 
 add_custom_target(
   run
-  COMMAND java -jar PersonalFinance.jar 
+  COMMAND java -cp "PersonalFinance.jar:jOpenDocument.jar" Main
+  WORKING_DIRECTORY ${PROJECT_SOURCE_DIR}
 )
 
 add_custom_target(
