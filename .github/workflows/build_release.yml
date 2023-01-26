@@ -20,23 +20,21 @@ jobs:
       uses: jwlawson/actions-setup-cmake@v1.13
       with:
         cmake-version: '3.21'
-    - name: Init Project
+    - name: Build project
       run: |
         mkdir build
         cd build
         cmake -S ..
         make
 
-    - name: Create and move to fatJar dir
-      run: mkdir fatJar && cd fatJar
-    - name: Extract app
-      run: jar xf ../../PersonalFinance.jar
-    - name: Extract jOpenDocument
-      run: jar xf ../../jOpenDocument.jar
-    - name: Repackage jar
-      run: jar cef Main PersonalFinanceFat.jar
-    - name: Move to root dir
-      run: mv PersonalFinanceFat.jar ../../
+    - name: Package the fat jar
+      run: |
+        mkdir fatJar
+        cd fatJar
+        jar xf ../../PersonalFinance.jar
+        jar xf ../../jOpenDocument.jar
+        jar cef Main PersonalFinanceFat.jar
+        mv PersonalFinanceFat.jar ../../
 
     - name: Create Release
       uses: ncipollo/release-action@v1
