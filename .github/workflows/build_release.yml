@@ -15,7 +15,7 @@ jobs:
         distribution: 'adopt'
         java-version: '11'
     - name: Init Project
-      run: make build && cd build
+      run: mkdir build && cd build
     - name: Build Project
       run: cmake .. && make
   
