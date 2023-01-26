@@ -36,7 +36,7 @@ jobs:
       run: mv PersonalFinanceFat.jar ../../
 
   release:
-    needs: build
+    needs: package
     steps:
     - name: Create Release
       uses: ncipollo/release-action@v1
