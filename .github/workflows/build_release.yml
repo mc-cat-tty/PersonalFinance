@@ -4,7 +4,7 @@ on:
     tags:
       - 'v*'
 jobs:
-  build:
+  all:
     runs-on: ubuntu-latest
     permissions:
       contents: write
@@ -16,6 +16,10 @@ jobs:
       with:
         distribution: 'adopt'
         java-version: '11'
+    - name: Setup cmake
+      uses: jwlawson/actions-setup-cmake@v1.13
+      with:
+        cmake-version: '3.31'
     - name: Init Project
       run: |
         mkdir build
