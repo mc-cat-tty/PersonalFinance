@@ -29,6 +29,7 @@ jobs:
 
     - name: Package the fat jar
       run: |
+        cd build
         mkdir fatJar
         cd fatJar
         jar xf ../../PersonalFinance.jar
