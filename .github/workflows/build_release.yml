@@ -34,7 +34,7 @@ jobs:
         cd fatJar
         jar xf ../../PersonalFinance.jar
         jar xf ../../jOpenDocument.jar
-        jar cef Main PersonalFinanceFat.jar
+        jar cef Main PersonalFinanceFat.jar .
         mv PersonalFinanceFat.jar ../../
 
     - name: Create Release
