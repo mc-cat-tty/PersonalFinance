@@ -18,6 +18,7 @@ import java.io.IOException;
 import javax.swing.*;
 import javax.swing.table.TableModel;
 
+import java.awt.Dimension;
 import java.awt.print.*;
 
 import org.jopendocument.dom.spreadsheet.SpreadSheet;
@@ -40,6 +41,7 @@ public class Window extends JFrame implements IComponent {
   private final SaveFileDialog saveOdsDialog;
   private final LoadFileDialog loadFileDialog;
   private IRecordFormatter recordFormatter;
+  private BasePanel basePanel;
 
   public Window(String name) {
     super(name);
@@ -53,7 +55,6 @@ public class Window extends JFrame implements IComponent {
         CommonFonts.TEXT_NORMAL.getFont().deriveFont(DEFAULT_FONT_SIZE)
       );
     
-    setMinimumSize(CommonDimensions.WINDOW_MINIMUM_SIZE.getDimension());
     setLocationRelativeTo(null);
     
     saveItem = new MenuItem("Save");
@@ -62,6 +63,7 @@ public class Window extends JFrame implements IComponent {
     csvItem = new MenuItem("CSV");
     openDocumentItem = new MenuItem("OpenDocument");
     printerItem = new MenuItem("Printer");
+    basePanel = new BasePanel();
     
     loadFileDialog = new LoadFileDialog(
       this,
@@ -116,9 +118,7 @@ public class Window extends JFrame implements IComponent {
   }
   
   @Override public void composeView() {
-    add(
-      new BasePanel()
-    );
+    add(basePanel);
     
     setJMenuBar(
       new MenuBar(
@@ -153,6 +153,10 @@ public class Window extends JFrame implements IComponent {
       )
     );
 
+    pack();
+    setMinimumSize(new Dimension(getWidth(), getHeight()));
+
+    basePanel.setPreferredSize(CommonDimensions.WINDOW.getDimension());
     pack();
   }
 

@@ -17,10 +17,6 @@ public class BasePanel extends JPanel implements IComponent {
   }
   
   @Override public void composeView() {
-    setPreferredSize(
-      CommonDimensions.WINDOW.getDimension()
-    );
-
     setLayout(
       new BorderLayout()
     );
