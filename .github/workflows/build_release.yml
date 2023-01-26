@@ -17,7 +17,7 @@ jobs:
     - name: Init Project
       run: mkdir build && cd build
     - name: Build Project
-      run: cmake .. && make
+      run: cmake -S .. && make
   
   package:
     needs: build
