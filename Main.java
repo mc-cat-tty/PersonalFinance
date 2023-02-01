@@ -1,3 +1,5 @@
+import java.util.Locale;
+
 import ui.core.*;
 
 /**
@@ -6,6 +8,7 @@ import ui.core.*;
 public class Main {
 
   public Main() {
+    Locale.setDefault(new Locale("en", "US"));
     new UI("PersonalFinance");
   }
 
